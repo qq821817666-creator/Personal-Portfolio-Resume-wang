@@ -19,3 +19,10 @@ export_pdfs.py
 /猫咪陪伴机器人2.png
 /猫咪陪伴机器人3.png
 /猫咪陪伴机器人4.png
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
