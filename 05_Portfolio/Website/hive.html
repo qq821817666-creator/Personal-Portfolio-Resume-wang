@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive MicroVac — 海洋微塑料清理装置</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF7; --text: #2B2B28; --text-mid: #6B6B65; --text-light: #9B9B95;
+  --rule: #E0DED8; --accent: #4A90A4;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-zh: 'Noto Sans SC', 'PingFang SC', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.7; font-weight: 300; -webkit-font-smoothing: antialiased; }
+header { max-width: 1080px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: var(--font-display); font-size: 1.2rem; font-weight: 500; color: var(--text); text-decoration: none; }
+.logo span { color: var(--accent); font-style: italic; }
+nav a { text-decoration: none; color: var(--text-light); font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; margin-left: 2rem; transition: color 0.3s; }
+nav a:hover { color: var(--text); }
+.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+.hero { padding: 4rem 0 3rem; text-align: center; }
+.hero h1 { font-family: var(--font-zh); font-size: 2.5rem; font-weight: 500; margin-bottom: 0.5rem; }
+.hero .sub { font-family: var(--font-display); font-size: 1.3rem; font-style: italic; color: var(--accent); margin-bottom: 1.5rem; }
+.hero .desc { max-width: 640px; margin: 0 auto; font-size: 1rem; color: var(--text-mid); line-height: 1.8; margin-bottom: 3rem; }
+.img-full { margin-bottom: 2rem; }
+.img-full img { width: 100%; height: auto; display: block; border-radius: 2px; border: 1px solid var(--rule); }
+footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--rule); margin-top: 2rem; }
+footer p { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-light); }
+@media (max-width: 768px) { header { flex-direction: column; gap: 1rem; } nav a { margin-left: 1rem; } .hero h1 { font-size: 1.8rem; } }
+</style>
+</head>
+<body>
+<header>
+  <a href="resume.html" class="logo">Portfolio <span>←</span></a>
+  <nav><a href="resume.html">Resume</a> <a href="index.html">All Projects</a></nav>
+</header>
+<section class="hero">
+  <div class="container">
+    <h1>Hive MicroVac</h1>
+    <p class="sub">Ocean Microplastic Recovery System</p>
+    <p class="desc">面向海洋微塑料清理、收集的水面综合设施。整体由一座基站与三个模块化子装置组成，基站主要为子装置提供能源补给与停泊功能。</p>
+  </div>
+</section>
+<div class="container">
+  <div class="img-full"><img src="projects/海洋微塑料清理装置.png" alt="Hive MicroVac" loading="lazy"></div>
+</div>
+<footer><p>&copy; 2026 王一帆 — Hive MicroVac · 海洋微塑料清理装置</p></footer>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B1 Flux — Industrial Design Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════ FLUX THEME: Warm Gallery / 暖白画廊 ═══════ */
+:root {
+  --concrete:#C8BFB4;--orange:#E06030;--gunmetal:#4A4844;--brass:#B87850;--maple:#C4A882;--charcoal:#383430;
+  --navy:#2C3A5C;--cyan:#00B4D8;--sage:#A3B5A1;--sand:#C4B5A5;
+  --bg:#F5F0EB;--bg-card:#EDE7E0;--bg-panel:#E8E2DA;
+  --text:#2B2722;--mid:#6B635C;--muted:#9B938C;--rule:#D8D1C8;
+  --font-display:'Orbitron',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ═══════ HERO ═══════ */
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem;position:relative;background:linear-gradient(175deg,#F5F0EB 0%,#EDE5DD 40%,#E8DFD5 100%)}
+.hero-label{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.35em;color:var(--brass);text-transform:uppercase;margin-bottom:1.5rem}
+.hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,9vw,9rem);font-weight:900;letter-spacing:.02em;line-height:.86;text-transform:uppercase;margin-bottom:1rem;background:linear-gradient(180deg,#5B5040 0%,#8B7860 40%,#C4A882 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:var(--font-display);font-size:.9rem;font-weight:500;letter-spacing:.2em;color:var(--brass);text-transform:uppercase;max-width:520px;margin-bottom:4rem}
+.hero-nav{display:flex;gap:2.5rem}
+.hero-nav a{text-decoration:none;color:var(--muted);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;transition:color .3s}
+.hero-nav a:hover{color:var(--brass)}
+
+/* ═══════ LAYOUT ═══════ */
+.page{max-width:1300px;margin:0 auto;padding:0 3rem}
+.sec-block{padding:7rem 0;position:relative}
+.sec-num{font-family:var(--font-display);font-size:7rem;font-weight:900;color:rgba(0,0,0,.015);position:absolute;top:3rem;left:-1.5rem;line-height:1;pointer-events:none}
+.sec-label{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.3em;color:var(--brass);text-transform:uppercase;margin-bottom:.75rem}
+.sec-heading{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,3rem);font-weight:800;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;margin-bottom:1rem;color:#2B2722}
+.sec-lead{max-width:480px;font-size:.85rem;color:var(--mid);line-height:1.7}
+.rule{height:1px;background:var(--rule);margin:0}
+
+/* ═══════ TEXT CONTENT ═══════ */
+.prose{font-size:.85rem;color:var(--mid);line-height:1.8;max-width:600px}
+.prose p{margin-bottom:1rem}
+.prose strong{color:var(--text);font-weight:500}
+.prose em{color:var(--brass);font-style:normal}
+.data-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.04em;margin:1.5rem 0}
+.data-table th{text-align:left;color:var(--brass);font-weight:400;padding:.5rem 1rem .5rem 0;border-bottom:1px solid var(--rule);text-transform:uppercase;font-size:.5rem;letter-spacing:.12em;white-space:nowrap}
+.data-table td{padding:.6rem 1rem .6rem 0;border-bottom:1px solid rgba(0,0,0,.06);color:var(--mid);line-height:1.5;vertical-align:top}
+.data-table td:first-child{color:var(--text);white-space:nowrap}
+.kp-list{list-style:none;margin:1rem 0}
+.kp-list li{font-size:.82rem;color:var(--mid);padding:.4rem 0;padding-left:1.2rem;position:relative;line-height:1.6}
+.kp-list li::before{content:'—';position:absolute;left:0;color:var(--brass)}
+
+/* ═══════ IMAGES ═══════ */
+.img-box{overflow:hidden;position:relative;border:1px solid rgba(0,0,0,.06);transition:border-color .5s,box-shadow .5s}
+.img-box:hover{border-color:rgba(184,120,80,.3);box-shadow:0 8px 40px rgba(0,0,0,.06)}
+.img-box img{width:100%;height:100%;display:block;object-fit:cover}
+.AR-16x9{aspect-ratio:16/9}.AR-4x3{aspect-ratio:4/3}.AR-3x4{aspect-ratio:3/4}.AR-3x2{aspect-ratio:3/2}.AR-1x1{aspect-ratio:1/1}.AR-21x9{aspect-ratio:21/9}
+
+.cap{font-family:var(--font-mono);font-size:.46rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.35rem}
+
+/* ═══════ GRID PATTERNS ═══════ */
+.g-split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.g-1p2{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}
+.g-1p2 .stack{display:grid;grid-template-rows:1fr 1fr;gap:1rem}
+.g-3strip{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.g-2x2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* ═══════ SKETCH CARDS ═══════ */
+.g-sketch{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule)}
+.sk-card{background:var(--bg-card);padding:1.5rem;position:relative;transition:background .3s}
+.sk-card:hover{background:#E8DFD5}
+.sk-card img{width:100%;margin-bottom:1rem;display:block}
+.sk-letter{font-family:var(--font-display);font-size:4rem;font-weight:900;color:rgba(0,0,0,.02);position:absolute;top:.5rem;right:1rem;line-height:1;pointer-events:none}
+.sk-card h4{font-family:var(--font-display);font-size:.95rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem;color:#2B2722}
+.sk-card .sk-ref{font-family:var(--font-mono);font-size:.48rem;letter-spacing:.1em;color:var(--muted);margin-bottom:.6rem}
+.sk-card p{font-size:.78rem;color:var(--mid);line-height:1.6}
+.sk-card.recommend{border-left:2px solid var(--brass)}
+.sk-card.recommend::after{content:'RECOMMENDED';position:absolute;top:1rem;right:1.2rem;font-family:var(--font-mono);font-size:.42rem;letter-spacing:.2em;color:var(--brass)}
+
+/* ═══════ SPEC ═══════ */
+.g-spec{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--rule)}
+.spec-item{background:var(--bg-panel);padding:1.2rem;text-align:center}
+.spec-item .key{font-family:var(--font-mono);font-size:.42rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem}
+.spec-item .val{font-family:var(--font-mono);font-size:.62rem;color:var(--mid);line-height:1.4}
+
+/* ═══════ DOTS ═══════ */
+.dots{display:flex;gap:.8rem;margin-top:1rem}
+.dot{width:14px;height:14px;border-radius:2px;border:1px solid rgba(0,0,0,.1);transition:transform .3s}
+.dot:hover{transform:scale(1.5)}
+
+/* ═══════ CLOSING ═══════ */
+.closing{padding:8rem 3rem;text-align:center;position:relative;background:linear-gradient(175deg,#EDE7E0 0%,#F0EBE5 50%,#F5F0EB 100%)}
+.closing::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(184,120,80,.04) 0%,transparent 60%);pointer-events:none}
+.closing h2{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,5rem);font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;color:#2B2722}
+.closing p{max-width:460px;margin:0 auto;font-size:.82rem;color:var(--mid);line-height:1.8}
+.c-rule{width:50px;height:2px;background:var(--brass);margin:2.5rem auto}
+
+@media(max-width:900px){.hero{padding:4rem 1.5rem;min-height:70vh}.hero-title{font-size:2.5rem}.hero-nav{flex-wrap:wrap;gap:1.2rem}.page{padding:0 1.5rem}.sec-block{padding:4rem 0}.sec-num{font-size:4rem;left:0;top:1rem}.g-split,.g-1p2{grid-template-columns:1fr}.g-3strip{grid-template-columns:1fr 1fr}.g-sketch{grid-template-columns:1fr}.g-spec{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-label">B1 · Category 2 — Transportation & Mobility</div>
+  <h1 class="hero-title">FLUX</h1>
+  <p class="hero-sub">Urban E-Scooter · Industrial Design · City as Canvas</p>
+  <div class="hero-nav">
+    <a href="#research">01 Research</a><a href="#competitive">02 Competitive</a><a href="#persona">03 Persona</a><a href="#sketch">04 Sketch</a><a href="#cmf">05 CMF</a><a href="#render">06 Render</a>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ═══════ 01 · RESEARCH ═══════ -->
+<div class="page">
+<section id="research" class="sec-block">
+  <div class="sec-num">01</div>
+  <div class="sec-label">Background Research / 背景调研</div>
+  <h2 class="sec-heading">Your Scooter Lives<br>In Your Home.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p>全球电动滑板车市场 <strong>2025 年超 $40B</strong>，共享出行退潮后个人购买成为增长引擎。小米、Segway-Ninebot、Niu 瓜分主流市场——但全部把滑板车当作<strong>"户外工具"</strong>设计：黑色塑料、外露螺丝、廉价橡胶。</p>
+        <p><em>核心洞察：</em>滑板车 90% 的时间停在你家里。玄关、客厅、办公桌旁。一个设计差的车停在公寓里就是视觉噪音——你会在客人来之前把它踢到角落。Flux 要做的是<strong>第一台停在家里像设计师家具、骑在路上才展现城市机能的滑板车</strong>。</p>
+      </div>
+
+      <table class="data-table">
+        <tr><th>使用场景</th><th>环境条件</th><th>设计影响</th></tr>
+        <tr><td>日常通勤</td><td>城市街道、人行道过渡、轻微颠簸</td><td>车架抗刮擦、折叠流畅、把套耐汗</td></tr>
+        <tr><td>雨天湿滑</td><td>积水、泥沙、潮湿</td><td>IPX5 防水、挡泥板有效覆盖、甲板防滑</td></tr>
+        <tr><td>夜间骑行</td><td>低光、车灯照明</td><td>反光细节、黄铜/金属件在车灯下可见</td></tr>
+        <tr><td>室内停放</td><td>玄关、客厅、办公室角落</td><td>必须读作"家具/配饰"而非"工具/机械"</td></tr>
+        <tr><td>地铁公交接驳</td><td>快速折叠、手提搬运、靠墙停放</td><td>≤15kg 轻量化、折叠锁定牢靠</td></tr>
+      </table>
+
+      <div class="prose"><p><strong>六项关键需求：</strong></p></div>
+      <ul class="kp-list">
+        <li>公寓可见性 — 停在客厅不是一件丑东西。设计必须从住宅室内角度审视</li>
+        <li>全天候耐用 — 雨水、泥沙、紫外线。IPX5、UV 稳定、易清洁表面</li>
+        <li>轻量化 — ≤15kg，单手可提上地铁台阶。铝框核心</li>
+        <li>触感优先 — 每天手接触的部位必须高级：木头温感、软胶回弹</li>
+        <li>反盗窃设计 — 关键部件非标紧固件，减少快拆风险</li>
+        <li>材料老化故事 — 黄铜铃自然氧化、木头甲板随脚步变深——1000km 后比第一天更有个性</li>
+      </ul>
+    </div>
+    <div>
+      <div class="img-box AR-4x3" style="margin-bottom:1rem;"><img src="renders/城市通勤情绪板.png" alt="Urban Commute Mood Board" loading="lazy"></div>
+      <div class="cap">Urban commute mood board — morning city light, material patina, apartment integration, after-rain surfaces</div>
+    </div>
+  </div>
+
+  <div class="g-3strip" style="margin-top:1.5rem;">
+    <div class="img-box AR-3x2"><img src="renders/现有滑板车日常使用.png" alt="Existing Scooters in Daily Life" loading="lazy"></div>
+    <div class="img-box AR-3x2"><img src="renders/材料老化参考.png" alt="Material Aging Reference" loading="lazy"></div>
+    <div class="img-box AR-3x2"><img src="renders/公寓困境.png" alt="The Apartment Problem" loading="lazy"></div>
+  </div>
+  <div class="cap" style="text-align:center;">Current scooter context · Material aging: brass / maple / aluminum · The apartment problem — scooter as visual noise vs. design object</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 02 · COMPETITIVE ═══════ -->
+<div class="page">
+<section id="competitive" class="sec-block">
+  <div class="sec-num">02</div>
+  <div class="sec-label">Competitive Audit / 竞品分析</div>
+  <h2 class="sec-heading">Transportation,<br>Not Furniture.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p>当前没有一款滑板车占据<strong>"室内美学物件"</strong>的位置。小米=工具、Segway=通勤家电、Niu=白色家电、Unagi=快消电子。全是"出行装备"定位。</p>
+      </div>
+      <table class="data-table">
+        <tr><th>竞品</th><th>CMF</th><th>弱点 → 机会</th></tr>
+        <tr><td>Xiaomi 4 Ultra</td><td>黑/灰塑料 + 红线管</td><td>塑料感强。停在家里像工具。黑色统一但廉价</td></tr>
+        <tr><td>Segway MAX G2</td><td>深灰铝框 + 黑塑料</td><td>视觉语言偏"通勤装备"。颜色无选择。造型圆润偏玩具感</td></tr>
+        <tr><td>Niu KQi3 Max</td><td>白/灰塑料 + 橡胶</td><td>白色版塑料感明显。CMF 停留在"家电"水准</td></tr>
+        <tr><td>Unagi Voyager</td><td>碳纤纹理 + 彩色硅胶</td><td>最设计感——但碳纤纹理=伪材料。像快消电子而非生活物件</td></tr>
+      </table>
+      <div class="prose" style="margin-top:1rem;">
+        <p><em>差异化定位：</em>第一个以<strong>材质叙事 + 室内美学</strong>驱动的电动滑板车。木头、黄铜、微喷砂铝——这些材料在室内设计语境里成立，在室外则自然老化出个性。不是"做得最像家具的交通工具"——它就是一件<strong>可以骑的家具</strong>。</p>
+      </div>
+    </div>
+    <div>
+      <div class="img-box"><img src="renders/塑料滑板车的材质短板.png" alt="Material Weakness" loading="lazy"></div>
+      <div class="cap">Xiaomi after 6 months: plastic degrades, never ages. Scratch reveals white substrate — "damage," not "patina."</div>
+    </div>
+  </div>
+
+  <div class="img-box" style="margin-top:2rem;"><img src="renders/竞品并排对比.png" alt="Competitor Lineup" loading="lazy"></div>
+
+  <div class="g-2col" style="margin-top:1rem;">
+    <div class="img-box AR-16x9"><img src="renders/竞品CMF对比板.png" alt="CMF Comparison Board" loading="lazy"></div>
+    <div class="img-box AR-16x9"><img src="renders/差异化机会.png" alt="Differentiation Opportunity" loading="lazy"></div>
+  </div>
+  <div class="cap" style="text-align:center;">Competitor CMF swatch audit · Flux: furniture-quality materials — the only scooter with real wood, brass, and micro-blasted aluminum</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 03 · PERSONA ═══════ -->
+<div class="page">
+<section id="persona" class="sec-block">
+  <div class="sec-num">03</div>
+  <div class="sec-label">User Persona / 用户画像</div>
+  <h2 class="sec-heading">Lin Shu.<br>Urban Creative.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="img-box AR-3x4" style="margin-bottom:1rem;"><img src="renders/林抒 — 城市创意人.png" alt="Lin Shu Portrait" loading="lazy"></div>
+      <div class="cap">Lin Shu — 29, independent designer, Shanghai. 50sqm apartment in the former French Concession.</div>
+    </div>
+    <div>
+      <div class="prose">
+        <p>29岁，独立设计师 / 自由职业者，上海。住在<strong>50平米</strong>老法租界公寓——玄关是第一印象，任何丑东西都不能进。</p>
+        <p>每天通勤 <strong>6km</strong>：家 → 共享工作室 → 咖啡店 → 家。滑板车是他随身携带的<strong>"城市锚点"</strong>——它定义了他这一天能在多少个地方停留、工作、生活。</p>
+        <p>他选东西的标准：<em>"我每天看到它、摸到它、用到它。它要配得上我的生活。如果它丑，我就不想带它出门。如果它美，它就是我生活的一部分。"</em></p>
+      </div>
+      <ul class="kp-list" style="margin-top:1.5rem;">
+        <li>停在玄关不丑陋——客人来的时候不需要踢到角落里</li>
+        <li>淋雨后擦干就行——第二天不会吱嘎响或生锈</li>
+        <li>握把和甲板触感温热——不是冰冷的工业塑料</li>
+        <li>用过半年后比全新的更有味道——木头变深、黄铜长斑、铝面细痕是他在城市留下的地图</li>
+        <li>颜色不要太"运动"也不要太"商务"——像一家好的独立咖啡店选的那种色调</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g-2col" style="margin-top:1.5rem;">
+    <div class="img-box"><img src="renders/清晨日常.png" alt="Morning Routine" loading="lazy"></div>
+    <div class="img-box"><img src="renders/手：三个触点.png" alt="Three Touch Points" loading="lazy"></div>
+  </div>
+
+  <div class="img-box" style="margin-top:1rem;"><img src="renders/咖啡店停驻.png" alt="Coffee Shop Pause" loading="lazy"></div>
+  <div class="cap">Morning routine — 7:45am, espresso, Monstera, the scooter belongs in this room · Grip + Bell + Deck — three materials designed to be touched · Afternoon coffee shop — the scooter as mobile anchor between workspaces</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 04 · SKETCH ═══════ -->
+<div class="page">
+<section id="sketch" class="sec-block">
+  <div class="sec-num">04</div>
+  <div class="sec-label">Sketch Direction</div>
+  <h2 class="sec-heading">Three Form<br>Languages.</h2>
+  <div class="sec-lead" style="margin-bottom:2rem;"><p>Pencil + fine-liner on paper. Three distinct visual metaphors — folded paper origami, wind-sculpted drift, and furniture-grade joinery — explored through traditional ID sketching before committing to CMF.</p></div>
+  <div class="g-sketch">
+    <div class="sk-card"><div class="sk-letter">A</div><img src="renders/流淌 — 连续曲面.png" alt="Origami" loading="lazy"><h4>Origami / 折纸</h4><div class="sk-ref">Folded Planes · 折纸构造</div><p>Hexagonal tube sections. Every fold line is a structural rib. Crease where deck meets stem. Sharp, clean, minimal — a form made of paper logic.</p></div>
+    <div class="sk-card"><div class="sk-letter">B</div><img src="renders/建筑 — 严谨几何.png" alt="Drift" loading="lazy"><h4>Drift / 漂移</h4><div class="sk-ref">Wind-Sculpted · 风雕流体</div><p>Cross-section transitions: circle to teardrop from stem to deck. Front fender like a filled sail. Stance leans forward even when parked. Pure riding energy.</p></div>
+    <div class="sk-card recommend"><div class="sk-letter">C</div><img src="renders/造物 — 材质融合.png" alt="Joinery" loading="lazy"><h4>Joinery / 榫卯</h4><div class="sk-ref">Visible Joints · 家具仕口</div><p>Wood slides into CNC-milled aluminum slot. Brass bell on a thru-tenon. Every material boundary is a visual feature. Furniture-grade joinery on wheels.</p></div>
+  </div>
+  <div class="g-2col" style="margin-top:1.5rem;">
+    <div class="img-box AR-16x9"><img src="renders/三方向对比.png" alt="Three Directions Comparison" loading="lazy"></div>
+    <div class="img-box AR-16x9"><img src="renders/选定方案深化.png" alt="Selected Direction Final Sketch" loading="lazy"></div>
+  </div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">Design review — "C is the answer. Visible joinery = furniture language. A → integrate origami polygonal stem for structural stiffness."</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 05 · CMF ═══════ -->
+<div class="page">
+<section id="cmf" class="sec-block">
+  <div class="sec-num">05</div>
+  <div class="sec-label">Color · Material · Finish</div>
+  <h2 class="sec-heading">Wear It In,<br>Don't Wear It Out.</h2>
+  <div class="sec-lead" style="margin-bottom:1rem;"><p>Warm concrete gray aluminum diffuses light without hotspots. Canadian maple warms with footsteps. Raw brass develops a unique patina — every bell tells its owner's story. The scooter looks better after 1,000km than at kilometer zero.</p></div>
+  <div class="dots" style="margin-bottom:2rem;"><span class="dot" style="background:var(--concrete)"></span><span class="dot" style="background:var(--orange)"></span><span class="dot" style="background:var(--maple)"></span><span class="dot" style="background:var(--charcoal)"></span><span class="dot" style="background:var(--gunmetal)"></span><span class="dot" style="background:var(--brass)"></span></div>
+
+  <div class="g-1p2">
+    <div class="img-box AR-4x3"><img src="renders/混凝土黎明 Hero.png" alt="V1 Concrete Dawn" loading="lazy"></div>
+    <div class="stack">
+      <div class="img-box AR-16x9"><img src="renders/午夜流动 Hero.png" alt="V2 Midnight Flow" loading="lazy"></div>
+      <div class="img-box AR-16x9"><img src="renders/植物通勤 Hero.png" alt="V3 Botanical Commute" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">V1 Concrete Dawn / 混凝土黎明 · V2 Midnight Flow / 午夜流动 · V3 Botanical Commute / 植物通勤</div>
+
+  <div class="g-2x2" style="margin-top:2rem;">
+    <div class="img-box AR-16x9"><img src="renders/材质色板.png" alt="Material Palette" loading="lazy"></div>
+    <div class="img-box AR-16x9"><img src="renders/CMF策略板.png" alt="CMF Strategy Board" loading="lazy"></div>
+    <div class="img-box AR-16x9"><img src="renders/三种表面.png" alt="Surface Finish Detail" loading="lazy"></div>
+    <div class="img-box AR-16x9"><img src="renders/三变体对比.png" alt="Three Variants Comparison" loading="lazy"></div>
+  </div>
+
+  <div class="g-spec" style="margin-top:2rem;">
+    <div class="spec-item"><div class="key">Frame</div><div class="val">Concrete Gray<br>#C8BFB4 · 8-15 GU</div></div>
+    <div class="spec-item"><div class="key">Accent</div><div class="val">Safety Orange<br>#E06030 · 10-20 GU</div></div>
+    <div class="spec-item"><div class="key">Deck</div><div class="val">Canadian Maple<br>#C4A882 · 3-8 GU</div></div>
+    <div class="spec-item"><div class="key">Grip</div><div class="val">TPE Dual-Inject<br>Charcoal + Orange</div></div>
+    <div class="spec-item"><div class="key">Rims</div><div class="val">Gunmetal Brushed<br>#4A4844 · 5-10 GU</div></div>
+    <div class="spec-item"><div class="key">Bell</div><div class="val">Raw Brass<br>Uncoated · Patinas</div></div>
+  </div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 06 · RENDER GALLERY ═══════ -->
+<div class="page">
+<section id="render" class="sec-block">
+  <div class="sec-num">06</div>
+  <div class="sec-label">Render Gallery</div>
+  <h2 class="sec-heading">Material<br>Depth on Wheels.</h2>
+  <div class="sec-lead" style="margin-bottom:2rem;"><p>KeyShot/Octane quality. Micro-blasted aluminum, natural wood grain, brass patina. Studio macros, cinematic compositions, and field context — three variants, six materials, one DNA.</p></div>
+
+  <!-- Hero + Front/Rear + Exploded -->
+  <div class="g-1p2" style="margin-bottom:2rem;">
+    <div>
+      <div class="img-box" style="margin-bottom:1rem;"><img src="renders/混凝土黎明 Hero.png" alt="V1 Hero" loading="lazy"></div>
+      <div class="g-2col">
+        <div><div class="img-box"><img src="renders/正视图.png" alt="Front View" loading="lazy"></div><div class="cap">Front — symmetrical, planted stance</div></div>
+        <div><div class="img-box"><img src="renders/后侧视图.png" alt="Rear View" loading="lazy"></div><div class="cap">Rear — no "back side" neglect</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="img-box"><img src="renders/爆炸图.png" alt="Exploded View" loading="lazy"></div>
+      <div class="cap">Exploded — handlebar → stem → hinge → deck → frame → fenders → wheels. All separable for service and recycling.</div>
+    </div>
+  </div>
+
+  <!-- 2x2 macro gallery -->
+  <div class="g-2x2" style="margin-bottom:1.5rem;">
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/车架微喷砂纹理.png" alt="Frame Micro-Blasted Texture" loading="lazy"></div>
+      <div class="cap">Frame texture — #120 glass bead blast, 8-15 GU. Scratches absorbed into the grain — no bright substrate revealed.</div>
+    </div>
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/甲板材质过渡.png" alt="Deck Wood-to-Grip Transition" loading="lazy"></div>
+      <div class="cap">Deck transition — Canadian maple edge meeting dark gray grip tape. Warm natural meets cool synthetic in one clean line.</div>
+    </div>
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/黄铜铃 + 把套.png" alt="Brass Bell and TPE Grip" loading="lazy"></div>
+      <div class="cap">Brass bell + TPE dual-injection grip. Two materials designed to be touched — polished brass patinas, charcoal grip with orange fleck.</div>
+    </div>
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/折叠铰链.png" alt="Folding Hinge Mechanism" loading="lazy"></div>
+      <div class="cap">Folding hinge — the only high-gloss element (15-25 GU). Safety orange locking ring marks the critical function point.</div>
+    </div>
+  </div>
+
+  <!-- Cinematic duo -->
+  <div class="g-2col" style="margin-bottom:1.5rem;">
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/暗处黄铜.png" alt="Brass in Darkness" loading="lazy"></div>
+      <div class="cap">Cinematic — brass bell in pure black void. A warm golden planet. The signature detail, isolated and iconic.</div>
+    </div>
+    <div>
+      <div class="img-box AR-16x9"><img src="renders/木纹晨触.png" alt="Wood Grain Morning Touch" loading="lazy"></div>
+      <div class="cap">Cinematic — maple deck edge at sunrise. Wood grain, a fingerprint, golden morning light. You can feel the warmth through the image.</div>
+    </div>
+  </div>
+
+  <!-- Field context: 3 scene shots -->
+  <div class="g-3strip" style="margin-bottom:1rem;">
+    <div>
+      <div class="img-box AR-3x2"><img src="renders/城市晨光.png" alt="Urban Morning V1" loading="lazy"></div>
+      <div class="cap">V1 Concrete Dawn — morning city, folded by a coffee shop. Warm gray echoes the concrete wall.</div>
+    </div>
+    <div>
+      <div class="img-box AR-3x2"><img src="renders/夜间骑行.png" alt="Night Commute V2" loading="lazy"></div>
+      <div class="cap">V2 Midnight Flow — night street, wet pavement. Navy frame under neon, cyan accents like electric sparks.</div>
+    </div>
+    <div>
+      <div class="img-box AR-3x2"><img src="renders/周末绿道.png" alt="Weekend Park V3" loading="lazy"></div>
+      <div class="cap">V3 Botanical Commute — golden hour park path. Sage green harmonizing with trees, bamboo deck catching sun.</div>
+    </div>
+  </div>
+
+  <!-- Rain detail + wheel rim -->
+  <div class="g-2col">
+    <div>
+      <div class="img-box AR-16x9"><img src="renders/雨后微喷砂.png" alt="After Rain" loading="lazy"></div>
+      <div class="cap">After rain — water droplets beading on micro-blasted surface. The texture holds perfect spheres, then releases them.</div>
+    </div>
+    <div>
+      <div class="img-box AR-16x9"><img src="renders/轮毂拉丝.png" alt="Wheel Rim Brushed Detail" loading="lazy"></div>
+      <div class="cap">Gunmetal rim — #220 circumferential brush under clear anodized. Even the parts you don't touch are considered.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════ CLOSING ═══════ -->
+<section class="closing">
+  <div class="sec-label" style="margin-bottom:1rem;">B1 FLUX · Industrial Design Portfolio</div>
+  <h2>City as Canvas</h2>
+  <p>Research → Competitive → Persona → Sketch → CMF → Render Gallery. An e-scooter designed to be seen parked in your home, not hidden in a corner. Materials that age beautifully — every scratch is a city mapped, every patina a story earned.</p>
+  <div class="c-rule"></div>
+</section>
+
+</body>
+</html>

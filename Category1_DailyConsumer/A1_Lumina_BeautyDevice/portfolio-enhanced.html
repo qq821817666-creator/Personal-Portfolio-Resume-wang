@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1 Lumina — CMF Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pearl: #F5F0EB;
+  --rose-gold: #B8A390;
+  --dusty-rose: #C9AFA0;
+  --champagne: #C4A882;
+  --jade: #C5D5C8;
+  --indigo: #2D2D4B;
+
+  --bg: #FAF8F5;
+  --bg-warm: #F2EFEA;
+  --text: #2B2825;
+  --text-mid: #6B6560;
+  --text-muted: #9E9790;
+  --rule: #D8D4CC;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════ HERO — centered, restrained ═══════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 6rem 2rem; position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,163,144,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+.hero-code {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 2rem;
+  position: relative; z-index: 1;
+}
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 500; letter-spacing: -0.01em; line-height: 1;
+  position: relative; z-index: 1;
+}
+.hero-sub {
+  font-family: var(--font-display); font-size: 1.3rem; font-style: italic;
+  color: var(--rose-gold); margin-top: 1rem; position: relative; z-index: 1;
+}
+.hero-zh {
+  font-size: 0.85rem; letter-spacing: 0.12em; color: var(--text-muted);
+  margin-top: 1.5rem; text-transform: uppercase; position: relative; z-index: 1;
+}
+.hero-scroll {
+  position: absolute; bottom: 3rem; font-size: 0.65rem;
+  letter-spacing: 0.25em; color: var(--text-muted); cursor: pointer;
+  animation: bob 3s ease-in-out infinite; z-index: 1;
+  transition: color 0.3s;
+}
+.hero-scroll:hover { color: var(--rose-gold); animation-play-state: paused; }
+@keyframes bob {
+  0%,100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+
+/* ═══════════ LAYOUT BASICS ═══════════ */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+
+.section { padding: 7rem 0 3rem; }
+
+.label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.heading {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 1.25rem;
+}
+.lead {
+  max-width: 500px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.8;
+}
+
+.rule { height: 1px; background: var(--rule); margin: 5rem auto; max-width: 1080px; }
+.rule-short { width: 50px; height: 1px; background: var(--rose-gold); margin: 1.5rem 0; }
+
+/* ═══════════ TWO-COLUMN: TEXT + IMAGE ═══════════ */
+.row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.row.reverse { direction: rtl; }
+.row.reverse > * { direction: ltr; }
+
+.row-text h3 {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 500;
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.row-text p {
+  font-size: 0.88rem; color: var(--text-mid); line-height: 1.8;
+}
+.row-text .spec-inline {
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ═══════════ IMAGE WRAPPERS ═══════════ */
+.img-box {
+  overflow: hidden; border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.img-box:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  transform: translateY(-2px);
+}
+.img-box img {
+  width: 100%; height: auto; display: block;
+  transition: transform 0.7s var(--ease-out);
+}
+.img-box:hover img { transform: scale(1.03); }
+
+/* Smaller image modifier */
+.img-box-sm {
+  max-width: 85%; margin: 0 auto;
+}
+
+/* ═══════════ THREE-COLUMN (variants) ═══════════ */
+.trio {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.trio figcaption {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-top: 0.5rem; text-align: center;
+}
+
+/* ═══════════ SPEC GRID ═══════════ */
+.spec-panel {
+  background: var(--bg-warm); border-radius: 2px; padding: 2.5rem;
+  transition: background 0.3s;
+}
+.spec-panel:hover { background: #EDE9E4; }
+.spec-panel-title {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.18em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem 1.5rem; }
+.spec-item {
+  border-top: 1px solid var(--rule); padding-top: 0.6rem;
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.spec-item:hover { border-color: var(--rose-gold); transform: translateX(3px); }
+.spec-item .key { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+.spec-item .val { font-size: 0.78rem; margin-top: 0.15rem; }
+
+/* ═══════════ COLOR DOTS ═══════════ */
+.dots { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+  cursor: default;
+}
+.dot:hover { transform: scale(1.6); box-shadow: 0 4px 14px rgba(0,0,0,0.12); z-index: 2; }
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-stagger > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s;    opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s;  opacity: 1; transform: translateY(0); }
+
+/* ═══════════ CLOSING ═══════════ */
+.closing {
+  text-align: center; padding: 8rem 2rem; background: var(--bg-warm); margin-top: 4rem;
+}
+.closing h2 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 500; margin-bottom: 1.5rem; }
+.closing p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; color: var(--text-mid); line-height: 1.8; }
+.closing .tools { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 3rem; }
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 768px) {
+  .row, .row.reverse { grid-template-columns: 1fr; gap: 2rem; }
+  .trio { grid-template-columns: 1fr; gap: 2rem; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .img-box-sm { max-width: 100%; }
+  .wrap { padding: 0 1.25rem; }
+  .section { padding: 5rem 0 2rem; }
+  .heading { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero reveal">
+  <div class="hero-code">A1 · Category 1 — Daily Consumer</div>
+  <h1 class="hero-title">Lumina</h1>
+  <p class="hero-sub">Derma-Luxury · RF Facial Device</p>
+  <p class="hero-zh">肌肤奢华 · 射频美容仪 CMF</p>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ═══════════ PHASE 0: BUSINESS CONTEXT ═══════════ -->
+<div class="wrap">
+  <section class="section reveal">
+    <div class="label">Phase 0 · Business Context / 商业背景</div>
+    <h2 class="heading">Clinical Luxury<br>at Mass-Premium</h2>
+    <div class="rule-short"></div>
+    <div class="lead">
+      <p>Lumina is a D2C beauty-tech brand at the intersection of dermatological science and self-care ritual. Competing against Yaman, Tripollar, Foreo, and NuFace in China's ¥30B+ at-home beauty device market, Lumina differentiates through <strong>clinical credibility expressed through luxury material language</strong> — not a medical device that happens to be beautiful, but a beauty object built to medical standards.</p>
+    </div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Business Constraints → CMF Framework / 商业约束 → CMF推导</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Retail Price / 零售价</div><div class="val">¥1,800–2,800 · Mass-Premium tier</div></div>
+      <div class="spec-item"><div class="key">BOM Target / 物料成本</div><div class="val">≤ ¥120/unit (CMF only)</div></div>
+      <div class="spec-item"><div class="key">Annual Volume / 年产量</div><div class="val">50K–100K units · Injection molding + PVD batch</div></div>
+      <div class="spec-item"><div class="key">Key Markets / 主要市场</div><div class="val">China 60% · Japan/Korea 25% · EU/US 15%</div></div>
+      <div class="spec-item"><div class="key">Regulatory / 合规</div><div class="val">GB 4706 · CE/REACH · ISO 10993 biocompatibility</div></div>
+      <div class="spec-item"><div class="key">Quality Standard / 品质</div><div class="val">Zero visible defects on A-surface · 5–6 material zones</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Target User -->
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Target User / 目标用户</div>
+      <h3>The Skincare Investor<br>护肤投资者</h3>
+      <div class="rule-short"></div>
+      <p>Female, 25–40, urban professional, household income ¥250K+. She follows dermatologists on Xiaohongshu, reads ingredient labels, and already spends ¥2,000+/year on serums and facials. The RF device is her upgrade from topicals to tech — she sees it as <strong>preventative investment, not vanity.</strong> She keeps the device on her vanity, not hidden in a drawer.</p>
+      <div class="spec-inline">Must: look clinical enough to trust · feel luxurious enough to gift · photograph beautifully</div>
+    </div>
+    <div class="row-text">
+      <h3>User Pain Points<br>with Existing CMF</h3>
+      <div class="rule-short"></div>
+      <p><strong>Yaman:</strong> Functional but cold — "looks like a blood pressure monitor." Too clinical.<br><strong>Tripollar:</strong> Gold accents but body feels lightweight/hollow. Perceived quality gap.<br><strong>Foreo:</strong> Playful silicone reads as "toy," not serious skincare.<br><strong>NuFace:</strong> Clean but mass-market feel; limited color options.</p>
+    </div>
+  </div>
+  <!-- Competitor images -->
+  <div class="trio" style="grid-template-columns: repeat(4, 1fr); margin-top:1.5rem;">
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/yaman.png" alt="Yaman Bloom" loading="lazy"></div>
+      <figcaption>Yaman Bloom</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/tripollar.png.jpeg" alt="Tripollar Stop" loading="lazy"></div>
+      <figcaption>Tripollar Stop</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/foreo.jpg" alt="Foreo UFO" loading="lazy"></div>
+      <figcaption>Foreo UFO 3</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/nuface.webp" alt="NuFace Trinity" loading="lazy"></div>
+      <figcaption>NuFace Trinity</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ PHASE 1: MARKET & TREND RESEARCH ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Phase 1 · Market & Trend Research / 市场与趋势研究</div>
+    <h2 class="heading">Three Demand Signals<br>&amp; STEEP Trends</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Three market forces shape the CMF direction. Consumers judge efficacy through material cues before purchase. Devices must be photogenic for social media. And 30–40% of purchases are gifts — packaging must convey thoughtful luxury.</p></div>
+  </section>
+</div>
+
+<!-- STEEP Trend Cards -->
+<div class="wrap reveal reveal-stagger">
+  <div class="spec-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:1rem;">
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Trend 1 · Social</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Skinmalism / 精简护肤</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">Post-COVID simplification. Transparency, purity, fewer-but-better. <strong>CMF:</strong> Pearl whites, translucent finishes, clean matte surfaces — sterile but not cold. Materials that reference skincare textures.</div>
+    </div>
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Trend 2 · Technological</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Warm Tech / 温暖科技</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">Medical-grade materials democratizing into consumer products. <strong>CMF:</strong> Brushed titanium replaces surgical steel. Soft-touch LSR replaces hard plastic. Warm metallic tones replace clinical chrome.</div>
+    </div>
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Trend 3 · Social</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Ritual Objects / 仪式感物品</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">Wellness culture meets product design. <strong>CMF:</strong> Devices designed as ritual objects — jade green, pearl white, amber. Texture transitions slow the user down. Spa treatment, not chore.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Competitor Audit -->
+<div class="wrap reveal" style="margin-top:2.5rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Competitor CMF Audit / 竞品CMF审计</div>
+    <table style="width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.05em; margin-top:0.5rem;">
+      <tr><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">Competitor</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">Strength</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">Weakness → Our Opportunity</th></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Yaman Bloom</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Strong medical credibility</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">"Hospital equipment" — no warmth, no luxury cues, no color variety</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Tripollar Stop</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Gold conveys premium</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Gold reads as dated. Body feels lightweight/hollow. Limited variants.</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Foreo UFO 3</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Playful, bold identity</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">"Toy" perception. No premium weight. Medical credibility weak.</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);">NuFace Trinity</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);">Clean, professional</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);">Mass-market feel. Plastic-y at the price. Limited emotional range.</td></tr>
+    </table>
+    <p style="font-size:0.78rem; color:var(--rose-gold); margin-top:1rem; line-height:1.6;"><strong>Key Insight:</strong> The market is split between "too clinical" (Yaman, NuFace) and "too playful" (Foreo). Tripollar occupies the middle but with dated aesthetics. The opportunity: genuine material luxury — titanium, ceramic finishes, soft silicone — at accessible price, with color variants bridging clinical trust and self-care warmth.</p>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ PHASE 2: CONCEPT EXPLORATION ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Phase 2 · Concept Exploration / 方案探索</div>
+    <h2 class="heading">Three Design Pillars<br>&amp; Three Schemes</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Three strategic pillars emerge from research, each anchored in a core user need. Three competing CMF schemes were generated, then evaluated through a weighted matrix to surface the winner.</p></div>
+  </section>
+</div>
+
+<!-- Design Pillars -->
+<div class="wrap reveal reveal-stagger" style="margin-bottom:2rem;">
+  <div class="spec-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:1rem;">
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Pillar 1</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Clinical Credibility / 临床可信度</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">Medical-grade materials (ISO 10993 ABS, Ti Grade 5), precision finishing (brushed concentric, diamond-cut chamfer), clean palettes with CIELAB/Pantone references.</div>
+    </div>
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Pillar 2</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Ritual Warmth / 仪式温度</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">Warm metallic tones (rose gold, champagne) instead of surgical chrome. Soft-touch LSR grip at Shore 40–50A. Warm LED glow (2700–3000K) instead of cool blue.</div>
+    </div>
+    <div class="spec-item" style="border:none; padding:1.5rem; background:var(--bg-warm); border-radius:2px;">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Pillar 3</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.5rem;">Vanity Presence / 梳妆台存在感</div>
+      <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.7;">High-gloss ceramic-like body, jewelry-grade metal finishing, three curated color variants coordinating with different interior aesthetics. Lives on display, not in a drawer.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Three Schemes -->
+<div class="wrap reveal reveal-stagger">
+  <div class="spec-grid" style="grid-template-columns: repeat(3, 1fr); margin-top:1rem;">
+    <!-- Scheme A -->
+    <div class="spec-item" style="border:1px solid var(--rule); padding:1.5rem; border-radius:2px; background:var(--bg-card);">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Scheme A</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.3rem;">Clinical Purity / 临床纯净</div>
+      <div style="font-family:var(--font-display); font-size:0.9rem; font-style:italic; color:var(--rose-gold); margin-bottom:0.75rem;">"Dermatologist-grade, nothing more."</div>
+      <div style="font-size:0.75rem; color:var(--text-mid); line-height:1.7;">Medical-grade ABS · All-white across all zones · Silver Ti head · Clear PMMA · ¥95 BOM</div>
+      <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.75rem;"><strong>Risk:</strong> Reads as "hospital device." No gift appeal. Too generic to command ¥2,500+.</div>
+    </div>
+    <!-- Scheme B -->
+    <div class="spec-item" style="border:1px solid var(--rose-gold); padding:1.5rem; border-radius:2px; background:var(--bg-card); box-shadow:0 0 0 1px var(--rose-gold);">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem; color:var(--rose-gold);">Scheme B · Selected</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.3rem;">Derma-Luxury / 肌肤奢华</div>
+      <div style="font-family:var(--font-display); font-size:0.9rem; font-style:italic; color:var(--rose-gold); margin-bottom:0.75rem;">"Skincare, materialized."</div>
+      <div style="font-size:0.75rem; color:var(--text-mid); line-height:1.7;">Pearl-finish medical ABS · Warm rose gold Ti PVD · Velvet LSR grip · Diamond-cut button · Zn alloy base · ¥115 BOM</div>
+      <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.75rem;"><strong>Advantage:</strong> Bridges clinical and luxury. Skincare texture language. Strong gift appeal. Photographs beautifully.</div>
+    </div>
+    <!-- Scheme C -->
+    <div class="spec-item" style="border:1px solid var(--rule); padding:1.5rem; border-radius:2px; background:var(--bg-card);">
+      <div class="key" style="font-size:0.6rem; margin-bottom:0.5rem;">Scheme C</div>
+      <div class="val" style="font-weight:500; margin-bottom:0.3rem;">Jewelry Object / 珠宝器物</div>
+      <div style="font-family:var(--font-display); font-size:0.9rem; font-style:italic; color:var(--rose-gold); margin-bottom:0.75rem;">"Wearable beauty tech."</div>
+      <div style="font-size:0.75rem; color:var(--text-mid); line-height:1.7;">Full Ti body shell · 18K gold PVD · Mirror-polish · Crystal PMMA · ¥195 BOM</div>
+      <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.75rem;"><strong>Risk:</strong> BOM exceeds target by 62%. Fingerprint magnet. Undermines clinical credibility.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Weighted Matrix -->
+<div class="wrap reveal" style="margin-top:2.5rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Weighted Scheme Evaluation / 加权方案评估</div>
+    <table style="width:100%; border-collapse:collapse; font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.05em; margin-top:0.5rem;">
+      <tr><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">Criterion</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">Weight</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">A: Clinical Purity</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">B: Derma-Luxury</th><th style="text-align:left;font-weight:400;color:var(--text-muted);text-transform:uppercase;padding:0.5rem 0.5rem;border-bottom:1px solid var(--rule);">C: Jewelry Object</th></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Brand Alignment / 品牌匹配</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">25%</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Market Differentiation / 差异化</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">20%</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">User Desirability / 用户吸引力</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">20%</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★★</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Production Feasibility / 量产可行性</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">20%</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★</td></tr>
+      <tr><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">Cost Control / 成本可控性</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">15%</td><td style="padding:0.45rem 0.5rem;color:var(--rose-gold);border-bottom:1px solid var(--rule);">★★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★★★★</td><td style="padding:0.45rem 0.5rem;color:var(--text-mid);border-bottom:1px solid var(--rule);">★</td></tr>
+      <tr style="border-top:2px solid var(--rose-gold);"><td style="padding:0.55rem 0.5rem;font-weight:500;">Weighted Total</td><td style="padding:0.55rem 0.5rem;font-weight:500;">100%</td><td style="padding:0.55rem 0.5rem;color:var(--text-mid);">3.45</td><td style="padding:0.55rem 0.5rem;color:var(--rose-gold);font-weight:500;">4.65</td><td style="padding:0.55rem 0.5rem;color:var(--text-mid);">3.25</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Selection Narrative -->
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Scheme Selection / 方案选择</div>
+      <h3>Why Derma-Luxury Wins<br>为什么肌肤奢华胜出</h3>
+      <div class="rule-short"></div>
+      <p><strong>Scheme B (Derma-Luxury)</strong> scores highest on brand alignment. The strategy of translating skincare textures into product CMF — gloss = serum, velvet = cream, brushed Ti = precision tool — is both emotionally resonant and rationally defendable. It bridges the gap between clinical trust and self-care indulgence that no competitor occupies.</p>
+    </div>
+    <div class="row-text">
+      <h3>Post-Selection Refinements<br>定案后优化</h3>
+      <div class="rule-short"></div>
+      <p>V2 (Jade Calm) absorbs muted jade-green concept from Scheme C. V3 (Midnight Serum) added for dramatic/evening vanity aesthetic. Titanium treatment head upgraded to <strong>warm titanium</strong> — industry-first warm-toned Ti head. Charging base upgraded from ABS to <strong>zinc alloy + silicone dock</strong> for daily quality perception.</p>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ PHASE 3: CMF STRATEGY ═══════════ -->
+<div class="wrap">
+  <section class="section reveal">
+    <div class="label">Phase 3 · CMF Strategy</div>
+    <h2 class="heading">Skincare, Materialized.</h2>
+    <div class="rule-short"></div>
+    <div class="lead">
+      <p>Lumina translates skincare textures into product CMF — the high-gloss body recalls a luxury serum bottle, velvet silicone feels like a rich cream, brushed titanium is precision-engineered like a dermatologist's tool. Warm metallic tones add emotional heat to the clinical material base.</p>
+    </div>
+    <div class="dots">
+      <span class="dot" style="background:var(--pearl)"></span>
+      <span class="dot" style="background:var(--rose-gold)"></span>
+      <span class="dot" style="background:var(--dusty-rose)"></span>
+      <span class="dot" style="background:var(--champagne)"></span>
+      <span class="dot" style="background:var(--indigo)"></span>
+    </div>
+  </section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ THREE VARIANTS (smaller, contained) ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Three Color Variants</div>
+    <h2 class="heading">Pearl Rose · Jade Calm<br>Midnight Serum</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Each variant maps to a different skincare ritual: morning freshness, calming afternoon, and night-time treatment.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal reveal-stagger">
+  <div class="trio">
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v1_pearl_rose.png" alt="V1 Pearl Rose" loading="lazy"></div>
+      <figcaption>V1 · Pearl Rose / 珍珠玫瑰</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v2_jade_calm.png" alt="V2 Jade Calm" loading="lazy"></div>
+      <figcaption>V2 · Jade Calm / 玉石静谧</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v3_midnight_serum.png" alt="V3 Midnight Serum" loading="lazy"></div>
+      <figcaption>V3 · Midnight Serum / 深夜精华</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ MATERIAL TRANSITION — text-left + image-right ═══════════ -->
+<div class="wrap reveal">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 4 · Material Detail</div>
+      <h3>Material Transitions<br>&amp; Tactile Story</h3>
+      <div class="rule-short"></div>
+      <p>Each material transition is choreographed — cool titanium makes first contact with skin, warm velvet grip settles into the hand, ceramic-smooth body catches ambient light on the vanity. The arc of interaction transforms a treatment into a moment of self-care.</p>
+    </div>
+    <div class="img-box">
+      <img src="renders/08_material_transition.png" alt="Material Transition" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MACRO PAIR ═══════════ -->
+<div class="wrap reveal reveal-stagger" style="margin-top:2rem;">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/09_ti_head_macro.jpg" alt="Ti Head Macro" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 09 · Ti-6Al-4V · #320 Brush · Ra 0.3–0.5μm</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/10_lsr_grip_macro.png" alt="LSR Grip Macro" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 10 · LSR Silicone · MT-11010 · Shore A 45–50</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LED HALO — image-left + text-right ═══════════ -->
+<div class="wrap reveal">
+  <div class="row reverse">
+    <div class="row-text">
+      <div class="label">Phase 4 · Interaction Detail</div>
+      <h3>Hidden-When-Off<br>&amp; Docking Ritual</h3>
+      <div class="rule-short"></div>
+      <p>The LED halo is laser-etched into frosted PMMA — invisible when dark, a warm amber glow when illuminated. The charging base is a weighty zinc alloy with dark chrome PVD finish, its silicone dock absorbing the device with a soft landing.</p>
+      <div class="spec-inline">PMMA · Micro-Dot Diffuser · 2700K Warm Amber</div>
+    </div>
+    <div class="img-box">
+      <img src="renders/12_led_halo_detail.png" alt="LED Halo Detail" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CHARGING BASE — text-left + image-right ═══════════ -->
+<div class="wrap reveal" style="margin-top:3rem;">
+  <div class="row">
+    <div class="row-text">
+      <h3>Charging Base</h3>
+      <div class="rule-short"></div>
+      <p>Zamak 3 zinc alloy · dark chrome PVD · #220 linear brush · matte silicone dock insert. The weight of the base reinforces quality perception every time the user docks the device. Contrast between mirror-dark metal and soft silicone.</p>
+      <div class="spec-inline">Pantone 19-4008 TCX · L*=32, a*=1, b*=−2 · 10–15 GU</div>
+    </div>
+    <div class="img-box">
+      <img src="renders/13_charging_base.jpg" alt="Charging Base" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ SWATCH BOARD ═══════════ -->
+<div class="wrap reveal">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Production Specification</div>
+    <h2 class="heading">CMF Swatch Board<br>V1 · Pearl Rose</h2>
+    <div class="rule-short"></div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="img-box">
+    <img src="renders/11_cmf_swatch_board.png" alt="CMF Swatch Board" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Medical ABS / Ti PVD / LSR / PMMA / Zn Alloy</p>
+</div>
+
+<div class="wrap reveal" style="margin-top:3rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">V1 Pearl Rose · Material Specification / 材料规格</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Body / 机身</div><div class="val">Medical ABS · ISO 10993 · SPI A-2 · 85–90 GU</div></div>
+      <div class="spec-item"><div class="key">Treatment Head / 护理头</div><div class="val">Ti-6Al-4V · #320 Circular Brush · Ra 0.3–0.5μm</div></div>
+      <div class="spec-item"><div class="key">Grip / 握持</div><div class="val">LSR · MT-11010 · Shore A 45–50 · 2–4 GU</div></div>
+      <div class="spec-item"><div class="key">Button / 按钮</div><div class="val">Ti Grade 5 · Diamond-Cut Chamfer 0.3mm · PVD</div></div>
+      <div class="spec-item"><div class="key">LED Halo / 光环</div><div class="val">PMMA · Laser-Etch · Dot Ø0.05mm · Pitch 0.1mm</div></div>
+      <div class="spec-item"><div class="key">Base / 底座</div><div class="val">Zamak 3 · #220 Brush + PVD · Silicone MT-11020</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ EXPLODED VIEW ═══════════ -->
+<div class="wrap reveal">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Engineering</div>
+    <h2 class="heading">Exploded Material View<br>6 Components</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Isometric separation showing the six material zones — Titanium treatment head, Medical ABS body, LSR grip, PMMA diffuser, Zn Alloy base, silicone dock.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="img-box">
+    <img src="renders/15_exploded_view.png" alt="Exploded View" loading="lazy">
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LIFESTYLE + PACKAGING ═══════════ -->
+<div class="wrap reveal">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 5 · Lifestyle &amp; Unboxing</div>
+    <h2 class="heading">In-Hand Ritual<br>&amp; Sustainable Unboxing</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>The device lives on the vanity, in the hand, and in the unboxing moment. Packaging uses FSC kraft paper, sugarcane fiber tray, braided fabric USB-C cable, and a seed-embedded thank-you card.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal reveal-stagger">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/14_in-hand_left.jpg" alt="In-Hand Left" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">In-Hand Detail · Gloss + Velvet Contrast</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/14_in-hand_right.jpg" alt="In-Hand Right" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Lifestyle Context · Self-Care Ritual</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="img-box">
+    <img src="renders/16_packaging_unboxing.png" alt="Packaging" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">FSC Kraft · Sugarcane Tray · Braided Cable · Seed Paper Card</p>
+</div>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing reveal">
+  <div class="hero-code" style="margin-bottom:1.5rem;">A1 Lumina · CMF Portfolio</div>
+  <h2>Derma-Luxury</h2>
+  <p>Three color variants, six material zones, medical-grade precision, and a sustainability story — every CMF decision serves the brand, the user, and the ritual of self-care.<br><br>三款配色 · 六个材料区域 · 医疗级精度 · 可持续叙事</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+<script>
+/* Scroll reveal */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (!e.target.classList.contains('reveal-stagger')) obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* Gentle hero parallax on scroll */
+const hero = document.querySelector('.hero');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      if (hero) {
+        const opacity = Math.max(0, 1 - scrollY / 600);
+        hero.style.opacity = opacity;
+        hero.style.transform = `translateY(${scrollY * 0.15}px)`;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+/* Hero scroll click */
+document.querySelector('.hero-scroll')?.addEventListener('click', () => {
+  document.querySelector('.wrap')?.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>

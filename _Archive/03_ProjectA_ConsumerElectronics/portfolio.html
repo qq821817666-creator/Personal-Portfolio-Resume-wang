@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project AURA — CMF Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..800;1,9..40,200..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#F5F3EF; --text:#1E1E1C; --text-mid:#5C5A55; --text-muted:#8A8880; --rule:#C4C0B8;
+  --sand:#B8A898; --copper:#C48058; --cognac:#A06040; --navy:#1C2D3D; --teal:#2D6058;
+  --holographic:#4DB8A0; --pearl:#E2DDD8; --silver:#C8C8C8;
+  --font-display:'Cormorant Garamond','Times New Roman',serif;
+  --font-body:'DM Sans','SF Pro Display','PingFang SC',system-ui,sans-serif;
+  --font-mono:'DM Mono','SF Mono','PingFang SC',monospace;
+  --font-zh:'PingFang SC','Hiragino Sans GB','STHeiti','Microsoft YaHei',sans-serif;
+  --space-xs:0.5rem; --space-sm:1rem; --space-md:2rem; --space-lg:4rem; --space-xl:6rem;
+  --max-w:1200px;
+}
+html { scroll-behavior:smooth; font-size:16px; }
+body { font-family:var(--font-body); background:var(--bg); color:var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+/* ── HERO ── */
+.hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(135deg,#1C1C1A 0%,#252520 40%,#1E1E1C 60%,#2A2825 100%); color:#E8E4DC; text-align:center; position:relative; overflow:hidden; padding:var(--space-xl) var(--space-md); }
+.hero::before { content:''; position:absolute; top:-10%; right:-5%; width:50%; height:120%; background:radial-gradient(ellipse at center, rgba(200,130,80,0.06) 0%, transparent 70%); pointer-events:none; }
+.hero-project-code { font-family:var(--font-mono); font-size:0.7rem; letter-spacing:0.2em; color:var(--copper); text-transform:uppercase; margin-bottom:var(--space-md); position:relative; z-index:1; }
+.hero-title { font-family:var(--font-display); font-size:clamp(4rem,10vw,9rem); font-weight:600; line-height:0.9; position:relative; z-index:1; }
+.hero-subtitle { font-family:var(--font-display); font-size:1.6rem; font-style:italic; color:#A09890; margin-top:var(--space-sm); position:relative; z-index:1; }
+.hero-tagline { font-family:var(--font-display); font-size:2rem; font-style:italic; color:var(--copper); margin-top:var(--space-md); padding-left:1.5rem; border-left:2px solid var(--copper); max-width:480px; text-align:left; position:relative; z-index:1; }
+.hero-scroll { position:absolute; bottom:3rem; font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.2em; color:#706860; z-index:1; }
+.hero-scroll::after { content:''; display:block; width:1px; height:2rem; background:#504840; margin:0.5rem auto 0; }
+.variants-row { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-md); max-width:var(--max-w); width:100%; margin-top:var(--space-xl); position:relative; z-index:1; }
+.variants-row img { width:100%; height:auto; display:block; }
+.variants-row figcaption { font-family:var(--font-mono); font-size:0.6rem; letter-spacing:0.12em; color:#908880; text-align:center; margin-top:var(--space-xs); text-transform:uppercase; }
+
+/* ── Sections ── */
+.section { padding:var(--space-xl) var(--space-md); max-width:720px; margin:0 auto; }
+.section-label { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.18em; color:var(--copper); text-transform:uppercase; margin-bottom:var(--space-xs); }
+.section-title { font-family:var(--font-display); font-size:3rem; font-weight:500; line-height:1.1; margin-bottom:var(--space-sm); }
+.section-body { font-size:1.1rem; color:var(--text-mid); line-height:1.8; }
+.rule { border:none; border-top:1px solid var(--rule); margin:0 auto; max-width:var(--max-w); }
+.rule-short { width:60px; height:1px; background:var(--copper); margin:var(--space-md) 0; }
+.palette-dots { display:flex; gap:var(--space-xs); margin-top:var(--space-md); }
+.palette-dot { width:1.8rem; height:1.8rem; border-radius:50%; border:1px solid var(--rule); }
+
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease-out, transform 0.7s ease-out; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── Images ── */
+.full-image, .wide-image { margin:var(--space-lg) auto; max-width:var(--max-w); padding:0 var(--space-md); }
+.full-image img, .wide-image img { width:100%; height:auto; display:block; }
+.detail-pair { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); max-width:var(--max-w); margin:var(--space-lg) auto; padding:0 var(--space-md); }
+.detail-pair img { width:100%; height:auto; display:block; }
+.detail-pair figcaption { font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.08em; color:var(--text-muted); margin-top:var(--space-xs); text-align:center; text-transform:uppercase; }
+.asymmetric { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); max-width:var(--max-w); margin:var(--space-lg) auto; padding:0 var(--space-md); align-items:center; }
+.asymmetric.reverse { direction:rtl; } .asymmetric.reverse>* { direction:ltr; }
+.asymmetric-image img { width:100%; height:auto; display:block; }
+.asymmetric-text h3 { font-family:var(--font-display); font-size:2rem; margin-bottom:var(--space-sm); }
+.asymmetric-text p { color:var(--text-mid); line-height:1.8; }
+.swatch-full { max-width:var(--max-w); margin:var(--space-lg) auto; padding:0 var(--space-md); }
+.swatch-full img { width:100%; height:auto; display:block; }
+
+.spec-block { max-width:720px; margin:var(--space-lg) auto; padding:0 var(--space-md); }
+.spec-block-title { font-family:var(--font-mono); font-size:0.65rem; letter-spacing:0.12em; color:var(--copper); text-transform:uppercase; margin-bottom:var(--space-sm); }
+.spec-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-sm); }
+.spec-item { padding:var(--space-sm); border:1px solid var(--rule); }
+.spec-label { font-family:var(--font-mono); font-size:0.55rem; letter-spacing:0.1em; color:var(--text-muted); text-transform:uppercase; }
+.spec-value { font-size:0.8rem; color:var(--text-mid); line-height:1.4; margin-top:0.25rem; }
+
+.closing { text-align:center; padding:var(--space-xl) var(--space-md); max-width:720px; margin:0 auto; }
+.closing-title { font-family:var(--font-display); font-size:3.5rem; color:var(--navy); margin-bottom:var(--space-md); }
+.closing-body { font-size:1rem; color:var(--text-mid); line-height:1.8; max-width:560px; margin:0 auto; }
+
+@media (max-width:768px) {
+  .hero-title { font-size:3rem; } .section-title { font-size:2rem; }
+  .variants-row, .detail-pair, .asymmetric { grid-template-columns:1fr; } .spec-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-project-code">Project A · Consumer Electronics</div>
+  <h1 class="hero-title">AURA</h1>
+  <p class="hero-subtitle">Warm Prism · Premium Wireless Headphones</p>
+  <p class="hero-tagline">Color that moves with you.<span class="zh" style="display:block;font-family:var(--font-zh);font-size:1rem;font-style:normal;color:#908880;margin-top:0.35rem;">与你同行的色彩。</span></p>
+  <div class="variants-row">
+    <figure><img src="renders/hero_v1_desert_dawn.png" alt="V1 Desert Dawn"><figcaption>V1 · Desert Dawn / 沙漠黎明</figcaption></figure>
+    <figure><img src="renders/hero_v2_midnight_prism.png" alt="V2 Midnight Prism"><figcaption>V2 · Midnight Prism / 午夜棱镜</figcaption></figure>
+    <figure><img src="renders/hero_v3_arctic_haze.png" alt="V3 Arctic Haze"><figcaption>V3 · Arctic Haze / 北极雾霭</figcaption></figure>
+  </div>
+  <div class="hero-scroll">SCROLL DOWN</div>
+</section>
+
+<section class="section reveal">
+  <div class="section-label">Phase 3 · CMF Strategy</div>
+  <h2 class="section-title">Warm Prism<br>Hybrid CMF Language</h2>
+  <div class="rule-short"></div>
+  <div class="section-body">
+    <p>AURA synthesizes Warm Tech tactility with Neo-Sensorial color intelligence. The headphones feel warm and natural against the body — soft-touch surfaces, vegan leather that breathes, brushed metal that matches body temperature. But the color language is forward-looking: gradient anodizing on the hero variant, holographic light-catch accents, colors drawn from digital-native palettes rendered with material sophistication.</p>
+    <div class="palette-dots">
+      <span class="palette-dot" style="background:var(--sand);"></span><span class="palette-dot" style="background:var(--copper);"></span>
+      <span class="palette-dot" style="background:var(--navy);"></span><span class="palette-dot" style="background:var(--teal);"></span>
+      <span class="palette-dot" style="background:var(--pearl);"></span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- V2 Gradient Hero -->
+<figure class="full-image reveal">
+  <img src="renders/hero_v2_midnight_prism.png" alt="V2 Midnight Prism Hero">
+  <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.25rem;text-align:center;text-transform:uppercase;">Shot 05 · HERO Variant · Gradient Anodized Al Earcup · Navy→Teal · Holographic Control Ring</figcaption>
+</figure>
+
+<div class="rule"></div>
+
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Material Detail</div>
+  <h2 class="section-title">Gradient Anodized Aluminum<br>&amp; Holographic Accent</h2>
+  <div class="rule-short"></div>
+  <div class="section-body"><p>The V2 Midnight Prism earcup uses a gradient anodizing process — dark navy at the top flowing into deep teal at the bottom edge. Brushed #320 concentric lines are visible beneath the anodize. The control ring features holographic PET film inlaid under optical PMMA: aurora green shimmer that shifts blue→green→violet as the wearer moves. A category-first material expression.</p></div>
+</section>
+
+<div class="detail-pair reveal">
+  <figure><img src="renders/11_gradient_aluminum_macro.png" alt="Gradient Anodized Al"><figcaption>Shot 11 · Gradient Anodized Al · #320 Brush · Navy→Teal · 15-25 GU</figcaption></figure>
+  <figure><img src="renders/14_holographic_foil_macro.png" alt="Holographic Foil Under PMMA"><figcaption>Shot 14 · Holographic PET Film · Under 1mm PMMA · Aurora Green Shift</figcaption></figure>
+</div>
+
+<div class="detail-pair reveal">
+  <figure><img src="renders/12_copper_pvd_macro.png" alt="Copper PVD on Aluminum"><figcaption>Shot 12 · Copper PVD · Sandblast #180 · Al 6061 · 12-18 GU</figcaption></figure>
+  <figure><img src="renders/13_vegan_leather_macro.png" alt="Vegan Leather Micro-Perforation"><figcaption>Shot 13 · Bio-PU Vegan Leather · Micro-Perf 0.5mm · Acoustic Transparent</figcaption></figure>
+</div>
+
+<div class="rule"></div>
+
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Interaction Detail</div>
+  <h2 class="section-title">The Control Ring<br>Holographic Under PMMA</h2>
+  <div class="rule-short"></div>
+</section>
+
+<div class="asymmetric reverse reveal">
+  <div class="asymmetric-image"><img src="renders/14_holographic_foil_macro.png" alt="Holographic Ring"></div>
+  <div class="asymmetric-text">
+    <h3>Holographic PET · Optical PMMA</h3>
+    <p>The control ring is a study in depth. A holographic PET film is precision-inserted under 1mm of optical-grade PMMA. The aurora green shimmer shifts through blue and violet depending on viewing angle — the ring is never one color. An edge-lit 4000K LED channel traces the perimeter, glowing softly through the PMMA. Laser-etched markings for play/pause, volume, and ANC mode remain legible through the holographic layer.</p>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<section class="section reveal"><div class="section-label">Phase 4 · Production</div><h2 class="section-title">CMF Swatch Board<br>V2 · Midnight Prism</h2></section>
+<figure class="swatch-full reveal"><img src="swatches/AURA_CMF_Swatch_Board.png" alt="CMF Swatch Board"><figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.25rem;text-align:center;text-transform:uppercase;">Gradient Al / Dark Chrome SS / Bio-PU Leather / Microfiber / Jacquard Textile</figcaption></figure>
+
+<section class="section reveal"><div class="section-label">Phase 4 · Engineering</div><h2 class="section-title">Exploded Material View<br>7 Components</h2></section>
+<figure class="full-image reveal"><img src="renders/15_exploded_view.png" alt="Exploded View"><figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.25rem;text-align:center;text-transform:uppercase;">Shot 17 · Earcup / Control Ring / Cushion / Mesh / Headband / Metal Arm / Hinge</figcaption></figure>
+
+<div class="rule"></div>
+
+<section class="section reveal">
+  <div class="section-label">Phase 5 · Context</div>
+  <h2 class="section-title">Worn &amp; Displayed</h2>
+  <div class="rule-short"></div>
+  <div class="section-body"><p>Headphones are worn visibly — on Zoom calls, in coffee shops, around the neck between listening sessions. The earcups face outward in the neck-worn state: this is where the CMF earns its place. The gradient catches room light. The holographic ring shifts as the wearer turns their head. The copper PVD gleams against a sweater. These are objects of intention — not anonymous black plastic, but headphones as an accessory worth wearing.</p></div>
+</section>
+
+<div class="detail-pair reveal">
+  <figure><img src="renders/14_lifestyle_workspace.png" alt="Workspace Lifestyle"><figcaption>Shot 18 · Worn in Creative Workspace · V1 Desert Dawn · Natural Light</figcaption></figure>
+  <figure><img src="renders/16_packaging_unboxing.png" alt="Sustainable Packaging"><figcaption>Shot 20 · FSC Molded Pulp · Fabric Pouch · Soy Ink · Zero Plastic</figcaption></figure>
+</div>
+
+<section class="closing reveal">
+  <div class="hero-project-code" style="color:var(--copper);">Project AURA · CMF Portfolio</div>
+  <h2 class="closing-title">Warm Prism</h2>
+  <p class="closing-body">Three color variants, six material zones, hybrid CMF language — Warm Tech tactility meets Neo-Sensorial color intelligence. Every surface the user touches is intentional. Every angle reveals a slightly different color. These are headphones that reward attention.<br><br>三款配色 · 六个材料区域 · 温暖科技触感 × 超感色彩 · 每个角度都有不同的色彩表达 · 值得凝视的耳机。</p>
+  <div class="rule-short" style="margin:var(--space-lg) auto;"></div>
+  <p style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;color:var(--text-muted);">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+<script>
+const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

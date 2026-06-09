@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-CN, en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMF Designer Portfolio | Color · Material · Finish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF7;
+  --card-bg: #FFFFFF;
+  --text: #2B2B28;
+  --text-mid: #6B6B65;
+  --text-light: #9B9B95;
+  --rule: #E0DED8;
+  --accent: #B8A090;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════ HEADER ═══════════ */
+header {
+  max-width: 1280px; margin: 0 auto; padding: 2.5rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; }
+.logo span { color: #8B7355; font-style: italic; font-weight: 700; }
+nav { display: flex; gap: 2rem; }
+nav a {
+  text-decoration: none; color: var(--text-light);
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; transition: color 0.3s;
+}
+nav a:hover { color: var(--text); }
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  max-width: 1280px; margin: 0 auto; padding: 4rem 2rem 2rem;
+  text-align: center;
+}
+.hero-label {
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 500; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 1rem;
+}
+.hero-sub {
+  font-size: 1rem; color: var(--text-mid); max-width: 520px; margin: 0 auto 2rem;
+}
+.tags {
+  display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
+}
+.tag {
+  padding: 0.35rem 0.9rem; border: 1px solid var(--rule);
+  border-radius: 100px; font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--text-light); background: var(--card-bg);
+  text-transform: uppercase;
+}
+
+/* ═══════════ SECTIONS ═══════════ */
+section { max-width: 1280px; margin: 0 auto; padding: 4rem 2rem; }
+.section-label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 2rem;
+}
+
+/* ═══════════ PROJECTS GRID ═══════════ */
+.projects-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--card-bg); border-radius: 4px; overflow: hidden;
+  border: 1px solid var(--rule); text-decoration: none; color: inherit;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex; flex-direction: column;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.07);
+}
+
+/* Featured card spans full width */
+.project-card.featured {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 1.3fr 1fr;
+}
+
+.project-thumb {
+  width: 100%; overflow: hidden; background: #F0EDE8;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.project-card:not(.featured) .project-thumb { aspect-ratio: 16/9; }
+.project-card.featured .project-thumb { min-height: 320px; }
+
+.project-thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.project-card:hover .project-thumb img { transform: scale(1.04); }
+
+/* Placeholder for projects without renders yet */
+.project-thumb .placeholder {
+  width: 100%; height: 100%; display: flex; align-items: center;
+  justify-content: center; font-family: var(--font-display);
+  font-size: 1.2rem; font-style: italic; color: var(--text-light);
+  background: linear-gradient(135deg, #F0EDE8, #E8E4DC);
+}
+
+.project-info { padding: 2rem; }
+.project-card.featured .project-info {
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.project-category {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.project-info h3 {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 500;
+  line-height: 1.2; margin-bottom: 0.5rem;
+}
+.project-info h3 .zh {
+  display: block; font-family: var(--font-body); font-size: 0.85rem;
+  font-weight: 300; color: var(--text-light); margin-top: 0.2rem;
+}
+.project-info p {
+  font-size: 0.85rem; color: var(--text-mid); line-height: 1.6;
+  margin-top: 0.5rem;
+}
+.project-info .link-hint {
+  display: inline-block; margin-top: 1rem;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--accent); text-transform: uppercase;
+  border-bottom: 1px solid transparent; transition: border-color 0.3s;
+}
+.project-card:hover .link-hint { border-color: var(--accent); }
+
+/* Coming soon */
+.project-card.coming-soon { opacity: 0.6; pointer-events: none; }
+.project-card.coming-soon .project-thumb {
+  background: linear-gradient(135deg, #F5F3EF, #EDE9E2);
+}
+
+/* ═══════════ ABOUT ═══════════ */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+}
+.about-text p { margin-bottom: 1rem; color: var(--text-mid); font-size: 0.95rem; }
+.about-text .highlight { color: var(--text); font-weight: 400; }
+
+.skills-list {
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+}
+.skills-list li {
+  font-size: 0.85rem; color: var(--text-mid);
+  padding-left: 1rem; position: relative;
+}
+.skills-list li::before {
+  content: '—'; position: absolute; left: 0; color: var(--accent);
+}
+
+/* ═══════════ TOOLS ═══════════ */
+.tools-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+}
+.tool-item {
+  background: var(--card-bg); border: 1px solid var(--rule);
+  border-radius: 4px; padding: 1.5rem; text-align: center;
+}
+.tool-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.tool-name { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text-mid); text-transform: uppercase; }
+.tool-desc { font-size: 0.75rem; color: var(--text-light); margin-top: 0.25rem; }
+
+/* ═══════════ PROCESS FLOW ═══════════ */
+.process-section {
+  max-width: 1280px; margin: 0 auto; padding: 0 2rem 4rem;
+}
+.process-row {
+  display: flex; border: 1px solid var(--rule);
+  background: var(--card-bg); border-radius: 4px; overflow: hidden;
+}
+.process-col {
+  flex: 1; padding: 2rem 1.5rem; text-align: center;
+}
+.process-col + .process-col { border-left: 1px solid var(--rule); }
+.process-col .phase-label {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.process-col .phase-name {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 500;
+  margin-bottom: 0.15rem; line-height: 1.2;
+}
+.process-col .phase-zh {
+  font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.75rem;
+}
+.process-col .phase-items {
+  list-style: none; font-size: 0.72rem; color: var(--text-mid);
+  line-height: 1.7;
+}
+
+@media (max-width: 768px) {
+  .process-row { flex-direction: column; }
+  .process-col + .process-col { border-left: none; border-top: 1px solid var(--rule); }
+}
+
+/* ═══════════ FOOTER ═══════════ */
+footer {
+  max-width: 1280px; margin: 0 auto; padding: 4rem 2rem 3rem;
+  text-align: center; border-top: 1px solid var(--rule);
+}
+footer p { color: var(--text-light); font-size: 0.85rem; margin-bottom: 0.3rem; }
+footer .contact-links { margin-top: 1rem; }
+footer .contact-links a {
+  color: var(--accent); text-decoration: none; margin: 0 0.5rem;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em;
+  transition: color 0.3s;
+}
+footer .contact-links a:hover { color: var(--text); }
+footer .copyright {
+  margin-top: 2rem; font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.08em; color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  header { flex-direction: column; gap: 1rem; }
+  nav { gap: 1.2rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-template-columns: 1fr; }
+  .project-card.featured .project-thumb { min-height: 200px; aspect-ratio: 16/9; }
+  .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .tools-grid { grid-template-columns: 1fr 1fr; }
+  .skills-list { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">CMF <span>Portfolio</span></div>
+  <nav>
+    <a href="#projects">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="#about">About</a>
+    <a href="#tools">Tools</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-label">Color · Material · Finish Strategy</div>
+  <h1>CMF Design<br>Alpine to Audio</h1>
+  <p class="hero-sub">
+    Five-phase closed-loop CMF strategy across consumer electronics, home appliances, beauty tech, and personal audio — plus brand identity systems bridging graphic design and industrial design. Powered by AI-augmented material exploration.
+  </p>
+  <div class="tags">
+    <span class="tag">CIELAB / Pantone</span>
+    <span class="tag">PBR Texture & Render</span>
+    <span class="tag">STEEP Trend</span>
+    <span class="tag">BOM & Cost</span>
+    <span class="tag">Sustainability</span>
+    <span class="tag">Brand Identity</span>
+    <span class="tag">Beauty · Home · Outdoor · Mobility</span>
+  </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects">
+  <div class="section-label">Projects / 项目</div>
+  <div class="projects-grid">
+
+    <!-- A1 Lumina — Featured -->
+    <a href="../../Category1_DailyConsumer/A1_Lumina_BeautyDevice/portfolio-enhanced.html" class="project-card featured">
+      <div class="project-thumb">
+        <img src="../../Category1_DailyConsumer/A1_Lumina_BeautyDevice/Renders/hero_v1_pearl_rose.png" alt="A1 Lumina" loading="eager">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Beauty Tech · Featured</div>
+        <h3>A1 Lumina<span class="zh">射频美容仪 CMF</span></h3>
+        <p>Derma-Luxury. Clinical credibility meets self-care ritual through pearl-finish medical ABS, warm titanium PVD, and velvet LSR. Three color variants with full CIELAB/Pantone/material/process specifications, STEEP trend analysis, weighted concept evaluation, BOM, and sustainability assessment.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+    <!-- A2 Aether -->
+    <a href="../../Category1_DailyConsumer/A2_Aether_AirPurifier/index.html" class="project-card">
+      <div class="project-thumb">
+        <img src="../../Category1_DailyConsumer/A2_Aether_AirPurifier/Renders/hero_v1_warm_oak.png" alt="A2 Aether" loading="lazy">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Home Appliance</div>
+        <h3>A2 Aether<span class="zh">智能空气净化器 CMF</span></h3>
+        <p>Natural Home. Furniture-grade material language — wood-fiber composite, acoustic felt, bamboo, ceramic — makes clean air feel natural. Biophilic minimalism for design-conscious urban apartments.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+    <!-- A3 Trailux -->
+    <a href="../../Category1_DailyConsumer/A3_Trailux_OutdoorHeadlamp/index.html" class="project-card">
+      <div class="project-thumb">
+        <img src="../../Category1_DailyConsumer/A3_Trailux_OutdoorHeadlamp/Renders/Shot 04.png" alt="A3 Trailux" loading="lazy">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Outdoor Gear</div>
+        <h3>A3 Trailux<span class="zh">户外高端头灯 CMF</span></h3>
+        <p>Bio-Rugged. Alpine geology as material source code — stone-textured housings, mineral anodized aluminum, lichen-inspired high-vis accents. Under 78g. IP67. Carved by the mountain.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+    <!-- B1 Flux -->
+    <a href="../../Category2_Transportation/B1_Flux_EScooter/portfolio.html" class="project-card">
+      <div class="project-thumb">
+        <img src="../../Category2_Transportation/B1_Flux_EScooter/Renders/午夜流动 Hero.png" alt="B1 Flux" loading="lazy">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Micro-Mobility</div>
+        <h3>B1 Flux<span class="zh">城市电动滑板车 CMF</span></h3>
+        <p>City Canvas. Surface as self-expression. Premium finishes that weather beautifully — patina, not damage. Three material directions exploring urban mobility aesthetics.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+    <!-- B2 CERAX -->
+    <a href="../../Category2_Transportation/B2_CERAX_SearchRescue/portfolio.html" class="project-card">
+      <div class="project-thumb">
+        <img src="../../Category2_Transportation/B2_CERAX_SearchRescue/Renders/标准配置 Hero.png" alt="B2 CERAX" loading="lazy">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Industrial / Rescue Robotics</div>
+        <h3>B2 CERAX<span class="zh">搜救机器人 CMF</span></h3>
+        <p>Battle-Proven. High-visibility systems, modular armor finishes, and copper trace markers — CMF for a machine that signals reliability in the most hostile environments on Earth.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══════════ BRAND IDENTITY ═══════════ -->
+<section id="brand-identity">
+  <div class="section-label">Brand Identity / 品牌识别</div>
+  <div class="projects-grid">
+
+    <!-- C1 Lumina Brand — Featured -->
+    <a href="../../Category3_BrandIdentity/C1_Lumina_Brand/portfolio.html" class="project-card featured">
+      <div class="project-thumb">
+        <img src="../../Category3_BrandIdentity/C1_Lumina_Brand/Renders/Hero区Logo主视觉.jpg" alt="C1 Lumina Brand" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="project-info">
+        <div class="project-category">Brand Identity · Graphic Design / 平面设计</div>
+        <h3>C1 Lumina Brand<span class="zh">Lumina品牌识别系统</span></h3>
+        <p>Derma-Luxury brand identity for a beauty-tech startup. Logo system, color architecture, typography pairing, packaging design, brand guidelines — a complete visual identity bridging clinical credibility and self-care warmth.</p>
+        <span class="link-hint">View Project →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══════════ UPCOMING ═══════════ -->
+<section id="upcoming">
+  <div class="section-label">Upcoming / 即将推出</div>
+  <div class="projects-grid">
+    <div class="project-card coming-soon">
+      <div class="project-thumb">
+        <div class="placeholder">B3 Nexus — Home Robot</div>
+      </div>
+      <div class="project-info">
+        <div class="project-category">Home Robotics</div>
+        <h3>B3 Nexus<span class="zh">家用机器人 CMF</span></h3>
+        <p>Domestic presence. A robot that shares living space with humans must feel trustworthy, warm, and intentional — not like industrial equipment that wandered indoors.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about">
+  <div class="section-label">About / 关于</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="highlight">
+        I bridge <strong>Industrial Design craftsmanship</strong> with
+        <strong>AI-driven computational workflows</strong> to create CMF strategies
+        that are both emotionally resonant and production-ready.
+      </p>
+      <p>
+        Industrial Design roots: I understand how materials behave at scale — injection molding
+        textures, anodizing chemistry, PVD color consistency, fabric weave density.
+        AI augmentation: I use LLM-assisted trend research, ComfyUI/GPT Image for PBR texture
+        generation, and Python scripts for CIELAB color extraction to explore 10× more combinations
+        than traditional CMF workflows allow.
+      </p>
+      <p>
+        Each project follows a five-phase closed loop: Business Context → Market & Trend Research →
+        Concept Exploration with weighted decision matrices → Final CMF Strategy with CIELAB/Pantone/
+        process specifications → Production Feasibility with BOM, durability testing, and sustainability.
+      </p>
+    </div>
+    <div>
+      <ul class="skills-list">
+        <li>Color Systems (CIELAB, Pantone)</li>
+        <li>CMF Trend Forecasting (STEEP)</li>
+        <li>PBR Rendering (Blender / GPT Image)</li>
+        <li>AI Texture Generation (ComfyUI)</li>
+        <li>Python Color Analysis</li>
+        <li>CMF Spec Documentation</li>
+        <li>Materials: Plastics, Metals, Textiles</li>
+        <li>Sustainable Material Selection</li>
+        <li>BOM & Production Feasibility</li>
+        <li>Bilingual CMF Communication (EN/ZH)</li>
+        <li>Brand Identity Systems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROCESS ═══════════ -->
+<section id="process">
+  <div class="section-label">Design Process / 设计流程</div>
+  <div class="process-section">
+    <div class="process-row">
+      <div class="process-col">
+        <div class="phase-label">Phase 0</div>
+        <div class="phase-name">Business Context</div>
+        <div class="phase-zh">商业背景</div>
+        <ul class="phase-items">
+          <li>Brand Positioning</li>
+          <li>User Persona</li>
+          <li>Constraints → CMF</li>
+        </ul>
+      </div>
+      <div class="process-col">
+        <div class="phase-label">Phase 1</div>
+        <div class="phase-name">Market Research</div>
+        <div class="phase-zh">市场研究</div>
+        <ul class="phase-items">
+          <li>STEEP Trend Analysis</li>
+          <li>Competitor CMF Audit</li>
+          <li>Inspiration + Color Extract</li>
+        </ul>
+      </div>
+      <div class="process-col">
+        <div class="phase-label">Phase 2</div>
+        <div class="phase-name">Concept Exploration</div>
+        <div class="phase-zh">方案探索</div>
+        <ul class="phase-items">
+          <li>3 Design Pillars</li>
+          <li>3 Schemes + Matrix</li>
+          <li>Elimination + Refinement</li>
+        </ul>
+      </div>
+      <div class="process-col">
+        <div class="phase-label">Phase 3</div>
+        <div class="phase-name">Final CMF Strategy</div>
+        <div class="phase-zh">最终策略</div>
+        <ul class="phase-items">
+          <li>CIELAB / Pantone / NCS</li>
+          <li>Color Harmony ΔE</li>
+          <li>Material Narrative</li>
+        </ul>
+      </div>
+      <div class="process-col">
+        <div class="phase-label">Phase 4</div>
+        <div class="phase-name">Production Feasibility</div>
+        <div class="phase-zh">量产可行性</div>
+        <ul class="phase-items">
+          <li>Process-Material Matrix</li>
+          <li>BOM &amp; Cost Roadmap</li>
+          <li>Sustainability Audit</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TOOLS ═══════════ -->
+<section id="tools">
+  <div class="section-label">Tools & Methods / 工具与方法</div>
+  <div class="tools-grid">
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F4CA;</div>
+      <div class="tool-name">STEEP Analysis</div>
+      <div class="tool-desc">Trend Research Framework</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F3A8;</div>
+      <div class="tool-name">CIELAB + Pantone</div>
+      <div class="tool-desc">Color Referencing</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F9EA;</div>
+      <div class="tool-name">Material-Process Matrix</div>
+      <div class="tool-desc">Texture · Mold · Ra · GU</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F4B0;</div>
+      <div class="tool-name">BOM & Cost Roadmap</div>
+      <div class="tool-desc">¥/unit at Volume Scale</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F4A1;</div>
+      <div class="tool-name">AI Prompt Engineering</div>
+      <div class="tool-desc">GPT Image 2 · ComfyUI</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F310;</div>
+      <div class="tool-name">Web Dev</div>
+      <div class="tool-desc">HTML/CSS Portfolio</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x267B;</div>
+      <div class="tool-name">Sustainability Audit</div>
+      <div class="tool-desc">PCR · Bio · GRS · CO₂</div>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">&#x1F4DD;</div>
+      <div class="tool-name">CMF Spec Documentation</div>
+      <div class="tool-desc">Production-Ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer id="contact">
+  <div class="section-label" style="text-align:center;">Contact / 联系</div>
+  <p>Currently seeking designer opportunities in Consumer Electronics, Internet &amp; Automotive.</p>
+  <p style="font-size:0.8rem; color:var(--text-light);">正在寻求消费电子、互联网与汽车领域的设计师机会。</p>
+  <div class="contact-links">
+    <a href="mailto:821817666@qq.com">Email: 821817666@qq.com</a> ·
+    <a href="tel:13758281042">Phone: 13758281042</a> ·
+    <a href="#">WeChat: JollyLifePeaceMind</a>
+  </div>
+  <p class="copyright">&copy; 2026 CMF Designer Portfolio — Color · Material · Finish · AI-Augmented Workflow</p>
+</footer>
+
+</body>
+</html>

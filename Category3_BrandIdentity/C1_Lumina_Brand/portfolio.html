@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C1 Lumina — Brand Identity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════ C1 LUMINA — Brand Identity / 品牌识别 ══════════ */
+:root {
+  --pearl: #F5F0EB;
+  --rose-gold: #B8A390;
+  --dusty-rose: #C9AFA0;
+  --champagne: #C4A882;
+  --jade: #C5D5C8;
+  --indigo: #2D2D4B;
+  --charcoal: #3A3532;
+
+  --bg: #FCFCFA;
+  --bg-warm: #F5F2EE;
+  --bg-card: #FFFFFF;
+  --text: #2B2825;
+  --text-mid: #6B6560;
+  --text-muted: #9E9790;
+  --rule: #E0DCD6;
+  --accent: var(--rose-gold);
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-zh: 'Noto Sans SC', sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 6rem 2rem; position: relative; overflow: hidden;
+  background: var(--bg);
+}
+.hero::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,163,144,0.08) 0%, rgba(201,175,160,0.04) 40%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+.hero-code {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 2.5rem;
+  position: relative; z-index: 1;
+}
+
+/* CSS Logo — the brand mark itself */
+.hero-logomark {
+  width: 72px; height: 72px; position: relative; z-index: 1;
+  margin-bottom: 1.5rem;
+}
+.hero-logomark .circle {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 1.5px solid var(--rose-gold);
+  position: absolute; top: 0; left: 0;
+}
+.hero-logomark .arc {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--indigo);
+  border-bottom-color: transparent;
+  position: absolute; top: 12px; left: 12px;
+  transform: rotate(-30deg);
+}
+.hero-logomark .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--rose-gold);
+  position: absolute; top: 33px; left: 50%;
+  transform: translateX(-50%);
+}
+
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 500; letter-spacing: 0.12em; line-height: 1;
+  color: var(--text); position: relative; z-index: 1;
+  text-transform: uppercase;
+}
+.hero-sub {
+  font-family: var(--font-display); font-size: 1.3rem; font-style: italic;
+  color: var(--rose-gold); margin-top: 1rem; position: relative; z-index: 1;
+}
+.hero-zh {
+  font-size: 0.85rem; letter-spacing: 0.12em; color: var(--text-muted);
+  margin-top: 1.5rem; text-transform: uppercase; position: relative; z-index: 1;
+}
+.hero-scroll {
+  position: absolute; bottom: 3rem; font-size: 0.65rem;
+  letter-spacing: 0.25em; color: var(--text-muted); cursor: pointer;
+  animation: bob 3s ease-in-out infinite; z-index: 1;
+  transition: color 0.3s; background: none; border: none;
+  font-family: var(--font-mono);
+}
+.hero-scroll:hover { color: var(--rose-gold); animation-play-state: paused; }
+@keyframes bob {
+  0%,100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+
+/* ═══════════ LAYOUT ═══════════ */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+.section { padding: 7rem 0 3rem; }
+
+.label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.heading {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 1.25rem;
+}
+.lead {
+  max-width: 500px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.8;
+}
+
+.rule { height: 1px; background: var(--rule); margin: 5rem auto; max-width: 1080px; }
+.rule-short { width: 50px; height: 1px; background: var(--accent); margin: 1.5rem 0; }
+
+/* ═══════════ TWO-COLUMN ═══════════ */
+.row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.row-text h3 {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 500;
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.row-text p {
+  font-size: 0.88rem; color: var(--text-mid); line-height: 1.8;
+}
+
+/* ═══════════ THREE-COLUMN ═══════════ */
+.trio {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.trio figcaption {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-top: 0.5rem; text-align: center;
+}
+
+/* ═══════════ IMAGES ═══════════ */
+.img-box {
+  overflow: hidden; border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.img-box img { width: 100%; height: auto; display: block; }
+.img-box-sm { max-width: 85%; margin: 0 auto; }
+
+/* CSS image placeholder */
+.img-placeholder {
+  width: 100%; aspect-ratio: 16/9; border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+  color: var(--text-muted);
+  background: linear-gradient(135deg, #F5F2EE, #EDE8E2);
+  border: 1px dashed var(--rule);
+}
+.img-placeholder.square { aspect-ratio: 1/1; }
+.img-placeholder.portrait { aspect-ratio: 3/4; }
+
+/* ═══════════ COLOR DOTS ═══════════ */
+.dots { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+  cursor: default;
+}
+.dot:hover { transform: scale(1.6); box-shadow: 0 4px 14px rgba(0,0,0,0.12); z-index: 2; }
+
+/* ═══════════ BRAND PILLAR CARDS ═══════════ */
+.pillar-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.pillar-card {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 2rem 1.5rem;
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.pillar-card:hover {
+  border-color: var(--rose-gold);
+  transform: translateY(-2px);
+}
+.pillar-card .pillar-icon {
+  font-size: 1.5rem; margin-bottom: 1rem;
+}
+.pillar-card h4 {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 500;
+  margin-bottom: 0.5rem; line-height: 1.2;
+}
+.pillar-card h4 .zh {
+  display: block; font-family: var(--font-zh); font-size: 0.8rem;
+  font-weight: 300; color: var(--text-muted); margin-top: 0.15rem;
+}
+.pillar-card p {
+  font-size: 0.8rem; color: var(--text-mid); line-height: 1.7;
+}
+
+/* ═══════════ COLOR SWATCH CARDS ═══════════ */
+.swatch-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  margin-top: 2rem;
+}
+.swatch-card {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; overflow: hidden;
+}
+.swatch-block {
+  height: 120px; position: relative;
+}
+.swatch-info {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.swatch-info .swatch-name {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.swatch-info .swatch-role {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.swatch-info .swatch-values {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.05em;
+  color: var(--text-mid); line-height: 1.8;
+}
+
+/* ═══════════ COLOR RATIO BAR ═══════════ */
+.ratio-bar {
+  height: 8px; border-radius: 4px; overflow: hidden;
+  display: flex; margin-top: 1rem;
+}
+.ratio-seg { height: 100%; }
+.ratio-labels {
+  display: flex; font-family: var(--font-mono); font-size: 0.55rem;
+  letter-spacing: 0.08em; color: var(--text-muted); margin-top: 0.5rem;
+}
+.ratio-labels span { flex: 1; }
+
+/* ═══════════ SPEC PANEL ═══════════ */
+.spec-panel {
+  background: var(--bg-warm); border-radius: 2px; padding: 2.5rem;
+  transition: background 0.3s;
+}
+.spec-panel:hover { background: #EDE9E4; }
+.spec-panel-title {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.18em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem 1.5rem; }
+.spec-item {
+  border-top: 1px solid var(--rule); padding-top: 0.6rem;
+  transition: border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.spec-item:hover { border-color: var(--rose-gold); transform: translateX(3px); }
+.spec-item .key { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+.spec-item .val { font-size: 0.78rem; margin-top: 0.15rem; }
+
+/* ═══════════ TYPOGRAPHY SPECIMENS ═══════════ */
+.type-card {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 2rem; margin-bottom: 1.5rem;
+}
+.type-card .type-name {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 1rem;
+}
+.type-card .type-specimen {
+  font-size: 2.5rem; line-height: 1.3; margin-bottom: 0.75rem;
+}
+.type-card .type-info {
+  font-size: 0.75rem; color: var(--text-mid); line-height: 1.6;
+}
+
+.type-scale-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.05em;
+  margin-top: 1.5rem;
+}
+.type-scale-table th {
+  text-align: left; font-weight: 400; color: var(--text-muted);
+  text-transform: uppercase; padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.type-scale-table td {
+  padding: 0.6rem 0.75rem; color: var(--text-mid);
+  border-bottom: 1px solid var(--rule);
+}
+.type-scale-table .sample-display { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0; }
+.type-scale-table .sample-body { font-family: var(--font-body); font-size: 0.85rem; letter-spacing: 0; }
+.type-scale-table .sample-mono { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0; }
+
+/* ═══════════ BRAND APPLICATION MOCKUP CARDS ═══════════ */
+.app-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  margin-top: 2rem;
+}
+.app-mockup {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; overflow: hidden;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+}
+.app-mockup:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.app-mockup .app-visual {
+  height: 260px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.app-mockup .app-info {
+  padding: 1.5rem; border-top: 1px solid var(--rule);
+}
+.app-mockup .app-label {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.app-mockup .app-title {
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+.app-mockup .app-desc {
+  font-size: 0.78rem; color: var(--text-mid); line-height: 1.6;
+}
+
+/* ═══════════ CLOSING ═══════════ */
+.closing {
+  text-align: center; padding: 8rem 2rem; background: var(--bg-warm); margin-top: 4rem;
+}
+.closing h2 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 500; margin-bottom: 1.5rem; }
+.closing p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; color: var(--text-mid); line-height: 1.8; }
+.closing .tools { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 3rem; }
+
+/* ═══════════ SCROLL REVEAL ═══════════ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-stagger > * {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0s;    opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.1s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.2s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.3s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.4s;  opacity: 1; transform: translateY(0); }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.5s;  opacity: 1; transform: translateY(0); }
+
+/* ═══════════ LOGO VARIATIONS (CSS) ═══════════ */
+.logo-var-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+  margin-top: 2rem;
+}
+.logo-var {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 2.5rem 2rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 160px; gap: 0.75rem;
+  transition: border-color 0.3s;
+}
+.logo-var:hover { border-color: var(--rose-gold); }
+.logo-var .logo-symbol {
+  width: 40px; height: 40px; position: relative;
+}
+.logo-var .logo-symbol .c1 {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.2px solid var(--rose-gold); position: absolute; top: 0; left: 0;
+}
+.logo-var .logo-symbol .c2 {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.2px solid var(--indigo); border-bottom-color: transparent;
+  position: absolute; top: 6px; left: 6px; transform: rotate(-30deg);
+}
+.logo-var .logo-symbol .c3 {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--rose-gold); position: absolute; top: 18px; left: 50%;
+  transform: translateX(-50%);
+}
+.logo-var .logo-wordmark {
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--text);
+}
+.logo-var .logo-tag {
+  font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.18em;
+  color: var(--text-muted); text-transform: uppercase;
+}
+
+/* Logo variations — horizontal */
+.logo-var.horizontal { flex-direction: row; gap: 1rem; }
+.logo-var.horizontal .logo-wordmark { font-size: 1.8rem; }
+
+/* ═══════════ DON'T ═══════════ */
+.dont-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+  margin-top: 1.5rem;
+}
+.dont-item {
+  background: var(--bg-warm); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 1.25rem; text-align: center;
+  opacity: 0.7;
+}
+.dont-item .badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.15em; color: #C06050; text-transform: uppercase;
+  background: rgba(192,96,80,0.08); padding: 0.2rem 0.6rem; border-radius: 100px;
+  margin-bottom: 0.75rem;
+}
+.dont-item .dont-demo {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 500;
+  letter-spacing: 0.12em; color: var(--text-muted);
+}
+.dont-item .dont-reason {
+  font-family: var(--font-mono); font-size: 0.5rem; color: var(--text-muted);
+  margin-top: 0.4rem; letter-spacing: 0.05em;
+}
+
+/* ═══════════ GUIDELINES SUMMARY CARD ═══════════ */
+.guidelines-card {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 3rem;
+  display: grid; grid-template-columns: auto 1fr 1fr;
+  gap: 2rem; align-items: start;
+}
+.guidelines-logo { text-align: center; }
+.guidelines-section h5 {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 1rem;
+}
+.guidelines-section ul {
+  list-style: none; font-size: 0.8rem; color: var(--text-mid); line-height: 2;
+}
+.guidelines-section ul li::before { content: '— '; color: var(--rose-gold); }
+
+/* ═══════════ PACKAGING CSS MOCKUP ═══════════ */
+.pkg-mockup {
+  width: 100%; aspect-ratio: 1/1; max-width: 340px; margin: 0 auto;
+  background: var(--pearl); border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.pkg-inner {
+  text-align: center; padding: 2rem;
+}
+.pkg-logo-symbol {
+  width: 36px; height: 36px; margin: 0 auto 0.75rem; position: relative;
+}
+.pkg-logo-symbol .pc1 {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1.2px solid var(--rose-gold); position: absolute; top: 0; left: 0;
+}
+.pkg-logo-symbol .pc2 {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 1.2px solid var(--indigo); border-bottom-color: transparent;
+  position: absolute; top: 6px; left: 6px; transform: rotate(-30deg);
+}
+.pkg-brand {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--text);
+}
+.pkg-sub {
+  font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 0.2em;
+  color: var(--rose-gold); text-transform: uppercase; margin-top: 0.3rem;
+}
+/* Foil stamp effect */
+.pkg-foil {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--rose-gold), var(--champagne), var(--rose-gold), transparent);
+  opacity: 0.6;
+}
+
+/* ═══════════ QUICK-START GUIDE CSS MOCKUP ═══════════ */
+.guide-mockup {
+  width: 100%; aspect-ratio: 4/3; max-width: 400px; margin: 0 auto;
+  background: #FCFCFA; border-radius: 2px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.03);
+  display: flex; overflow: hidden;
+}
+.guide-fold {
+  flex: 1; padding: 1.25rem;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+}
+.guide-fold:first-child { border-right: 1px solid var(--rule); }
+.guide-step {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.guide-step-num {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--rose-gold);
+  font-family: var(--font-mono); font-size: 0.45rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rose-gold); flex-shrink: 0;
+}
+.guide-step-text {
+  font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 0.05em;
+  color: var(--text-mid); line-height: 1.5;
+}
+.guide-title {
+  font-family: var(--font-display); font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.guide-footer {
+  font-family: var(--font-mono); font-size: 0.4rem; color: var(--text-muted);
+  letter-spacing: 0.1em; text-align: center;
+}
+
+/* ═══════════ POSTER CSS MOCKUP ═══════════ */
+.poster-mockup {
+  width: 100%; aspect-ratio: 3/4; max-width: 320px; margin: 0 auto;
+  background: linear-gradient(180deg, #F5F2ED 0%, #EDE4D8 40%, #D8C8B8 100%);
+  border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 2rem; text-align: center; position: relative; overflow: hidden;
+}
+.poster-mockup::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 35%, rgba(184,163,144,0.15) 0%, transparent 60%);
+}
+.poster-brand {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase; position: relative; z-index: 1;
+}
+.poster-tagline {
+  font-family: var(--font-display); font-size: 0.9rem; font-style: italic;
+  color: var(--rose-gold); margin-top: 0.5rem; position: relative; z-index: 1;
+}
+.poster-divider {
+  width: 30px; height: 1px; background: var(--rose-gold);
+  margin: 1.5rem auto; position: relative; z-index: 1;
+}
+.poster-text {
+  font-family: var(--font-body); font-size: 0.7rem; font-weight: 300;
+  color: var(--text-mid); letter-spacing: 0.1em; text-transform: uppercase;
+  position: relative; z-index: 1;
+}
+
+/* ═══════════ BRAND PATTERN CSS ═══════════ */
+.pattern-display {
+  width: 100%; aspect-ratio: 16/9; max-width: 720px; margin: 0 auto;
+  background: var(--pearl);
+  position: relative; overflow: hidden; border-radius: 2px;
+}
+.pattern-display .ring {
+  position: absolute; border-radius: 50%; border: 0.5px solid rgba(184,163,144,0.3);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.pattern-display .ring:nth-child(1) { width: 80px; height: 80px; }
+.pattern-display .ring:nth-child(2) { width: 140px; height: 140px; }
+.pattern-display .ring:nth-child(3) { width: 200px; height: 200px; }
+.pattern-display .ring:nth-child(4) { width: 280px; height: 280px; }
+.pattern-display .ring:nth-child(5) { width: 380px; height: 380px; opacity: 0.5; }
+.pattern-display .ring:nth-child(6) { width: 500px; height: 500px; opacity: 0.3; }
+.pattern-display .ring:nth-child(7) { width: 640px; height: 640px; opacity: 0.15; }
+.pattern-dot {
+  position: absolute; width: 3px; height: 3px; border-radius: 50%;
+  background: var(--rose-gold); opacity: 0.4;
+}
+
+/* ═══════════ DESIGN PROCESS ═══════════ */
+.concept-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  margin-top: 2rem;
+}
+.concept-card {
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 2px; padding: 2rem 1.5rem; text-align: center;
+  transition: border-color 0.3s;
+  position: relative;
+}
+.concept-card.selected {
+  border-color: var(--rose-gold);
+  box-shadow: 0 0 0 1px var(--rose-gold);
+}
+.concept-card .concept-badge {
+  position: absolute; top: -10px; right: 1rem;
+  font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em;
+  padding: 0.2rem 0.7rem; border-radius: 100px;
+}
+.concept-card.selected .concept-badge {
+  background: var(--rose-gold); color: #fff;
+}
+.concept-card:not(.selected) .concept-badge {
+  background: var(--rule); color: var(--text-muted);
+}
+.concept-card h4 {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 500;
+  margin: 1rem 0 0.5rem;
+}
+.concept-card h4 .zh {
+  display: block; font-family: var(--font-zh); font-size: 0.75rem;
+  font-weight: 300; color: var(--text-muted); margin-top: 0.15rem;
+}
+.concept-card p {
+  font-size: 0.78rem; color: var(--text-mid); line-height: 1.6;
+}
+.concept-card .concept-icon {
+  font-size: 2rem; margin-bottom: 0.5rem;
+}
+
+/* Decision Matrix Table */
+.matrix-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+.matrix-table th {
+  text-align: left; font-weight: 400; color: var(--text-muted);
+  text-transform: uppercase; padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+}
+.matrix-table td {
+  padding: 0.55rem 0.75rem; color: var(--text-mid);
+  border-bottom: 1px solid var(--rule);
+}
+.matrix-table .winner { color: var(--rose-gold); font-weight: 500; }
+.matrix-table .bar-cell {
+  position: relative;
+}
+.matrix-table .bar-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: rgba(184,163,144,0.10);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Logo Construction Diagram */
+.logo-construction {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  align-items: center; margin-top: 2rem;
+}
+.logo-construction-diagram {
+  width: 320px; height: 320px; margin: 0 auto; position: relative;
+  background: var(--bg-card); border: 1px solid var(--rule);
+  border-radius: 50%;
+}
+/* Outer circle */
+.lc-outer {
+  width: 280px; height: 280px; border-radius: 50%;
+  border: 2px solid var(--rose-gold);
+  position: absolute; top: 20px; left: 20px;
+}
+/* Inner arc circle */
+.lc-inner {
+  width: 186px; height: 186px; border-radius: 50%;
+  border: 2px solid var(--indigo);
+  border-bottom-color: transparent;
+  position: absolute; top: 67px; left: 67px;
+  transform: rotate(-30deg);
+}
+/* Center dot */
+.lc-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--rose-gold);
+  position: absolute; top: 154px; left: 154px;
+}
+/* Grid lines */
+.lc-h-line {
+  width: 100%; height: 1px;
+  background: rgba(0,0,0,0.04);
+  position: absolute; top: 159px; left: 0;
+}
+.lc-v-line {
+  width: 1px; height: 100%;
+  background: rgba(0,0,0,0.04);
+  position: absolute; top: 0; left: 159px;
+}
+/* Geometry callout lines */
+.lc-callout {
+  position: absolute; font-family: var(--font-mono); font-size: 0.5rem;
+  letter-spacing: 0.08em; color: var(--text-muted);
+}
+
+/* Construction notes */
+.construction-notes {
+  font-size: 0.85rem; color: var(--text-mid); line-height: 1.8;
+}
+.construction-notes .geo-spec {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--text-muted); display: block; margin-top: 0.3rem;
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 768px) {
+  .row { grid-template-columns: 1fr; gap: 2rem; }
+  .trio { grid-template-columns: 1fr; gap: 2rem; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .pillar-grid { grid-template-columns: 1fr; }
+  .swatch-grid { grid-template-columns: 1fr; }
+  .logo-var-grid { grid-template-columns: 1fr; }
+  .app-grid { grid-template-columns: 1fr; }
+  .dont-grid { grid-template-columns: repeat(2, 1fr); }
+  .guidelines-card { grid-template-columns: 1fr; gap: 1.5rem; }
+  .img-box-sm { max-width: 100%; }
+  .wrap { padding: 0 1.25rem; }
+  .section { padding: 5rem 0 2rem; }
+  .heading { font-size: 1.8rem; }
+  .type-scale-table { font-size: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 1. HERO — BRAND MARK ═══════════ -->
+<section class="hero reveal">
+  <div class="hero-code">C1 · Category 3 — Brand Identity / 品牌识别</div>
+
+  <h1 class="hero-title">Lumina</h1>
+  <p class="hero-sub">Derma-Luxury / 肌肤奢华</p>
+  <p class="hero-zh">Clinical credibility meets self-care ritual. / 临床可信度遇见自我护理仪式。</p>
+  <button class="hero-scroll" aria-label="Scroll to content">SCROLL</button>
+</section>
+
+<!-- Hero Visual -->
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="img-box">
+    <img src="Renders/Hero区Logo主视觉.jpg" alt="Lumina Logo Hero" loading="eager">
+  </div>
+</div>
+
+<!-- ═══════════ 2. BRAND PHILOSOPHY ═══════════ -->
+<div class="wrap">
+  <section class="section reveal">
+    <div class="label">Brand Philosophy / 品牌哲学</div>
+    <h2 class="heading">Where Dermatology<br>Meets Desire</h2>
+    <div class="rule-short"></div>
+    <div class="lead">
+      <p>Lumina bridges the white-coat credibility of clinical dermatology with the warm sensuality of self-care ritual. The visual identity system translates this duality into every touchpoint — precise enough for a medical brand, warm enough for the vanity.</p>
+    </div>
+    <div class="dots">
+      <span class="dot" style="background:var(--pearl)"></span>
+      <span class="dot" style="background:var(--rose-gold)"></span>
+      <span class="dot" style="background:var(--dusty-rose)"></span>
+      <span class="dot" style="background:var(--jade)"></span>
+      <span class="dot" style="background:var(--indigo)"></span>
+    </div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">&#9679;</div>
+      <h4>Clinical Credibility<span class="zh">临床可信度</span></h4>
+      <p>Precision geometry, medical-grade material cues, evidence-backed color choices. Every visual element signals scientific rigor without sterility.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">&#9670;</div>
+      <h4>Ritual Warmth<span class="zh">仪式温度</span></h4>
+      <p>Rose gold accents, soft gradients, untimed luxury. The brand breathes slowly — self-care as an unhurried daily ceremony, not a clinical chore.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">&#9632;</div>
+      <h4>Smart Transparency<span class="zh">智慧透明</span></h4>
+      <p>Ingredient-level honesty, no pseudoscience. Clean typography and clear information hierarchy reflect the brand's commitment to radical transparency.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Moodboard Image -->
+<div class="wrap reveal" style="margin-top:3rem;">
+  <div class="img-box">
+    <img src="Renders/品牌情绪板.jpg" alt="Lumina Brand Moodboard" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Brand Moodboard · Dermatology Precision × Self-Care Warmth</p>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ DESIGN PROCESS ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Design Process / 设计过程</div>
+    <h2 class="heading">From Three Directions<br>to One Identity</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Three competing logo concepts were explored against the brand pillars. Each direction amplified a different dimension of the Derma-Luxury proposition — then a weighted matrix surfaced the winner.</p></div>
+  </section>
+</div>
+
+<!-- ═══════════ 3a. CONCEPT EXPLORATION ═══════════ -->
+<div class="wrap reveal reveal-stagger">
+  <div class="concept-grid">
+    <!-- Concept A -->
+    <div class="concept-card">
+      <div class="concept-badge">Concept A</div>
+      <div class="concept-icon" style="color:var(--text-muted);">&#9670;</div>
+      <h4>Clinical Precision<span class="zh">临床精密</span></h4>
+      <p>Geometric diamond motif. Sharp angles, medical crosshair reference, sterile white + cool silver. Strong on credibility — but lacks warmth, reads as pharmaceutical rather than self-care.</p>
+    </div>
+    <!-- Concept B -->
+    <div class="concept-card">
+      <div class="concept-badge">Concept B</div>
+      <div class="concept-icon" style="color:var(--jade);">&#10022;</div>
+      <h4>Botanical Bloom<span class="zh">植萃绽放</span></h4>
+      <p>Petal-like radiating forms. Organic curves, jade green accents, botanical serum references. Strong on warmth — but loses clinical precision, skews too natural/supplement.</p>
+    </div>
+    <!-- Concept C — Selected -->
+    <div class="concept-card selected">
+      <div class="concept-badge">Selected</div>
+      <div class="concept-icon" style="color:var(--rose-gold);">&#9679;</div>
+      <h4>Circle &amp; Arc<span class="zh">圆与弧</span></h4>
+      <p>Intersecting circle geometry. The outer ring = clinical boundary, inner arc = focused light energy, center dot = active treatment. Clean geometry, emotional warmth, scalable to favicon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Decision Matrix -->
+<div class="wrap reveal" style="margin-top:2.5rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Weighted Concept Evaluation / 加权方案评估</div>
+    <table class="matrix-table">
+      <tr><th>Criterion / 评估维度</th><th>Weight</th><th>Concept A<br>Clinical Precision</th><th>Concept B<br>Botanical Bloom</th><th>Concept C<br>Circle & Arc</th></tr>
+      <tr><td>Brand Alignment / 品牌契合</td><td>25%</td><td>7.5</td><td>6.0</td><td class="winner">9.0</td></tr>
+      <tr><td>Visual Distinctiveness / 视觉辨识</td><td>20%</td><td>7.0</td><td>7.5</td><td class="winner">8.5</td></tr>
+      <tr><td>Scalability / 可延展性</td><td>20%</td><td>6.5</td><td>6.5</td><td class="winner">9.0</td></tr>
+      <tr><td>Emotional Warmth / 情感温度</td><td>20%</td><td>5.0</td><td class="winner">8.5</td><td>8.0</td></tr>
+      <tr><td>Production Feasibility / 落地可行性</td><td>15%</td><td>8.5</td><td>7.0</td><td class="winner">8.5</td></tr>
+      <tr style="border-top:2px solid var(--rose-gold);"><td><strong>Weighted Total</strong></td><td><strong>100%</strong></td><td>6.8</td><td>7.1</td><td class="winner"><strong>8.7</strong></td></tr>
+    </table>
+        </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ 4. LOGO SYSTEM ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Logo System / 标志系统</div>
+    <h2 class="heading">Wordmark &amp; Logomark<br>字标与图符</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>The Lumina logo exists in four configurations. The logomark — an intersecting circle-and-arc — represents focused light energy penetrating skin layers. The wordmark uses uppercase Cormorant Garamond with generous letter-spacing for a refined luxury presence.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="img-box">
+    <img src="Renders/Logo系统规范图.png" alt="Lumina Logo System — Four Variations with Clear Space" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Horizontal · Stacked · Logomark · Wordmark — with Clear Space Rules</p>
+</div>
+
+<div class="wrap" style="margin-top:3rem;">
+  <div class="spec-panel reveal">
+    <div class="spec-panel-title">Clear Space &amp; Minimum Size / 安全空间与最小尺寸</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Clear Space / 安全空间</div><div class="val">1× logomark height on all sides</div></div>
+      <div class="spec-item"><div class="key">Min. Width / 最小宽度</div><div class="val">24mm — print / 48px — digital</div></div>
+      <div class="spec-item"><div class="key">Min. Logomark / 图符最小</div><div class="val">8mm — print / 16px — digital</div></div>
+      <div class="spec-item"><div class="key">Exclusion Zone / 排他区</div><div class="val">No other graphics within clear space</div></div>
+      <div class="spec-item"><div class="key">Preferred Placement / 位置</div><div class="val">Top-left or centered — never bottom-right</div></div>
+      <div class="spec-item"><div class="key">Background / 背景</div><div class="val">Pearl White, White, or Indigo (reversed)</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:3rem;">
+  <div class="label">Usage Don'ts / 使用禁忌</div>
+  <div class="dont-grid">
+    <div class="dont-item">
+      <div class="badge">Don't</div>
+      <div class="dont-demo" style="transform:scaleX(1.4);display:inline-block;">L U M I N A</div>
+      <div class="dont-reason">Never stretch or condense</div>
+    </div>
+    <div class="dont-item">
+      <div class="badge">Don't</div>
+      <div class="dont-demo" style="color:var(--jade);">Lumina</div>
+      <div class="dont-reason">Never recolor the wordmark</div>
+    </div>
+    <div class="dont-item">
+      <div class="badge">Don't</div>
+      <div class="dont-demo" style="opacity:0.3;">Lumina</div>
+      <div class="dont-reason">Never use below 30% opacity</div>
+    </div>
+    <div class="dont-item">
+      <div class="badge">Don't</div>
+      <div class="dont-demo" style="transform:rotate(15deg);display:inline-block;">Lumina</div>
+      <div class="dont-reason">Never rotate the logo</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ 4. COLOR SYSTEM ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Color System / 色彩系统</div>
+    <h2 class="heading">Palette Architecture<br>色彩架构</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>A 60-25-15 distribution anchored in Pearl White — the color of a fresh clinical surface — warmed by Rose Gold metallics and grounded by a deep Indigo that evokes luxury serum packaging.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal reveal-stagger">
+  <div class="swatch-grid">
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--pearl)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Pearl White</div>
+        <div class="swatch-role">Primary · 60% — Backgrounds, Packaging</div>
+        <div class="swatch-values">#F5F0EB · Pantone 11-0907 TCX · L*=95 a*=1 b*=4</div>
+      </div>
+    </div>
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--rose-gold)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Rose Gold</div>
+        <div class="swatch-role">Secondary · 25% — Accent, Typography, Foil</div>
+        <div class="swatch-values">#B8A390 · Pantone 16-1310 TCX · L*=68 a*=6 b*=14</div>
+      </div>
+    </div>
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--indigo)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Indigo Navy</div>
+        <div class="swatch-role">Tertiary · 15% — Text, Depth, Reversed BG</div>
+        <div class="swatch-values">#2D2D4B · Pantone 19-3920 TCX · L*=18 a*=3 b*=−12</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="label">Supporting Palette / 辅助色板</div>
+  <div class="swatch-grid" style="margin-top:1rem;">
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--dusty-rose)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Dusty Rose</div>
+        <div class="swatch-role">Support — Warm accent, secondary gradient</div>
+        <div class="swatch-values">#C9AFA0 · Pantone 14-1307 TCX</div>
+      </div>
+    </div>
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--champagne)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Champagne</div>
+        <div class="swatch-role">Support — Foil variant, packaging trim</div>
+        <div class="swatch-values">#C4A882 · Pantone 15-1218 TCX</div>
+      </div>
+    </div>
+    <div class="swatch-card">
+      <div class="swatch-block" style="background:var(--jade)"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Sage Jade</div>
+        <div class="swatch-role">Support — Botanical cues, sustainability messaging</div>
+        <div class="swatch-values">#C5D5C8 · Pantone 13-6108 TCX</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2.5rem;">
+  <div class="label">Color Ratio / 色彩比例</div>
+  <div class="ratio-bar">
+    <div class="ratio-seg" style="flex:60;background:var(--pearl)"></div>
+    <div class="ratio-seg" style="flex:25;background:var(--rose-gold)"></div>
+    <div class="ratio-seg" style="flex:15;background:var(--indigo)"></div>
+  </div>
+  <div class="ratio-labels">
+    <span style="flex:60">Pearl White 60%</span>
+    <span style="flex:25">Rose Gold 25%</span>
+    <span style="flex:15">Indigo 15%</span>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2.5rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Accessibility &amp; Contrast / 可访问性</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Indigo on Pearl</div><div class="val">Contrast 12.4:1 · WCAG AAA</div></div>
+      <div class="spec-item"><div class="key">Indigo on White</div><div class="val">Contrast 14.2:1 · WCAG AAA</div></div>
+      <div class="spec-item"><div class="key">Rose Gold on Pearl</div><div class="val">Contrast 2.1:1 · Deco only, not text</div></div>
+      <div class="spec-item"><div class="key">Pearl on Indigo</div><div class="val">Contrast 12.4:1 · WCAG AAA</div></div>
+      <div class="spec-item"><div class="key">Text Minimum</div><div class="val">Indigo #2D2D4B or Charcoal on Pearl/White</div></div>
+      <div class="spec-item"><div class="key">Rose Gold Usage</div><div class="val">Accents, dividers, foil — never body text</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ 5. TYPOGRAPHY SYSTEM ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Typography System / 字体系统</div>
+    <h2 class="heading">Three Voices<br>One Brand</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Each typeface plays a distinct role in the brand voice. Together they form a hierarchy that moves from emotional display to clinical precision — mirroring the brand's dual nature.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal reveal-stagger">
+  <!-- Display -->
+  <div class="type-card">
+    <div class="type-name">Display · Cormorant Garamond</div>
+    <div class="type-specimen" style="font-family:var(--font-display);">
+      ABCDEFGHIJKLM<br>abcdefghijklm · 肌肤奢华
+    </div>
+    <div class="type-info">
+      Weights: Regular 400 · Medium 500 · Italic 400/500<br>
+      Usage: Headlines, brand name, section titles, taglines<br>
+      Character: Refined editorial luxury, warm serif details, high contrast
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="type-card">
+    <div class="type-name">Body · Manrope</div>
+    <div class="type-specimen" style="font-family:var(--font-body);font-weight:300;">
+      ABCDEFGHIJKLM · abcdefghijklm<br>
+      <span style="font-family:var(--font-zh);">现代几何无衬线 · 清晰优雅</span>
+    </div>
+    <div class="type-info">
+      Weights: Light 300 · Regular 400 · Medium 500 · Semibold 600<br>
+      Usage: Body copy, UI text, product descriptions, captions<br>
+      Character: Modern geometric sans-serif, open apertures, clean readability
+    </div>
+  </div>
+
+  <!-- Mono -->
+  <div class="type-card">
+    <div class="type-name">Mono · JetBrains Mono</div>
+    <div class="type-specimen" style="font-family:var(--font-mono);font-weight:300;">
+      ABCDEFGHIJKLM · abcdefghijklm<br>
+      0123456789 · CIELAB · #F5F0EB
+    </div>
+    <div class="type-info">
+      Weights: Light 300 · Regular 400<br>
+      Usage: Specifications, data, labels, technical callouts, code<br>
+      Character: Precise, technical, coding-friendly — signals clinical accuracy
+    </div>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Type Scale / 字号层级</div>
+    <table class="type-scale-table">
+      <tr><th>Token</th><th>Size</th><th>Font</th><th>Weight</th><th>Usage</th><th>Sample</th></tr>
+      <tr><td>Display XL</td><td>clamp(3.5rem, 8vw, 7rem)</td><td>Cormorant Garamond</td><td>500</td><td>Hero title</td><td class="sample-display">Lumina</td></tr>
+      <tr><td>Display L</td><td>2.4rem</td><td>Cormorant Garamond</td><td>500</td><td>Section headings</td><td class="sample-display">Derma-Luxury</td></tr>
+      <tr><td>Display M</td><td>1.6rem</td><td>Cormorant Garamond</td><td>500</td><td>Sub-headings</td><td class="sample-display">Pearl Rose</td></tr>
+      <tr><td>Body L</td><td>1rem</td><td>Manrope</td><td>300</td><td>Lead paragraphs</td><td class="sample-body">Clinical credibility meets care</td></tr>
+      <tr><td>Body M</td><td>0.88rem</td><td>Manrope</td><td>300</td><td>Body copy</td><td class="sample-body">Each material transition is choreographed</td></tr>
+      <tr><td>Caption</td><td>0.75rem</td><td>Manrope</td><td>400</td><td>Image captions</td><td class="sample-body">FSC Kraft Paper Box</td></tr>
+      <tr><td>Mono</td><td>0.55–0.6rem</td><td>JetBrains Mono</td><td>300/400</td><td>Labels, specs</td><td class="sample-mono">Pantone 11-0907 TCX</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Bilingual Pairing · 中英文字体搭配</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+      <div>
+        <div style="font-family:var(--font-display);font-size:2rem;font-weight:500;margin-bottom:0.5rem;">Lumina</div>
+        <div style="font-family:var(--font-display);font-size:1rem;font-style:italic;color:var(--rose-gold);margin-bottom:1rem;">Derma-Luxury</div>
+        <div style="font-family:var(--font-body);font-size:0.8rem;color:var(--text-mid);line-height:1.8;">Cormorant Garamond carries the emotional brand voice — warm, editorial, refined.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-zh);font-size:2rem;font-weight:400;margin-bottom:0.5rem;">肌肤奢华</div>
+        <div style="font-family:var(--font-zh);font-size:1rem;font-weight:300;color:var(--rose-gold);margin-bottom:1rem;">临床可信度 × 自我护理仪式</div>
+        <div style="font-family:var(--font-zh);font-size:0.8rem;color:var(--text-mid);line-height:1.8;">Noto Sans SC 承载中文品牌声音，与 Cormorant Garamond 形成温暖的跨文化对话。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ 6. BRAND APPLICATIONS ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Brand Applications / 品牌应用</div>
+    <h2 class="heading">From Box to Feed<br>从包装到内容</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Brand identity comes alive across physical and digital touchpoints. Four key applications demonstrate how the Lumina system scales from intimate unboxing to public campaign.</p></div>
+  </section>
+</div>
+
+<div class="wrap reveal reveal-stagger">
+  <div class="app-grid">
+    <!-- Packaging -->
+    <div class="app-mockup">
+      <div class="app-visual" style="background:var(--bg-warm);">
+        <img src="Renders/产品包装.jpg" alt="Product Packaging" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="app-info">
+        <div class="app-label">Application 01</div>
+        <div class="app-title">Product Packaging / 产品包装</div>
+        <p class="app-desc">FSC-certified kraft board with rose gold foil-stamped logo. Sugarcane fiber molded interior tray. Seed-embedded thank-you card. Zero plastic — every unpackaging layer tells the sustainability story.</p>
+      </div>
+    </div>
+
+    <!-- Quick-Start Guide -->
+    <div class="app-mockup">
+      <div class="app-visual" style="background:var(--bg-warm);">
+        <img src="Renders/快速入门指南.jpg" alt="Quick-Start Guide" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="app-info">
+        <div class="app-label">Application 02</div>
+        <div class="app-title">Quick-Start Guide / 快速入门指南</div>
+        <p class="app-desc">Bi-fold instruction card on recycled uncoated paper. Minimal icon system with numbered steps. Two-color print — Indigo text + Rose Gold accents. Compact enough to fit inside the packaging box.</p>
+      </div>
+    </div>
+
+    <!-- Poster -->
+    <div class="app-mockup">
+      <div class="app-visual" style="background:var(--bg-warm);">
+        <img src="Renders/营销海报.jpg" alt="Campaign Poster" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="app-info">
+        <div class="app-label">Application 03</div>
+        <div class="app-title">Campaign Poster / 营销海报</div>
+        <p class="app-desc">Lifestyle campaign visual for social media and retail display. Editorial beauty photography direction — soft natural light, warm tones, the device held like a precious object. Logo and tagline anchored at center with generous negative space.</p>
+      </div>
+    </div>
+
+    <!-- Brand Pattern -->
+    <div class="app-mockup">
+      <div class="app-visual" style="background:var(--bg-warm);">
+        <img src="Renders/品牌纹样.jpg" alt="Brand Pattern" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="app-info">
+        <div class="app-label">Application 04</div>
+        <div class="app-title">Brand Pattern / 品牌纹样</div>
+        <p class="app-desc">Derived from the treatment head's concentric circle geometry. The repeating ring pattern works as packaging tissue wrap, shopping bag liner, Instagram story background, or website texture. Subtle, atmospheric, unmistakably Lumina.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ 7. BRAND GUIDELINES SUMMARY ═══════════ -->
+<div class="wrap">
+  <section class="section reveal" style="padding-top:0;">
+    <div class="label">Brand Guidelines Summary / 品牌指南总览</div>
+    <h2 class="heading">Everything on<br>One Page</h2>
+    <div class="rule-short"></div>
+  </section>
+</div>
+
+<div class="wrap reveal">
+  <div class="guidelines-card">
+    <div class="guidelines-logo">
+      <div class="logo-symbol" style="width:48px;height:48px;margin-bottom:0.75rem;">
+        <div class="c1" style="width:48px;height:48px;"></div>
+        <div class="c2" style="width:34px;height:34px;top:7px;left:7px;"></div>
+        <div class="c3" style="top:22px;"></div>
+      </div>
+      <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:500;letter-spacing:0.15em;">LUMINA</div>
+      <div style="font-family:var(--font-mono);font-size:0.45rem;color:var(--rose-gold);letter-spacing:0.15em;margin-top:0.25rem;">DERMA-LUXURY</div>
+    </div>
+    <div class="guidelines-section">
+      <h5>Color / 色彩</h5>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+        <div style="width:18px;height:18px;border-radius:50%;background:var(--pearl);border:1px solid var(--rule);"></div>
+        <div style="width:18px;height:18px;border-radius:50%;background:var(--rose-gold);"></div>
+        <div style="width:18px;height:18px;border-radius:50%;background:var(--indigo);"></div>
+        <div style="width:18px;height:18px;border-radius:50%;background:var(--dusty-rose);"></div>
+        <div style="width:18px;height:18px;border-radius:50%;background:var(--jade);"></div>
+      </div>
+      <ul>
+        <li>60% Pearl · 25% Rose Gold · 15% Indigo</li>
+        <li>Rose Gold = accent only, never body text</li>
+      </ul>
+    </div>
+    <div class="guidelines-section">
+      <h5>Typography / 字体</h5>
+      <ul>
+        <li>Display: Cormorant Garamond</li>
+        <li>Body: Manrope (ZH: Noto Sans SC)</li>
+        <li>Mono: JetBrains Mono</li>
+        <li>Logo: Uppercase, 0.12em tracking</li>
+        <li>Clear space = 1× logomark height</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="wrap reveal" style="margin-top:2rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">Brand Voice / 品牌语调</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Tone / 语调</div><div class="val">Warm, precise, unhurried — like a dermatologist who is also a close friend</div></div>
+      <div class="spec-item"><div class="key">Keywords / 关键词</div><div class="val">Clinical · Warm · Transparent · Ritual · Evidence-backed</div></div>
+      <div class="spec-item"><div class="key">Never / 禁忌</div><div class="val">Miracle claims, pseudoscience, overly casual slang, aggressive urgency</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ 8. CLOSING ═══════════ -->
+<section class="closing reveal">
+  <div class="hero-code" style="margin-bottom:1.5rem;">C1 Lumina · Brand Identity Portfolio</div>
+  <h2>Design Systems,<br>Not Just Surfaces</h2>
+  <p>Logo, color, typography, packaging, and brand guidelines — a complete visual identity system that bridges clinical credibility and self-care warmth. Brand identity design extends industrial design into the realm of meaning, recognition, and emotional connection.<br><br>标志 · 色彩 · 字体 · 包装 · 品牌指南 —— 一个完整的视觉识别系统，在临床可信度和自我护理温度之间架起桥梁。</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Adobe Illustrator / HTML + CSS / GPT Image 2</p>
+</section>
+
+<script>
+/* Scroll reveal */
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (!e.target.classList.contains('reveal-stagger')) obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* Hero parallax */
+const hero = document.querySelector('.hero');
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      if (hero) {
+        const opacity = Math.max(0, 1 - scrollY / 600);
+        hero.style.opacity = opacity;
+        hero.style.transform = `translateY(${scrollY * 0.15}px)`;
+      }
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+/* Hero scroll click */
+document.querySelector('.hero-scroll')?.addEventListener('click', () => {
+  document.querySelector('.wrap')?.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>

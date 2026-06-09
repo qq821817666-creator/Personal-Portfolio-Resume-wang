@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project AURA — CMF Design Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..800;1,9..40,200..800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F3EF;--text:#1E1E1C;--text-mid:#5C5A55;--text-light:#8A8880;--rule:#C4C0B8;--rule-light:#DCD8D0;
+  --copper:#C48058;--navy:#1C2D3D;--teal:#2D6058;--holographic:#4DB8A0;
+  --v1-body:#B8A898;--v1-arm:#C48058;--v1-cush:#A06040;
+  --v2-body:#1C2D3D;--v2-arm:#6A6B6C;--v2-cush:#1C2D3D;
+  --v3-body:#E2DDD8;--v3-arm:#C8C8C8;--v3-cush:#B5B5B4;
+  --font-display:'Cormorant Garamond','Times New Roman',serif;
+  --font-body:'DM Sans','SF Pro Display','PingFang SC',system-ui,sans-serif;
+  --font-mono:'DM Mono','SF Mono','PingFang SC',monospace;
+  --font-zh:'PingFang SC','Hiragino Sans GB','STHeiti','Microsoft YaHei',sans-serif;
+  --max-w:1280px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;opacity:0.02;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.display{font-family:var(--font-display);font-weight:600;letter-spacing:-0.01em}
+.display-italic{font-family:var(--font-display);font-style:italic;font-weight:400}
+.mono{font-family:var(--font-mono);font-size:0.8rem;letter-spacing:0.04em}
+.zh{font-family:var(--font-zh)}
+.container{max-width:var(--max-w);margin:0 auto;padding:0 3rem}
+.section{padding:6rem 0}
+.rule{border:none;border-top:1px solid var(--rule);margin:0}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease-out,transform 0.7s ease-out}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,#1C1C1A 0%,#252520 40%,#1E1E1C 60%,#2A2825 100%);color:#E8E4DC;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-10%;width:60%;height:140%;background:radial-gradient(ellipse at center,rgba(200,130,80,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:1}
+.hero-label{font-family:var(--font-mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--copper);text-transform:uppercase;margin-bottom:1.5rem}
+.hero h1{font-size:clamp(4rem,8vw,7.5rem);line-height:0.92;margin-bottom:0.75rem}
+.hero h1 .project-id{font-size:0.35em;vertical-align:super;color:var(--copper);margin-right:0.25em}
+.hero-subtitle{font-family:var(--font-display);font-size:1.4rem;color:#A09890;font-style:italic;margin-bottom:0.5rem}
+.hero-subtitle-zh{font-size:1rem;color:#706860;margin-bottom:3rem}
+.hero-tagline{font-family:var(--font-display);font-size:2rem;font-style:italic;color:var(--copper);border-left:2px solid var(--copper);padding-left:1.5rem;max-width:500px}
+.hero-tagline .zh{display:block;font-size:1rem;font-style:normal;margin-top:0.35rem;color:#908880}
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;color:#706860;text-transform:uppercase}
+.hero-scroll::after{content:'';display:block;width:1px;height:2rem;background:#504840;margin:0.75rem auto 0;animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+.sec-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.18em;color:var(--copper);text-transform:uppercase;margin-bottom:0.5rem}
+.sec-title{font-size:3rem;line-height:1.1;margin-bottom:1rem}
+.sec-title .zh{display:block;font-size:1rem;font-weight:400;color:var(--text-light);margin-top:0.35rem}
+.sec-lead{font-size:1.15rem;color:var(--text-mid);max-width:640px;line-height:1.7}
+
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--rule);margin-top:3rem}
+.stat-item{background:var(--bg);padding:2rem 1.5rem;text-align:center}
+.stat-value{font-family:var(--font-display);font-size:2rem;font-weight:600;line-height:1;margin-bottom:0.35rem}
+.stat-label{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.08em;color:var(--text-light);text-transform:uppercase}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.pillar{padding:2rem;border:1px solid var(--rule-light)}
+.pillar-num{font-family:var(--font-display);font-size:3rem;color:var(--rule);line-height:1;margin-bottom:0.75rem}
+.pillar h4{font-size:1.1rem;margin-bottom:0.25rem}
+.pillar h4 .zh{display:block;font-size:0.85rem;font-weight:400;color:var(--text-light);margin-top:0.15rem}
+.pillar p{font-size:0.9rem;color:var(--text-mid);line-height:1.6;margin-top:0.75rem}
+
+.schemes{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.scheme-card{border:1px solid var(--rule-light);padding:2rem;position:relative}
+.scheme-card.eliminated{opacity:0.5}
+.scheme-card.winner{border-color:var(--copper);border-width:2px}
+.scheme-badge{position:absolute;top:-10px;right:1.5rem;font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;padding:0.3rem 0.8rem;text-transform:uppercase}
+.badge-eliminated{background:#E8E4DC;color:var(--text-light)}
+.badge-winner{background:var(--copper);color:#FFF}
+.scheme-card h4{font-size:1.2rem;margin-bottom:0.15rem}
+.scheme-card h4 .zh{display:block;font-size:0.8rem;font-weight:400;color:var(--text-light)}
+.scheme-tagline{font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--text-mid);margin-bottom:1.25rem}
+.scheme-swatches{display:flex;gap:0.5rem;margin-bottom:1.25rem}
+.scheme-swatch{width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid var(--rule)}
+.scheme-score{font-family:var(--font-mono);font-size:0.7rem;color:var(--text-mid);margin-bottom:0.75rem}
+.scheme-card p{font-size:0.85rem;color:var(--text-mid);line-height:1.6}
+.scheme-card.winner p{color:var(--text)}
+
+.variants{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.variant-card{border:1px solid var(--rule-light);overflow:hidden}
+.variant-header{padding:2rem 2rem 1.5rem}
+.variant-header .vid{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--text-light);margin-bottom:0.25rem}
+.variant-header h4{font-size:1.4rem}
+.variant-header h4 .zh{display:block;font-size:0.85rem;font-weight:400;color:var(--text-light)}
+.variant-header .mood{font-family:var(--font-display);font-style:italic;font-size:0.95rem;color:var(--text-mid);margin-top:0.5rem}
+.variant-swatches{padding:0 2rem 2rem}
+.swatch-zone{display:flex;align-items:center;gap:1rem;padding:0.75rem 0;border-bottom:1px solid var(--rule-light)}
+.swatch-zone:last-child{border-bottom:none}
+.swatch-dot{width:2.8rem;height:2.8rem;border-radius:50%;flex-shrink:0;border:1px solid var(--rule)}
+.swatch-dot.metal{background-image:linear-gradient(135deg,transparent 40%,rgba(255,255,255,0.2) 50%,transparent 60%)}
+.swatch-dot.fabric{box-shadow:inset 0 0 8px rgba(0,0,0,0.06);border-radius:6px}
+.swatch-info{flex:1;min-width:0}
+.swatch-info .zone-name{font-size:0.75rem;font-weight:600}
+.swatch-info .zone-name .zh{font-weight:400;color:var(--text-light);font-size:0.7rem}
+.swatch-info .zone-spec{font-family:var(--font-mono);font-size:0.55rem;color:var(--text-light);letter-spacing:0.04em;margin-top:0.15rem}
+.swatch-info .zone-color{font-family:var(--font-mono);font-size:0.6rem;color:var(--text-mid);margin-top:0.1rem}
+.variant-spec{padding:1.25rem 2rem;background:rgba(0,0,0,0.02);border-top:1px solid var(--rule-light)}
+.variant-spec .spec-label{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.08em;color:var(--text-light);text-transform:uppercase}
+.variant-spec .spec-value{font-size:0.85rem;margin-top:0.15rem}
+
+.material-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.mat-card{border:1px solid var(--rule-light);padding:2rem}
+.mat-num{font-family:var(--font-display);font-size:2.5rem;color:var(--rule);line-height:1;margin-bottom:0.75rem}
+.mat-card h5{font-size:1rem;margin-bottom:0.15rem}
+.mat-card h5 .zh{display:block;font-size:0.8rem;font-weight:400;color:var(--text-light)}
+.mat-specs{margin-top:1rem;list-style:none}
+.mat-specs li{font-family:var(--font-mono);font-size:0.62rem;color:var(--text-mid);letter-spacing:0.04em;padding:0.3rem 0;border-bottom:1px solid var(--rule-light)}
+.mat-specs li:last-child{border-bottom:none}
+
+.bom-section{margin-top:3rem}
+.bom-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.bom-table th{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--text-light);text-align:left;padding:0.75rem 1rem;border-bottom:2px solid var(--text)}
+.bom-table td{padding:0.85rem 1rem;border-bottom:1px solid var(--rule-light);font-family:var(--font-mono);font-size:0.75rem}
+.bom-table tr.total-row td{font-weight:700;border-top:2px solid var(--text);border-bottom:2px solid var(--text);font-size:0.85rem}
+.bom-table .zone-col{font-family:var(--font-body);font-size:0.82rem;font-weight:500}
+.bom-table .zone-col .zh{display:block;font-weight:400;font-size:0.7rem;color:var(--text-light)}
+
+.sustainability{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.sus-item{padding:1.5rem;border:1px solid var(--rule-light)}
+.sus-item .sus-icon{font-size:1.5rem;margin-bottom:0.5rem}
+.sus-item h6{font-size:0.85rem;margin-bottom:0.25rem}
+.sus-item p{font-size:0.8rem;color:var(--text-mid);line-height:1.5}
+
+.process-flow{display:flex;gap:0;margin-top:3rem;border:1px solid var(--rule-light)}
+.process-step{flex:1;padding:2rem 1.5rem;text-align:center}
+.process-step+.process-step{border-left:1px solid var(--rule-light)}
+.process-step .phase-num{font-family:var(--font-display);font-size:2.5rem;font-weight:600;color:var(--rule);line-height:1;margin-bottom:0.5rem}
+.process-step h6{font-size:0.85rem;margin-bottom:0.15rem}
+.process-step h6 .zh{display:block;font-weight:400;font-size:0.72rem;color:var(--text-light)}
+.process-step p{font-size:0.72rem;color:var(--text-mid);line-height:1.5;margin-top:0.5rem}
+
+.img-full{margin:3rem 0}.img-full img{width:100%;height:auto;display:block}
+.img-pair{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:3rem 0}
+.img-pair img{width:100%;height:auto;display:block}
+.img-triple{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin:3rem 0}
+.img-triple img{width:100%;height:auto;display:block}
+.img-caption{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--text-light);text-transform:uppercase;margin-top:0.5rem;text-align:center}
+
+.footer{padding:4rem 0;text-align:center;border-top:1px solid var(--rule)}
+.footer p{font-family:var(--font-mono);font-size:0.65rem;color:var(--text-light);letter-spacing:0.06em}
+.footer .note{margin-top:0.5rem;font-size:0.6rem;opacity:0.6}
+
+@media(max-width:1024px){
+  .container{padding:0 1.5rem}.stats-grid{grid-template-columns:repeat(3,1fr)}
+  .schemes,.variants,.pillars,.material-flow{grid-template-columns:1fr}
+  .process-flow{flex-direction:column}.process-step+.process-step{border-left:none;border-top:1px solid var(--rule-light)}
+}
+@media(max-width:768px){.hero h1{font-size:3rem}.sec-title{font-size:2rem}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container hero-content reveal">
+    <p class="hero-label">CMF Design Strategy · Phase 3 Final</p>
+    <h1 class="display"><span class="project-id">A</span>AURA</h1>
+    <p class="hero-subtitle">Premium Wireless Headphones</p>
+    <p class="hero-subtitle-zh zh">高端无线耳机 · 色彩材质表面处理设计策略</p>
+    <div class="hero-tagline">Color that moves with you.<span class="zh">与你同行的色彩。</span></div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<div class="container reveal" style="margin-top:-2rem;">
+  <div class="img-triple">
+    <figure><img src="renders/hero_v1_desert_dawn.png" alt="V1" loading="lazy"><figcaption class="img-caption">V1 · Desert Dawn / 沙漠黎明</figcaption></figure>
+    <figure><img src="renders/hero_v2_midnight_prism.png" alt="V2" loading="lazy"><figcaption class="img-caption">V2 · Midnight Prism / 午夜棱镜 ★ HERO</figcaption></figure>
+    <figure><img src="renders/hero_v3_arctic_haze.png" alt="V3" loading="lazy"><figcaption class="img-caption">V3 · Arctic Haze / 北极雾霭</figcaption></figure>
+  </div>
+</div>
+
+<section class="section" id="overview"><div class="container">
+  <p class="sec-label reveal">Project Overview</p>
+  <h2 class="sec-title display reveal">Warm Tech + Neo-Sensorial<span class="zh">温暖科技 × 超感体验</span></h2>
+  <p class="sec-lead reveal">AURA is the first premium headphone brand to synthesize <strong>Warm Tech tactility with Neo-Sensorial color intelligence</strong> — headphones that feel like a natural body extension while expressing a forward-looking, digitally-native color language.</p>
+  <div class="stats-grid reveal">
+    <div class="stat-item"><div class="stat-value display" style="font-size:1.5rem;">Premium<span style="font-size:0.45em;display:block;">Audio</span></div><div class="stat-label">Brand Tier</div></div>
+    <div class="stat-item"><div class="stat-value display">¥1.8<span style="font-size:0.45em;">–3.2K</span></div><div class="stat-label">Retail Price</div></div>
+    <div class="stat-item"><div class="stat-value display">≤¥200</div><div class="stat-label">BOM Target</div></div>
+    <div class="stat-item"><div class="stat-value display">80<span style="font-size:0.45em;">–150K</span></div><div class="stat-label">Annual Volume</div></div>
+    <div class="stat-item"><div class="stat-value display" style="font-size:1.4rem;">CN · NA · EU · JP</div><div class="stat-label">Key Markets</div></div>
+  </div>
+  <div class="pillars reveal">
+    <div class="pillar"><div class="pillar-num display">01</div><h4>Tactile Intelligence <span class="zh">触感智能</span></h4><p>Soft-touch matte body warm to the touch, vegan leather cushions that breathe, brushed metal arms that match body temperature. No sharp edges. No cold plastic shock.</p></div>
+    <div class="pillar"><div class="pillar-num display">02</div><h4>Dynamic Color <span class="zh">动态色彩</span></h4><p>Gradient anodized aluminum. Holographic foil inlays. Colors sampled from digital-native palettes but executed with material sophistication — not screen-glow garishness.</p></div>
+    <div class="pillar"><div class="pillar-num display">03</div><h4>Visible Integrity <span class="zh">可见诚实</span></h4><p>If it's recycled, show it. If it's metal, let it be metal. No fake wood, fake metal, fake leather. Material honesty is the ultimate premium signal.</p></div>
+  </div>
+</div></section>
+
+<hr class="rule">
+
+<section class="section" id="concept"><div class="container">
+  <p class="sec-label reveal">Phase 2 · Concept Exploration</p>
+  <h2 class="sec-title display reveal">Three Schemes, One Strategy<span class="zh">三方案探索 · 一方胜出</span></h2>
+  <div class="schemes reveal">
+    <div class="scheme-card eliminated"><span class="scheme-badge badge-eliminated">Eliminated</span><h4>Scheme A <span class="zh">沙漠黎明</span></h4><p class="scheme-tagline">"Technology that feels like skin."</p><div class="scheme-swatches"><div class="scheme-swatch" style="background:var(--v1-body)"></div><div class="scheme-swatch" style="background:var(--v1-arm)"></div></div><p class="scheme-score">Weighted Score: 3.95 / 5.0</p><p>Warm sand + copper + cognac leather. Broadest market appeal but insufficient differentiation at ¥2,500+. Absorbed as V1 — the accessible entry point.</p></div>
+    <div class="scheme-card winner"><span class="scheme-badge badge-winner">Winner ★ HERO</span><h4>Scheme B <span class="zh">午夜棱镜</span></h4><p class="scheme-tagline">"Color that moves with you."</p><div class="scheme-swatches"><div class="scheme-swatch" style="background:var(--v2-body)"></div><div class="scheme-swatch" style="background:var(--teal)"></div><div class="scheme-swatch" style="background:var(--holographic)"></div></div><p class="scheme-score">Weighted Score: 4.40 / 5.0 ★</p><p>Gradient anodized aluminum + holographic ring + dark chrome. Category-first material expression. Maximum differentiation. Creative professional target.</p></div>
+    <div class="scheme-card eliminated"><span class="scheme-badge badge-eliminated">Eliminated</span><h4>Scheme C <span class="zh">原生碳素</span></h4><p class="scheme-tagline">"Sustainability you can see."</p><div class="scheme-swatches"><div class="scheme-swatch" style="background:#3D3C38"></div><div class="scheme-swatch" style="background:#C4A882"></div></div><p class="scheme-score">Weighted Score: 3.55 / 5.0</p><p>PCR speckle + cork + raw aluminum. Strongest sustainability but PCR aesthetic divides audiences. Cork durability unvalidated at scale.</p></div>
+  </div>
+  <div class="img-full reveal" style="margin-top:3rem;"><img src="renders/03_scheme_comparison.png" alt="3-Scheme Comparison" loading="lazy"><div class="img-caption">Shot 03 · Desert Dawn (3.95) vs. Midnight Prism (4.40 ★) vs. Raw Carbon (3.55)</div></div>
+</div></section>
+
+<hr class="rule">
+
+<section class="section" id="cmf-strategy"><div class="container">
+  <p class="sec-label reveal">Phase 3 · Final CMF Strategy</p>
+  <h2 class="sec-title display reveal">Warm Prism: Three Color Variants<span class="zh">暖棱镜 · 三色方案</span></h2>
+  <p class="sec-lead reveal">Three variants span a gradient of adventurousness — from warm-sand accessibility to midnight-gradient boldness to arctic-violet cool. The six-zone material strategy uses genuine aluminum, bio-based vegan leather, and textile integration across all variants.</p>
+  <div class="variants reveal">
+    <!-- V1 -->
+    <div class="variant-card"><div class="variant-header"><div class="vid">V1</div><h4 class="display">Desert Dawn <span class="zh">沙漠黎明</span></h4><p class="mood">Warm & Approachable · Broad Market Entry</p></div><div class="variant-swatches">
+      <div class="swatch-zone"><div class="swatch-dot" style="background:var(--v1-body)"></div><div class="swatch-info"><div class="zone-name">Earcup Shell <span class="zh">耳罩</span></div><div class="zone-color">#B8A898 · Pantone 13-1014 TCX</div><div class="zone-spec">PC/ABS Soft-Touch · MT-11010 · 3–5 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot metal" style="background:var(--v1-arm)"></div><div class="swatch-info"><div class="zone-name">Metal Arm <span class="zh">金属臂</span></div><div class="zone-color">Copper PVD · L*=55 a*=18 b*=28</div><div class="zone-spec">Al 6061 · Sandblast #180 + PVD · 12–18 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot fabric" style="background:var(--v1-cush)"></div><div class="swatch-info"><div class="zone-name">Ear Cushion <span class="zh">耳垫</span></div><div class="zone-color">#A06040 · Pantone 17-1340 TCX</div><div class="zone-spec">Bio-PU Vegan Leather · Micro-Perf 0.5mm · 2–4 GU</div></div></div>
+    </div><div class="variant-spec"><span class="spec-label">BOM</span><div class="spec-value">¥185/unit · Warmest market appeal</div></div></div>
+    <!-- V2 HERO -->
+    <div class="variant-card"><div class="variant-header"><div class="vid">V2 ★ HERO</div><h4 class="display">Midnight Prism <span class="zh">午夜棱镜</span></h4><p class="mood">Bold & Differentiated · Creative Professional</p></div><div class="variant-swatches">
+      <div class="swatch-zone"><div class="swatch-dot metal" style="background:var(--v2-body)"></div><div class="swatch-info"><div class="zone-name">Earcup Shell <span class="zh">耳罩</span></div><div class="zone-color">#1C2D3D→#2D6058 · Gradient Anodize</div><div class="zone-spec">Al 6061 · Brush #320 + Gradient Dye · 15–25 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot metal" style="background:var(--v2-arm)"></div><div class="swatch-info"><div class="zone-name">Metal Arm <span class="zh">金属臂</span></div><div class="zone-color">Dark Chrome PVD · L*=42 a*=1 b*=-2</div><div class="zone-spec">SS 316L · Micro-Blast + Dark PVD · 10–15 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot fabric" style="background:var(--v2-cush)"></div><div class="swatch-info"><div class="zone-name">Control Ring <span class="zh">控制环</span></div><div class="zone-color">Holographic · Aurora Green Shift</div><div class="zone-spec">PET Film under PMMA · Edge-Lit 4000K · 60–80 GU</div></div></div>
+    </div><div class="variant-spec"><span class="spec-label">BOM</span><div class="spec-value">¥210/unit · Category-first gradient expression</div></div></div>
+    <!-- V3 -->
+    <div class="variant-card"><div class="variant-header"><div class="vid">V3</div><h4 class="display">Arctic Haze <span class="zh">北极雾霭</span></h4><p class="mood">Cool & Minimal · Gender-Neutral</p></div><div class="variant-swatches">
+      <div class="swatch-zone"><div class="swatch-dot" style="background:var(--v3-body)"></div><div class="swatch-info"><div class="zone-name">Earcup Shell <span class="zh">耳罩</span></div><div class="zone-color">#E2DDD8 · Pantone 11-0601 + Pearl</div><div class="zone-spec">PC/ABS + 2% Pearl · MT-11020 · 5–8 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot metal" style="background:var(--v3-arm)"></div><div class="swatch-info"><div class="zone-name">Metal Arm <span class="zh">金属臂</span></div><div class="zone-color">Brushed Silver · L*=78 a*=0 b*=-2</div><div class="zone-spec">Al 6061 · Brush #220 + Clear Anodize · 18–25 GU</div></div></div>
+      <div class="swatch-zone"><div class="swatch-dot fabric" style="background:var(--v3-cush)"></div><div class="swatch-info"><div class="zone-name">Headband <span class="zh">头梁</span></div><div class="zone-color">Translucent White Silicone Mesh</div><div class="zone-spec">Medical Silicone · Grid Pattern 1.5mm · 5–10 GU</div></div></div>
+    </div><div class="variant-spec"><span class="spec-label">BOM</span><div class="spec-value">¥192/unit · Cool-toned bridge variant</div></div></div>
+  </div>
+  <div class="img-full reveal" style="margin-top:3rem;"><img src="swatches/AURA_CMF_Swatch_Board.png" alt="CMF Swatch Board" loading="lazy"><div class="img-caption">CMF Swatch Board · Gradient Al / Dark Chrome SS / Bio-PU Leather / Microfiber / Jacquard</div></div>
+</div></section>
+
+<hr class="rule">
+
+<section class="section" id="bom"><div class="container">
+  <p class="sec-label reveal">Phase 4 · Production Feasibility</p>
+  <h2 class="sec-title display reveal">BOM &amp; Sustainability<span class="zh">成本与可持续性</span></h2>
+  <div class="bom-section reveal"><table class="bom-table"><thead><tr><th>Zone</th><th>Material</th><th>Process</th><th>¥/unit</th><th>%</th></tr></thead><tbody>
+    <tr><td class="zone-col">Earcup Shells<span class="zh">耳罩外壳</span></td><td>Al/PC-ABS</td><td>Deep-Draw+CNC or IM</td><td>¥50</td><td>26%</td></tr>
+    <tr><td class="zone-col">Metal Arms<span class="zh">金属臂</span></td><td>Al 6061 / SS 316L</td><td>CNC + PVD/Anodize</td><td>¥54</td><td>28%</td></tr>
+    <tr><td class="zone-col">Ear Cushions<span class="zh">耳垫</span></td><td>Bio-PU Vegan Leather</td><td>Cast + Die-Cut + RF Weld</td><td>¥35</td><td>18%</td></tr>
+    <tr><td class="zone-col">Headband<span class="zh">头梁</span></td><td>Knit/Jacquard/Silicone</td><td>Wrap + Bond</td><td>¥22</td><td>11%</td></tr>
+    <tr><td class="zone-col">Control Rings<span class="zh">控制环</span></td><td>PMMA + Film</td><td>IM + Laser-Etch</td><td>¥19</td><td>10%</td></tr>
+    <tr class="total-row"><td class="zone-col">TOTAL (blended)</td><td></td><td></td><td>¥197</td><td>100%</td></tr>
+  </tbody></table><p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-mid);margin-top:0.75rem;">BOM vs. Target: ¥197 / ≤¥200 — <strong style="color:#5A8A5A;">On Target, ¥3 Under (blended)</strong></p></div>
+  <div class="sustainability reveal">
+    <div class="sus-item"><div class="sus-icon">&#x267B;</div><h6>Recycled Content</h6><p>V1/V3: 75% post-industrial Al arms. All: 65% rPET headband (GRS). V2: SS 316L = 60% recycled content.</p></div>
+    <div class="sus-item"><div class="sus-icon">&#x1F331;</div><h6>Bio-Based</h6><p>Bio-PU vegan leather (30% castor oil) across all variants. 35% lower carbon footprint than petroleum PU. OEKO-TEX certified.</p></div>
+    <div class="sus-item"><div class="sus-icon">&#x1F4E6;</div><h6>Packaging + Longevity</h6><p>Modular design — ear cushions replaceable. FSC molded pulp. Fabric pouch replaces plastic bag. 37% below category CO₂ avg.</p></div>
+  </div>
+</div></section>
+
+<hr class="rule">
+
+<section class="section" id="process"><div class="container">
+  <p class="sec-label reveal">Methodology</p><h2 class="sec-title display reveal">Design Process<span class="zh">设计流程 · 五阶段闭环</span></h2>
+  <div class="process-flow reveal">
+    <div class="process-step"><div class="phase-num display">0</div><h6>Business Context<span class="zh">商业背景</span></h6><p>¥1.8-3.2K retail, 80-150K volume, 6 constraints→CMF</p></div>
+    <div class="process-step"><div class="phase-num display">1</div><h6>Market Research<span class="zh">市场研究</span></h6><p>3 STEEP trends, 4-competitor audit, Warm Tech+Neo-Sensorial</p></div>
+    <div class="process-step"><div class="phase-num display">2</div><h6>Concept Exploration<span class="zh">方案探索</span></h6><p>3 pillars, 3 schemes (from 9 variants), weighted matrix</p></div>
+    <div class="process-step"><div class="phase-num display">3</div><h6>Final Strategy<span class="zh">最终策略</span></h6><p>3 variants × 6 zones, CIELAB, color harmony, gradient hero</p></div>
+    <div class="process-step"><div class="phase-num display">4</div><h6>Production<span class="zh">量产可行性</span></h6><p>7 durability tests, BOM ¥197 blended, sustainability 5-dim</p></div>
+  </div>
+  <div class="img-pair reveal" style="margin-top:3rem;">
+    <figure><img src="renders/14_lifestyle_workspace.png" alt="Lifestyle" loading="lazy"><figcaption class="img-caption">Shot 18 · Worn in Creative Workspace · V1 Desert Dawn</figcaption></figure>
+    <figure><img src="renders/16_packaging_unboxing.png" alt="Packaging" loading="lazy"><figcaption class="img-caption">Shot 20 · FSC Molded Pulp · Fabric Pouch · Zero Plastic</figcaption></figure>
+  </div>
+</div></section>
+
+<footer class="footer">
+  <p>PROJECT AURA · CMF DESIGN STRATEGY · PHASE 0–5 COMPLETE · DESIGN ASSUMPTION</p>
+  <p class="note">Built from legacy ProjectA_Brief.md · All business data are design assumptions · Reference: A3 Lumina Pilot</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

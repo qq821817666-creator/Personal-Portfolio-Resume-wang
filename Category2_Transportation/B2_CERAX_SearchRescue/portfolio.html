@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B4 CERAX — Search & Rescue Robot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --graphite:#3A3835;--black:#2A2825;--gunmetal:#4A4844;--copper:#B87850;
+  --bg:#0E0E10;--bg-card:#141416;--bg-panel:#1A1A1C;
+  --text:#D0D0D4;--mid:#909098;--muted:#585860;--rule:#222225;
+  --font-display:'Orbitron',sans-serif;--font-body:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;counter-reset:phase}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ═══════ HERO ═══════ */
+.hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 3rem;position:relative}
+.hero-label{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.35em;color:var(--copper);text-transform:uppercase;margin-bottom:1.5rem}
+.hero-title{font-family:var(--font-display);font-size:clamp(3.5rem,9vw,9rem);font-weight:900;letter-spacing:.02em;line-height:.86;text-transform:uppercase;margin-bottom:1rem;background:linear-gradient(180deg,#E8E0D8 0%,#8A8070 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:var(--font-display);font-size:.85rem;font-weight:500;letter-spacing:.2em;color:var(--copper);text-transform:uppercase;max-width:500px;margin-bottom:1.5rem}
+.hero-meta{display:flex;gap:3rem;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+
+/* ═══════ LAYOUT ═══════ */
+.page{max-width:1100px;margin:0 auto;padding:0 3rem}
+.sec-block{padding:5rem 0;position:relative;counter-increment:phase}
+.sec-num{font-family:var(--font-display);font-size:6rem;font-weight:900;color:rgba(255,255,255,.01);position:absolute;top:3rem;left:-1rem;line-height:1;pointer-events:none}
+.sec-label{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.3em;color:var(--copper);text-transform:uppercase;margin-bottom:.75rem}
+.sec-heading{font-family:var(--font-display);font-size:clamp(1.6rem,3.5vw,2.5rem);font-weight:800;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;margin-bottom:1.5rem}
+.rule{height:1px;background:var(--rule);margin:0}
+
+/* ═══════ TEXT CONTENT ═══════ */
+.prose{font-size:.85rem;color:var(--mid);line-height:1.8;max-width:600px}
+.prose p{margin-bottom:1rem}
+.prose strong{color:var(--text);font-weight:500}
+.prose em{color:var(--copper);font-style:normal}
+
+/* Data table style */
+.data-table{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.04em;margin:1.5rem 0}
+.data-table th{text-align:left;color:var(--copper);font-weight:400;padding:.5rem 1rem .5rem 0;border-bottom:1px solid var(--rule);text-transform:uppercase;font-size:.5rem;letter-spacing:.12em;white-space:nowrap}
+.data-table td{padding:.6rem 1rem .6rem 0;border-bottom:1px solid rgba(255,255,255,.04);color:var(--mid);line-height:1.5;vertical-align:top}
+.data-table td:first-child{color:var(--text);white-space:nowrap}
+
+/* Key points list */
+.kp-list{list-style:none;margin:1rem 0}
+.kp-list li{font-size:.82rem;color:var(--mid);padding:.4rem 0;padding-left:1.2rem;position:relative;line-height:1.6}
+.kp-list li::before{content:'—';position:absolute;left:0;color:var(--copper)}
+
+/* ═══════ IMAGES ═══════ */
+.img-box{overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.05);transition:border-color .5s,box-shadow .5s}
+.img-box:hover{border-color:rgba(184,120,80,.25);box-shadow:0 0 40px rgba(184,120,80,.05)}
+.img-box img{width:100%;height:100%;display:block;object-fit:cover}
+.AR-16x9{aspect-ratio:16/9}.AR-4x3{aspect-ratio:4/3}.AR-3x2{aspect-ratio:3/2}.AR-1x1{aspect-ratio:1/1}.AR-21x9{aspect-ratio:21/9}.AR-3x4{aspect-ratio:3/4}
+
+.cap{font-family:var(--font-mono);font-size:.44rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.3rem}
+
+/* ═══════ GRIDS ═══════ */
+.g-split{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.g-1p2{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}
+.g-1p2 .stack{display:grid;grid-template-rows:1fr 1fr;gap:1rem}
+.g-2col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.g-2x2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+/* ═══════ SKETCH CARDS ═══════ */
+.g-sketch{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule)}
+.sk-card{background:var(--bg-card);padding:1.5rem;position:relative;transition:background .3s}
+.sk-card:hover{background:#1A1A1C}
+.sk-card img{width:100%;margin-bottom:1rem;display:block}
+.sk-letter{font-family:var(--font-display);font-size:3.5rem;font-weight:900;color:rgba(255,255,255,.02);position:absolute;top:.3rem;right:1rem;line-height:1;pointer-events:none}
+.sk-card h4{font-family:var(--font-display);font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
+.sk-card .sk-ref{font-family:var(--font-mono);font-size:.45rem;letter-spacing:.1em;color:var(--muted);margin-bottom:.5rem}
+.sk-card p{font-size:.75rem;color:var(--mid);line-height:1.6}
+.sk-card.recommend{border-left:2px solid var(--copper)}
+.sk-card.recommend::after{content:'RECOMMENDED';position:absolute;top:.8rem;right:1rem;font-family:var(--font-mono);font-size:.4rem;letter-spacing:.2em;color:var(--copper)}
+
+/* ═══════ CMF dots ═══════ */
+.dots{display:flex;gap:.8rem;margin:1rem 0}
+.dot{width:14px;height:14px;border-radius:2px;border:1px solid rgba(255,255,255,.08)}
+
+/* ═══════ CLOSING ═══════ */
+.closing{padding:8rem 3rem;text-align:center;position:relative;background:var(--bg-card)}
+.closing::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(184,120,80,.03) 0%,transparent 60%);pointer-events:none}
+.closing h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,4rem);font-weight:900;text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem}
+.closing p{max-width:460px;margin:0 auto;font-size:.8rem;color:var(--mid);line-height:1.8}
+.c-rule{width:50px;height:2px;background:var(--copper);margin:2rem auto}
+
+@media(max-width:900px){.hero{padding:4rem 1.5rem;min-height:70vh}.hero-title{font-size:2.5rem}.hero-meta{flex-wrap:wrap;gap:1rem}.page{padding:0 1.5rem}.sec-block{padding:3rem 0}.sec-num{font-size:3rem;left:0;top:1rem}.g-split,.g-1p2,.g-2col,.g-3col{grid-template-columns:1fr}.g-sketch{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-label">B2 · Industrial Design · Search & Rescue Robot</div>
+  <h1 class="hero-title">CERAX</h1>
+  <p class="hero-sub">Built for rubble. Trusted by rescuers.</p>
+  <div class="hero-meta">
+    <span>$15B Market 2030</span><span>−30°C to +60°C</span><span>IK08 Impact</span><span>IP67+ Sealed</span>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ═══════ 01 · BACKGROUND RESEARCH ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">01</div>
+  <div class="sec-label">Background Research / 背景调研</div>
+  <h2 class="sec-heading">Where Humans<br>Can't Go.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p>全球搜救机器人市场预计 <strong>2030 年达 $15B</strong>。驱动因素：自然灾害频率上升、城市化加速、机器人在近期灾难中的实战验证——福岛核事故、土耳其-叙利亚地震、迈阿密公寓坍塌。</p>
+        <p><em>核心洞察：</em>搜救机器人进入的是人类不能进、不该进的空间。它会被刮伤、撞凹、满身碎石灰尘。设计语言必须让这些读作<strong>"服役荣誉"</strong>而非<strong>"损坏"</strong>。</p>
+      </div>
+
+      <table class="data-table">
+        <tr><th>场景</th><th>环境条件</th><th>设计影响</th></tr>
+        <tr><td>地震废墟</td><td>不稳定结构、混凝土碎片、钢筋暴露、灰尘</td><td>层叠装甲吸收冲击、暗色隐藏灰尘</td></tr>
+        <tr><td>洪水区</td><td>积水、淤泥、漂浮物</td><td>IP67+ 防水、排水面板</td></tr>
+        <tr><td>火灾周边</td><td>高温、烟雾、化学残留</td><td>耐高温材料、抗化学涂层</td></tr>
+        <tr><td>山崩/雪崩</td><td>低温、冰雪、岩石</td><td>−30°C 运行、明亮金属件提高雪地可见度</td></tr>
+        <tr><td>夜间作业</td><td>低光、手电筒照明</td><td>铜色接口在灯光下可见、哑光减少眩光</td></tr>
+      </table>
+
+      <div class="prose">
+        <p><strong>五项关键需求：</strong></p>
+      </div>
+      <ul class="kp-list">
+        <li>抗冲击 — 落石、坍塌碎片，IK08 以上</li>
+        <li>战地可修 — 面板 5 分钟内一把工具更换，标准化紧固件</li>
+        <li>低光可操作 — 关键接口在黑暗中可见</li>
+        <li>极端温度 — −30°C 到 +60°C</li>
+        <li>文化中立 — 读作"救援装备"而非"军用硬件"</li>
+      </ul>
+    </div>
+    <div>
+      <div class="img-box AR-4x3" style="margin-bottom:1rem;"><img src="renders/搜救场景情绪板.png" alt="SAR Environment Research" loading="lazy"></div>
+      <div class="cap">SAR deployment environments — earthquake rubble, flood zones, fire perimeters, avalanche debris</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 02 · USER PERSONA ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">02</div>
+  <div class="sec-label">User Persona / 用户画像</div>
+  <h2 class="sec-heading">Capt. Chen.<br>SAR Team Leader.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="img-box AR-3x4" style="margin-bottom:1rem;"><img src="renders/搜救队长肖像.png" alt="SAR Team Leader Portrait" loading="lazy"></div>
+      <div class="cap">Capt. Chen — 42, 17 years in fire/rescue, three major earthquakes</div>
+    </div>
+    <div>
+      <div class="prose">
+        <p>42岁，消防/搜救系统 <strong>17 年</strong>。经历过 3 次大地震、无数次建筑坍塌。</p>
+        <p>他评估装备的方式：<em>"这个在我最需要的时候会不会坏？我的队员能不能在凌晨 3 点用冻僵的手修好它？"</em></p>
+        <p>机器人对他来说不是 gadget——是替他进入危险空间的<strong>"队友"</strong>。</p>
+      </div>
+      <ul class="kp-list" style="margin-top:1.5rem;">
+        <li>进入人类进不去的空间</li>
+        <li>被碎石砸中后继续工作</li>
+        <li>5 分钟内完成战地面板更换</li>
+        <li>黑暗环境里一眼看出哪个接口需要检查</li>
+        <li>50 次任务后比第 1 次更值得信任——因为那些划痕证明了它在哪工作过</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="g-2col" style="margin-top:1.5rem;">
+    <div class="img-box AR-21x9"><img src="renders/手：战地维护.png" alt="Field Maintenance" loading="lazy"></div>
+    <div class="img-box AR-21x9"><img src="renders/凌晨指挥部.png" alt="Command Center at 3am" loading="lazy"></div>
+  </div>
+  <div class="cap">M6 Torx · One tool services entire exterior · 5-minute field panel swap · Findable under flashlight at 3am &nbsp;|&nbsp; Command center at 3am — where decisions happen before the robot goes in</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 03 · COMPETITIVE ANALYSIS ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">03</div>
+  <div class="sec-label">Competitive Analysis / 竞品分析</div>
+  <h2 class="sec-heading">Adapted, Not<br>Purpose-Built.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p>当前市场上没有一款 SAR 机器人是<strong>从第一天就为废墟和救援设计的</strong>。</p>
+      </div>
+      <table class="data-table">
+        <tr><th>竞品</th><th>CMF</th><th>弱点</th></tr>
+        <tr><td>Spot</td><td>黄/黑工业塑料</td><td>实验室改造，黄色=工地设备，无装甲</td></tr>
+        <tr><td>ANYmal</td><td>深灰金属+塑料</td><td>工厂巡检设计，表面细节少，读作"传感器平台"</td></tr>
+        <tr><td>PackBot</td><td>军绿/黑</td><td>军绿色限制民用部署，履带在碎石地形慢于腿式</td></tr>
+        <tr><td>无人机</td><td>白/灰消费塑料</td><td>纯视觉，无物理交互能力，无法进入结构内部</td></tr>
+      </table>
+      <div class="prose" style="margin-top:1rem;">
+        <p><em>差异化定位：</em>一台从第一天就为废墟、雨水和救援设计的机器人——<strong>不是实验室改造，不是工厂改造，不是军用改造。</strong></p>
+      </div>
+    </div>
+    <div>
+      <div class="img-box"><img src="renders/材质短板.png" alt="Spot Material Weakness" loading="lazy"></div>
+      <div class="cap">Spot: scratch reveals white plastic substrate — "degradation," not "patina"</div>
+    </div>
+  </div>
+
+  <div class="img-box" style="margin-top:2rem;"><img src="renders/竞品并排对比.png" alt="Competitor Lineup" loading="lazy"></div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 04 · SKETCH EXPLORATION ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">04</div>
+  <div class="sec-label">Sketch Exploration / 草图造型</div>
+  <h2 class="sec-heading">Three Form<br>Languages.</h2>
+
+  <div class="prose" style="margin-bottom:1.5rem;">
+    <p>铅笔 + 针管笔手绘草图。三个截然不同的形态语言在进入 CMF 之前进行探索。关键词：低重心宽站姿、层叠面板非对称分割、暴露旋转机构、暗色透明传感器阵列。</p>
+  </div>
+
+  <div class="g-sketch">
+    <div class="sk-card">
+      <div class="sk-letter">A</div>
+      <img src="renders/甲虫 — 弧面装甲.png" alt="Beetle" loading="lazy">
+      <h4>Beetle / 甲虫</h4><div class="sk-ref">Curved Exoskeleton · 昆虫外骨骼</div>
+      <p>弧面功能曲线包裹内部机械。面板块数少、面积大。泥水一冲即净。亲和但不失能力感。</p>
+    </div>
+    <div class="sk-card recommend">
+      <div class="sk-letter">B</div>
+      <img src="renders/棱镜 — 硬朗折面.png" alt="Prism" loading="lazy">
+      <h4>Prism / 棱镜</h4><div class="sk-ref">Stealth Geometry · 隐形战机</div>
+      <p>锐利折面、角度分明的面板分割。每一刀都有功能——导流雨水、增强结构刚性。最"专业救援"的方向。</p>
+    </div>
+    <div class="sk-card">
+      <div class="sk-letter">C</div>
+      <img src="renders/工装 — 框架外露.png" alt="Toolbelt" loading="lazy">
+      <h4>Toolbelt / 工装</h4><div class="sk-ref">Exposed Frame · 建筑机械</div>
+      <p>核心骨架暴露，功能模块像工具包一样挂载。任何模块 30 秒更换。最"战地可修"的方向。</p>
+    </div>
+  </div>
+
+  <div class="img-box AR-21x9" style="margin-top:1.5rem;"><img src="renders/三方向对比.png" alt="Three Directions Comparison" loading="lazy"></div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">Design review — "B is the one. Sharp = professional rescue. NOT friendly robot toy."</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 05 · CMF DIRECTION ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">05</div>
+  <div class="sec-label">CMF Direction / 色彩·材质·表面处理</div>
+  <h2 class="sec-heading">Dark Metal.<br>Copper Markers.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p>暗石墨主装甲吸收碎石灰尘、隐藏划痕。哑光黑金属副面板仅通过光泽对比创造深度——整台机器人读作灰度，直到你需要修理它的那一刻。</p>
+        <p><em>铜色接口</em>是唯一的暖色——凌晨3点坍塌结构里，手电筒一照就能找到的<strong>服务标记点</strong>。</p>
+      </div>
+      <div class="dots">
+        <span class="dot" style="background:var(--graphite)"></span><span class="dot" style="background:var(--black)"></span><span class="dot" style="background:var(--gunmetal)"></span><span class="dot" style="background:var(--copper)"></span>
+      </div>
+      <table class="data-table" style="margin-top:1.5rem;">
+        <tr><th>角色</th><th>颜色</th><th>Hex</th><th>光泽</th></tr>
+        <tr><td>主装甲</td><td>暗石墨</td><td>#3A3835</td><td>15–25 GU</td></tr>
+        <tr><td>副装甲</td><td>哑黑金属</td><td>#2A2825</td><td>2–5 GU</td></tr>
+        <tr><td>结构框</td><td>枪灰</td><td>#4A4844</td><td>5–10 GU</td></tr>
+        <tr><td>液压线</td><td>金属银</td><td>#8A8680</td><td>20–30 GU</td></tr>
+        <tr><td>服务标记</td><td>铜色</td><td>#B87850</td><td>15–25 GU</td></tr>
+        <tr><td>线缆护套</td><td>深炭灰</td><td>#383430</td><td>2–4 GU</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="img-box AR-16x9"><img src="renders/材质色板.png" alt="Material Palette" loading="lazy"></div>
+    </div>
+  </div>
+
+  <div class="img-box" style="margin-top:1.5rem;"><img src="renders/CMF策略板.png" alt="CMF Strategy Board" loading="lazy"></div>
+  <div class="cap" style="margin-top:.3rem;">Six-zone material strategy</div>
+
+  <div class="img-box" style="margin-top:1.5rem;"><img src="renders/三变体材质对比.png" alt="Three Variants Comparison" loading="lazy"></div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">V1 Industrial Standard — V1 + Rescue Orange bolt-on — V3 Blackout night ops</div>
+
+  <div class="prose" style="margin-top:1.5rem;">
+    <p><strong>三个变体：</strong>V1 工业标准 — 暗石墨 + 铜色接口，均衡战场作业。V2 原生金属 — 枪灰主装甲 + 黄铜接口，极地/山岳搜救。V3 全黑 — 全黑金属 + 暗黄铜，夜间/隐蔽作业。</p>
+    <p><strong>关键细节：</strong>面板间隙 1.5-2mm → 受冲击时微移，不传递裂纹。M5/M6 Torx 标准化紧固件 → 一把工具全场通修。铜色仅用于液压接口和电池仓 → 低光下的快速定位标记。边缘自然磨损露原金属 → 50 次任务后的服役勋章。</p>
+  </div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 06 · CONCEPT DEVELOPMENT ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">06</div>
+  <div class="sec-label">Concept Development / 方案深化</div>
+  <h2 class="sec-heading">Prism + Toolbelt.<br>Selected Direction.</h2>
+
+  <div class="g-split">
+    <div>
+      <div class="prose">
+        <p><strong>B（棱镜）为主 + C（工装）的模块化理念。</strong></p>
+        <p>B 的硬朗折面语言最符合"专业救援装备"的定位——与消费级机器人拉开距离。角度分明的面板分割建立视觉识别。C 的模块化设计确保战地可修——标准化 M6 Torx 安装点让任何面板在 5 分钟内更换。</p>
+        <p>A（甲虫）的弧面元素用于少数大面积面板作为视觉呼吸点，避免全折面造成的过度冷峻感。</p>
+      </div>
+      <ul class="kp-list">
+        <li>Prism 折面 = 雨水导流 + 冲击分散 + 结构刚性</li>
+        <li>Toolbelt 模块 = 战地快换 <30s · M6 Torx 统一安装点</li>
+        <li>铜色接口 → 手电筒下的服务标记</li>
+        <li>救援橙 Bolt-on 面板 → 按任务需求装卸，不是喷涂</li>
+      </ul>
+    </div>
+    <div>
+      <div class="img-box AR-3x4"><img src="renders/选定方案深化.png" alt="Final Selected Sketch" loading="lazy"></div>
+      <div class="cap">Final refined concept — fine-liner + pencil + red pencil annotation</div>
+    </div>
+  </div>
+
+  <div class="g-2col" style="margin-top:2rem;">
+    <div>
+      <div class="img-box"><img src="renders/高视模块装载.png" alt="High-Vis Modules Deployed" loading="lazy"></div>
+      <div class="cap">Rescue Orange bolt-on — modular, not painted. Same M6 Torx, same panel geometry.</div>
+    </div>
+    <div>
+      <div class="img-box"><img src="renders/模块化高视系统.png" alt="Modular High-Vis System" loading="lazy"></div>
+      <div class="cap">Panel variants — Rescue Orange / Safety Yellow / Dark Graphite. Agency chooses visibility level.</div>
+    </div>
+  </div>
+
+  <div class="img-box AR-21x9" style="margin-top:1.5rem;"><img src="renders/铜色快修标记.png" alt="Copper Quick-Repair Markers" loading="lazy"></div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">Copper service markers — the only warm tone on the entire machine. Findable under flashlight at 3am in a collapsed structure.</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 07 · DETAIL RENDERS ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">07</div>
+  <div class="sec-label">Detail Renders / 细节渲染</div>
+  <h2 class="sec-heading">Industrial<br>Mechanical Realism.</h2>
+
+  <div class="prose" style="margin-bottom:1.5rem;">
+    <p>KeyShot/Octane 写实质量。白色无缝 studio 背景，软光全局照明，清晰接触阴影。每一个 macro 镜头讲一个 CMF 故事。</p>
+  </div>
+
+  <!-- Lead: Hero + Front/Rear (left 2/3) + Exploded (right 1/3) -->
+  <div class="g-1p2" style="margin-bottom:2rem;">
+    <div>
+      <div class="img-box" style="margin-bottom:1rem;"><img src="renders/标准配置 Hero.png" alt="V1 Industrial Standard Hero" loading="lazy"></div>
+      <div class="g-2col">
+        <div>
+          <div class="img-box"><img src="renders/正视图.png" alt="Front View" loading="lazy"></div>
+          <div class="cap">Front — symmetrical angular armor</div>
+        </div>
+        <div>
+          <div class="img-box"><img src="renders/后侧视图.png" alt="Rear View" loading="lazy"></div>
+          <div class="cap">Rear — no "back side" neglect</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="img-box"><img src="renders/爆炸图.png" alt="Exploded View" loading="lazy"></div>
+      <div class="cap">Exploded — armor → hydraulics → chassis → legs. All separable for recycling.</div>
+    </div>
+  </div>
+
+  <!-- Row 2: Gloss-Matte + Graphite/Orange + Hydraulic Copper -->
+  <div class="g-3col">
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/光泽哑光对比.png" alt="Gloss-Matte Contrast" loading="lazy"></div>
+      <div class="cap">Gloss-matte contrast — depth without color. 1.5mm gap, M6 Torx fastener. Two reflectance values, same lighting.</div>
+    </div>
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/石墨对橙.jpg" alt="Graphite vs Orange" loading="lazy"></div>
+      <div class="cap">Graphite = the machine. Orange = the mission. Same panel geometry, same M6 Torx. Modular, not painted.</div>
+    </div>
+    <div>
+      <div class="img-box AR-1x1"><img src="renders/液压铜接口.png" alt="Hydraulic Copper Fitting" loading="lazy"></div>
+      <div class="cap">Copper fitting — the only warm tone. Smooth machined surface, O-ring seal. Findable under flashlight at 3am.</div>
+    </div>
+  </div>
+
+  <!-- Row 3: Cinematic Black Void -->
+  <div class="img-box" style="margin-top:1.5rem;"><img src="renders/黑虚空 Hero.png" alt="Black Void Cinematic" loading="lazy"></div>
+  <div class="cap" style="text-align:center;margin-top:.5rem;">Cinematic — black void, copper embers. Chiaroscuro. Not a product shot, a reveal.</div>
+</section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════ 08 · SCENE RENDERS ═══════ -->
+<div class="page">
+<section class="sec-block">
+  <div class="sec-num">08</div>
+  <div class="sec-label">Scene Renders / 场景渲染</div>
+  <h2 class="sec-heading">In the Rubble.<br>After the Mission.</h2>
+
+  <div class="prose" style="margin-bottom:1.5rem;">
+    <p>从 studio 到废墟。CMF 策略在真实操作环境中验证——灰尘、划痕、磨损不是缺陷，是服役记录。</p>
+  </div>
+
+  <div class="g-2col" style="margin-bottom:1.5rem;">
+    <div>
+      <div class="img-box AR-3x2"><img src="renders/废墟现场.png" alt="Rubble Field Deployment" loading="lazy"></div>
+      <div class="cap">Field deployment — navigating collapsed concrete, dust in the air, copper fittings catching work light</div>
+    </div>
+    <div>
+      <div class="img-box AR-3x2"><img src="renders/任务归来.png" alt="After Mission" loading="lazy"></div>
+      <div class="cap">After extraction — concrete dust settled into panel gaps, copper still visible through grime, a gloved hand of trust</div>
+    </div>
+  </div>
+
+  <div class="img-box AR-21x9" style="margin-bottom:.5rem;"><img src="renders/三个世界.png" alt="Three Worlds" loading="lazy"></div>
+  <div class="cap" style="text-align:center;">One platform, three worlds — urban demolition (orange, daylight) · Arctic mountain (gunmetal, overcast) · Night urban (blackout, rain)</div>
+</section>
+</div>
+
+<!-- ═══════ CLOSING ═══════ -->
+<section class="closing">
+  <div class="sec-label" style="margin-bottom:1rem;">B2 CERAX · Industrial Design Portfolio</div>
+  <h2>Built for Rubble</h2>
+  <p>背景调研 → 用户画像 → 竞品分析 → CMF方向 → 草图造型 → 方案深化 → 细节渲染 → 场景渲染。一台从第一天就为地球最恶劣环境设计的搜救机器人。</p>
+  <div class="c-rule"></div>
+</section>
+
+</body>
+</html>
