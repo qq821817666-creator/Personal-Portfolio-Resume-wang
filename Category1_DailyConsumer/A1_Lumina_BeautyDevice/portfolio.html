@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A1 Lumina — CMF Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* A3 Palette — extracted from project CIELAB values */
+  --pearl: #F5F0EB;
+  --rose-gold: #B8A390;
+  --dusty-rose: #C9AFA0;
+  --champagne: #C4A882;
+  --jade: #C5D5C8;
+  --indigo: #2D2D4B;
+  --navy: #3D4260;
+
+  /* Layout colors */
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #F0EDE8;
+  --text-primary: #2B2825;
+  --text-secondary: #6B6560;
+  --text-muted: #9E9790;
+  --rule: #D4CFC8;
+  --spec-bg: #F5F2EE;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --space-xxl: 12rem;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --font-body: 'Manrope', 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-lg);
+  position: relative;
+  background: radial-gradient(ellipse at 50% 40%, rgba(184, 163, 144, 0.08) 0%, transparent 70%);
+}
+
+.hero-project-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+
+.hero-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rose-gold);
+  margin-top: var(--space-sm);
+}
+
+.hero-tagline {
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-top: var(--space-md);
+  text-transform: uppercase;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: var(--space-lg);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  animation: fadeDown 2s ease-in-out infinite;
+}
+
+@keyframes fadeDown {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
+}
+
+/* Full-bleed image */
+.full-image {
+  width: 100%;
+  padding: 0 var(--space-lg);
+  margin: var(--space-md) 0;
+}
+
+.full-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Hero image — three variants comparison */
+.variants-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 1400px;
+  margin: var(--space-xl) auto var(--space-lg);
+  padding: 0 var(--space-md);
+}
+
+.variants-row figure {
+  position: relative;
+}
+
+.variants-row img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+.variants-row figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: var(--space-xs);
+  text-align: center;
+}
+
+/* Section */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xxl) var(--space-md);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--space-sm);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 1.2;
+}
+
+.section-body {
+  max-width: 640px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Rule */
+.rule {
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin: var(--space-lg) 0;
+}
+
+.rule-short {
+  width: 60px;
+  height: 1px;
+  background: var(--rose-gold);
+  margin: var(--space-md) 0;
+}
+
+/* Detail pairs — two images side by side */
+.detail-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+  align-items: start;
+}
+
+.detail-pair img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+.detail-pair figure figcaption {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+  text-transform: uppercase;
+}
+
+/* Spec block */
+.spec-block {
+  background: var(--spec-bg);
+  border-radius: 2px;
+  padding: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.spec-block-title {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm) var(--space-md);
+}
+
+.spec-item {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-xs);
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.spec-value {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  font-weight: 400;
+  margin-top: 2px;
+}
+
+/* Wide single image */
+.wide-image {
+  width: 100%;
+  margin: var(--space-lg) 0;
+}
+
+.wide-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Full bleed — no padding */
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+
+.full-bleed img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Asymmetric layout */
+.asymmetric {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-lg);
+  align-items: center;
+  margin: var(--space-xl) 0;
+}
+
+.asymmetric.reverse {
+  grid-template-columns: 1.5fr 1fr;
+}
+
+.asymmetric-text {
+  padding: var(--space-lg);
+}
+
+.asymmetric-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+}
+
+.asymmetric-text p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.asymmetric-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Swatch board — largest presentation */
+.swatch-full {
+  width: 100%;
+  margin: var(--space-xl) 0;
+}
+
+.swatch-full img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Closing section */
+.closing {
+  text-align: center;
+  padding: var(--space-xxl) var(--space-md);
+  background: var(--bg-secondary);
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+}
+
+.closing-body {
+  max-width: 500px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Material palette indicators */
+.palette-dots {
+  display: flex;
+  gap: var(--space-xs);
+  margin: var(--space-sm) 0;
+}
+
+.palette-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Staggered fade-in */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --space-xl: 4rem;
+    --space-xxl: 6rem;
+  }
+
+  .variants-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .detail-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .asymmetric,
+  .asymmetric.reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .full-image {
+    padding: 0 var(--space-sm);
+  }
+
+  .section {
+    padding: var(--space-xl) var(--space-sm);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================
+     HERO
+================================= -->
+<section class="hero">
+  <div class="hero-project-code">A1 · Category 1 — Daily Consumer</div>
+  <h1 class="hero-title">Lumina</h1>
+  <p class="hero-subtitle">Derma-Luxury · RF Facial Device</p>
+  <p class="hero-tagline">肌肤奢华 · 射频美容仪 CMF</p>
+
+  <div class="variants-row">
+    <figure>
+      <img src="renders/hero_v1_pearl_rose.png" alt="V1 Pearl Rose">
+      <figcaption>V1 · Pearl Rose / 珍珠玫瑰</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/hero_v2_jade_calm.png" alt="V2 Jade Calm">
+      <figcaption>V2 · Jade Calm / 玉石静谧</figcaption>
+    </figure>
+    <figure>
+      <img src="renders/hero_v3_midnight_serum.png" alt="V3 Midnight Serum">
+      <figcaption>V3 · Midnight Serum / 深夜精华</figcaption>
+    </figure>
+  </div>
+
+  <div class="hero-scroll">SCROLL ↓</div>
+</section>
+
+<!-- ================================
+     SECTION 1: DESIGN PHILOSOPHY
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 3 · CMF Strategy</div>
+  <h2 class="section-title">Skincare,<br>Materialized.</h2>
+  <div class="rule-short"></div>
+  <div class="section-body">
+    <p>Lumina translates skincare textures into product CMF — the high-gloss body recalls a luxury serum bottle, velvet silicone feels like a rich cream, brushed titanium is precision-engineered like a dermatologist's tool. Warm metallic tones add emotional heat to the clinical material base, making the device feel like self-care, not a medical procedure.</p>
+    <div class="palette-dots">
+      <span class="palette-dot" style="background: var(--pearl);"></span>
+      <span class="palette-dot" style="background: var(--rose-gold);"></span>
+      <span class="palette-dot" style="background: var(--dusty-rose);"></span>
+      <span class="palette-dot" style="background: var(--champagne);"></span>
+      <span class="palette-dot" style="background: var(--indigo);"></span>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ================================
+     SECTION 2: MATERIAL TRANSITIONS
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Material Detail</div>
+  <h2 class="section-title">Material Transitions<br>&amp; Tactile Story</h2>
+  <div class="rule-short"></div>
+  <div class="section-body">
+    <p>Each material transition is choreographed — cool titanium makes first contact with skin, warm velvet grip settles into the hand, ceramic-smooth body catches ambient light on the vanity. The arc of interaction slows the user down, transforming a treatment into a moment of self-care.</p>
+  </div>
+</section>
+
+<!-- Full bleed: Material Transition -->
+<figure class="full-image reveal">
+  <img src="renders/08_material_transition.png" alt="Material Transition: High-Gloss ABS to Velvet LSR Silicone">
+  <figcaption style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--text-muted);margin-top:var(--space-xs);text-align:center;text-transform:uppercase;">Shot 08 · Gloss-to-Matte Transition · ABS Body → LSR Grip</figcaption>
+</figure>
+
+<!-- Detail Pair: Ti Head + LSR Grip -->
+<div class="detail-pair reveal">
+  <figure>
+    <img src="renders/09_ti_head_macro.jpg" alt="Titanium Treatment Head Macro">
+    <figcaption>Shot 09 · Ti-6Al-4V · #320 Concentric Brush · Ra 0.3–0.5μm</figcaption>
+  </figure>
+  <figure>
+    <img src="renders/10_lsr_grip_macro.png" alt="LSR Silicone Grip Macro">
+    <figcaption>Shot 10 · LSR Silicone · MT-11010 Velvet · Shore A 45–50</figcaption>
+  </figure>
+</div>
+
+<div class="rule"></div>
+
+<!-- ================================
+     SECTION 3: LED HALO + CHARGING BASE
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Interaction Detail</div>
+  <h2 class="section-title">Hidden-When-Off<br>&amp; Docking Ritual</h2>
+  <div class="rule-short"></div>
+  <div class="section-body">
+    <p>The LED halo is laser-etched into frosted PMMA — invisible when dark, a warm amber glow when illuminated. The charging base is a weighty zinc alloy cylinder with dark chrome PVD finish, its silicone dock absorbing the device with a soft, damped landing. Every interaction is designed.</p>
+  </div>
+</section>
+
+<!-- Wide image: LED Halo detail -->
+<figure class="wide-image reveal">
+  <img src="renders/12_led_halo_detail.png" alt="LED Halo Detail — Hidden When Off">
+  <figcaption style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--text-muted);margin-top:var(--space-xs);text-align:center;text-transform:uppercase;">Shot 12 · Frosted PMMA · Micro-Dot Diffuser · 2700K Warm Amber</figcaption>
+</figure>
+
+<!-- Asymmetric: Charging Base -->
+<div class="asymmetric reverse reveal">
+  <div class="asymmetric-image">
+    <img src="renders/13_charging_base.jpg" alt="Charging Base Detail">
+  </div>
+  <div class="asymmetric-text">
+    <h3>Charging Base</h3>
+    <p>Zamak 3 zinc alloy · dark chrome PVD · #220 linear brush · matte silicone dock insert. The weight of the base reinforces quality perception every time the user docks the device. Contrast between mirror-dark metal and soft silicone.</p>
+    <div class="spec-item" style="margin-top:var(--space-md);">
+      <span class="spec-label">Pantone 19-4008 TCX</span>
+      <span class="spec-value">L*=32, a*=1, b*=−2 · 10–15 GU @ 60°</span>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ================================
+     SECTION 4: CMF SWATCH BOARD
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Production Specification</div>
+  <h2 class="section-title">CMF Swatch Board<br>V1 · Pearl Rose</h2>
+  <div class="rule-short"></div>
+</section>
+
+<!-- Full-width swatch board -->
+<figure class="swatch-full reveal">
+  <img src="renders/11_cmf_swatch_board.png" alt="CMF Swatch Board V1 Pearl Rose">
+  <figcaption style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--text-muted);margin-top:var(--space-xs);text-align:center;text-transform:uppercase;">Shot 11 · Material Documentation · Medical ABS / Ti PVD / LSR / PMMA / Zn Alloy</figcaption>
+</figure>
+
+<!-- Spec Block -->
+<div class="spec-block reveal">
+  <div class="spec-block-title">V1 Pearl Rose · Material Specification / 材料规格</div>
+  <div class="spec-grid">
+    <div class="spec-item">
+      <div class="spec-label">Body / 机身</div>
+      <div class="spec-value">Medical ABS · ISO 10993 · SPI A-2 · 85–90 GU</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Treatment Head / 护理头</div>
+      <div class="spec-value">Ti-6Al-4V · #320 Circular Brush · Ra 0.3–0.5μm</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Grip / 握持</div>
+      <div class="spec-value">LSR · MT-11010 · Shore A 45–50 · 2–4 GU</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Button / 按钮</div>
+      <div class="spec-value">Ti Grade 5 · Diamond-Cut Chamfer 0.3mm · PVD</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">LED Halo / 光环</div>
+      <div class="spec-value">PMMA · Laser-Etch · Dot Ø0.05mm · Pitch 0.1mm</div>
+    </div>
+    <div class="spec-item">
+      <div class="spec-label">Base / 底座</div>
+      <div class="spec-value">Zamak 3 · #220 Brush + PVD · Silicone MT-11020</div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ================================
+     SECTION 5: EXPLODED VIEW
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 4 · Engineering Documentation</div>
+  <h2 class="section-title">Exploded Material View<br>6 Components</h2>
+  <div class="rule-short"></div>
+</section>
+
+<figure class="full-image reveal">
+  <img src="renders/15_exploded_view.png" alt="Exploded Material View — 6 Components">
+  <figcaption style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--text-muted);margin-top:var(--space-xs);text-align:center;text-transform:uppercase;">Shot 15 · Isometric Exploded View · Ti / ABS / LSR / PMMA / Zn Alloy · Color-Coded by Material Family</figcaption>
+</figure>
+
+<div class="rule"></div>
+
+<!-- ================================
+     SECTION 6: IN-HAND + PACKAGING
+================================= -->
+<section class="section reveal">
+  <div class="section-label">Phase 5 · Lifestyle &amp; Unboxing</div>
+  <h2 class="section-title">In-Hand Ritual<br>&amp; Sustainable Unboxing</h2>
+  <div class="rule-short"></div>
+  <div class="section-body">
+    <p>The device is designed to be seen — on the vanity, in the hand, in the unboxing moment. Packaging is FSC-certified kraft paper with gold foil deboss, molded sugarcane fiber tray, braided fabric USB-C cable, and a seed-embedded thank-you card. Every touchpoint reinforces the sustainability commitment.</p>
+  </div>
+</section>
+
+<!-- In-Hand Pair: Two lifestyle shots -->
+<div class="detail-pair reveal">
+  <figure>
+    <img src="renders/14_in-hand_left.jpg" alt="In-Hand Usage — Close-up">
+    <figcaption>Shot 14a · In-Hand Detail · Pearl Rose Gloss + Velvet Grip Contrast</figcaption>
+  </figure>
+  <figure>
+    <img src="renders/14_in-hand_right.jpg" alt="In-Hand Usage — Lifestyle">
+    <figcaption>Shot 14b · Lifestyle Context · Self-Care Ritual Moment</figcaption>
+  </figure>
+</div>
+
+<!-- Wide: Packaging -->
+<figure class="wide-image reveal">
+  <img src="renders/16_packaging_unboxing.png" alt="Packaging Unboxing — Sustainable Luxury">
+  <figcaption style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--text-muted);margin-top:var(--space-xs);text-align:center;text-transform:uppercase;">Shot 16 · FSC Kraft · Sugarcane Fiber Tray · Braided Cable · Seed Paper Card</figcaption>
+</figure>
+
+<!-- ================================
+     CLOSING
+================================= -->
+<section class="closing reveal">
+  <div class="hero-project-code">A1 Lumina · CMF Portfolio</div>
+  <h2 class="closing-title">Derma-Luxury</h2>
+  <p class="closing-body">
+    Three color variants, six material zones, medical-grade precision, and a sustainability story —
+    every CMF decision serves the brand, the user, and the ritual of self-care.
+    <br><br>
+    三款配色 · 六个材料区域 · 医疗级精度 · 可持续叙事
+    <br>
+    每一个CMF决策都服务于品牌、用户与自我护理的仪式感。
+  </p>
+  <div class="rule-short" style="margin: var(--space-lg) auto;"></div>
+  <p style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.15em;color:var(--text-muted);">
+    TOOLS · Figma / Blender / GPT Image 2 / Python cmf_color_extractor.py / Adobe CC
+  </p>
+</section>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王一帆 — Resume / 个人简历</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF7;
+  --card-bg: #FFFFFF;
+  --text: #2B2B28;
+  --text-mid: #6B6B65;
+  --text-light: #9B9B95;
+  --rule: #E0DED8;
+  --accent: #B8A090;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-zh: 'Noto Sans SC', 'PingFang SC', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+header {
+  max-width: 960px; margin: 0 auto; padding: 2rem 2rem 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid var(--rule);
+}
+.logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 600; letter-spacing: -0.01em; color: var(--text); text-decoration: none; }
+.logo span { color: #8B7355; font-style: italic; font-weight: 700; }
+nav { display: flex; gap: 2rem; }
+nav a {
+  text-decoration: none; color: var(--text-light);
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; transition: color 0.3s;
+}
+nav a:hover, nav a.active { color: var(--text); }
+
+.container { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+/* Hero */
+.resume-hero {
+  padding: 4rem 0 3rem; position: relative;
+}
+.resume-hero .hero-inner {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 3rem;
+}
+.resume-hero .hero-text { flex: 1; }
+.resume-hero .hero-photo {
+  flex-shrink: 0;
+  width: 140px; height: 180px; border-radius: 4px;
+  overflow: hidden; border: 1px solid var(--rule);
+}
+.resume-hero .hero-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.resume-hero h1 {
+  font-family: var(--font-zh); font-size: 2.5rem; font-weight: 500; margin-bottom: 0.5rem;
+}
+.resume-hero .title {
+  font-family: var(--font-display); font-size: 1.2rem; font-style: italic;
+  color: var(--accent); margin-bottom: 0.75rem;
+}
+.resume-hero .contact-row {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 2rem;
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text-light);
+}
+.resume-hero .contact-row span { white-space: nowrap; }
+
+/* Sections */
+.section { padding: 2.5rem 0; }
+.section + .section { border-top: 1px solid var(--rule); }
+.section-label {
+  font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.12em;
+  color: #6B5B4F; text-transform: uppercase; margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+/* Info table */
+.info-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+.info-table td { padding: 0.4rem 1rem 0.4rem 0; color: var(--text-mid); }
+.info-table td:first-child { color: var(--text-light); white-space: nowrap; padding-right: 2rem; }
+
+/* Education */
+.edu-block { margin-bottom: 1.5rem; }
+.edu-block:last-child { margin-bottom: 0; }
+.edu-block h3 {
+  font-family: var(--font-zh); font-size: 1.05rem; font-weight: 500; margin-bottom: 0.15rem;
+}
+.edu-block .edu-meta {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--accent); margin-bottom: 0.4rem;
+}
+.edu-block ul {
+  list-style: none; font-size: 0.85rem; color: var(--text-mid); line-height: 1.8;
+}
+.edu-block ul li::before { content: '— '; color: var(--accent); }
+
+/* Entry blocks */
+.entry { margin-bottom: 1.75rem; }
+.entry:last-child { margin-bottom: 0; }
+.entry h3 {
+  font-family: var(--font-zh); font-size: 1rem; font-weight: 500; margin-bottom: 0.1rem;
+}
+.entry .entry-meta {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
+.entry p, .entry ul { font-size: 0.85rem; color: var(--text-mid); line-height: 1.8; }
+.entry ul { list-style: none; padding-left: 0; }
+.entry ul li::before { content: '— '; color: var(--accent); }
+
+/* Awards grid */
+.awards-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 2rem;
+  font-size: 0.85rem; color: var(--text-mid); line-height: 1.8;
+}
+.awards-grid .award-date {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; color: var(--accent);
+}
+.awards-grid .award-name { font-weight: 400; }
+
+/* Skills */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+}
+.skills-grid .skill-cat {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.skills-grid ul { list-style: none; font-size: 0.82rem; color: var(--text-mid); line-height: 1.8; }
+
+/* Projects showcase */
+.project-showcase { margin-bottom: 2rem; }
+.project-showcase:last-child { margin-bottom: 0; }
+.project-showcase h3 {
+  font-family: var(--font-zh); font-size: 1.05rem; font-weight: 500; margin-bottom: 0.25rem;
+}
+.project-showcase .proj-en {
+  font-family: var(--font-display); font-size: 0.95rem; font-style: italic;
+  color: var(--accent); margin-bottom: 0.5rem;
+}
+.project-showcase p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.8; }
+
+footer {
+  text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--rule);
+}
+footer p { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.06em; }
+
+@media (max-width: 768px) {
+  header { flex-direction: column; gap: 1rem; padding: 1.5rem 1rem; }
+  nav { gap: 1.2rem; }
+  .container { padding: 0 1.25rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .awards-grid { grid-template-columns: 1fr; }
+  .hero-inner { flex-direction: column-reverse; gap: 1.5rem; }
+  .hero-photo { width: 110px; height: 140px; }
+  .resume-hero h1 { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">CMF <span>Portfolio</span></a>
+  <nav>
+    <a href="index.html#projects">Projects</a>
+    <a href="resume.html" class="active">Resume</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<section class="resume-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>王一帆</h1>
+        <p class="title">Industrial Design × Intelligent Interaction</p>
+        <div class="contact-row">
+          <span>杭州</span>
+          <span>+86 13758281042</span>
+          <span>821817666@qq.com</span>
+          <span>男 · 25岁</span>
+        </div>
+      </div>
+      <div class="hero-photo"><img src="个人照片.png" alt="王一帆"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Education -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Education / 教育背景</div>
+
+    <div class="edu-block">
+      <h3>杭州电子科技大学 · 硕士</h3>
+      <div class="edu-meta">智能交互设计 · 2024.09 – 2027.06</div>
+      <ul>
+        <li>主修：设计方法、信息可视化设计、服务设计、设计前沿研究</li>
+      </ul>
+    </div>
+
+    <div class="edu-block">
+      <h3>燕山大学 · 本科</h3>
+      <div class="edu-meta">工业设计 · 2019.09 – 2023.06</div>
+      <ul>
+        <li>主修：交互设计、计算机辅助设计、设计素描、数字手绘、体验设计、UI设计、人机交互设计等</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Experience -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Academic Experience / 学术经历</div>
+
+    <div class="entry">
+      <h3>设计竞赛参与</h3>
+      <div class="entry-meta">2025.05 – 2026.01 · 第一作者 / 第二作者</div>
+      <p>以第一作者、第二作者身份参与多项高水平设计类学科竞赛，包括中国好创意大赛、米兰设计周高校设计展、研究生"美丽中国"创新设计大赛、IF设计奖项学生组等，斩获多项国家级、省级赛事奖项。熟练使用 Rhino、Blender、C4D、KeyShot、Creo、SolidWorks 等建模渲染软件，以及 Figma、PS 等平面设计软件，独立完成数字建模、设计素材制作等工作。</p>
+    </div>
+
+    <div class="entry">
+      <h3>ICAIE 会议项目（第一作者）</h3>
+      <div class="entry-meta">2025.09 – 2025.12 · 用于促进儿童AI概念学习的游戏化多模态交互设计</div>
+      <ul>
+        <li>独立完成创意构思、用户调研、方案落地、交互原型制作全流程</li>
+        <li>负责 EI 会议（ICAIE）长文撰写、修改与投稿工作</li>
+        <li>运用 Figma、Photoshop 完成草图绘制，借助 Cursor、VS Code、Gemini 等 AI 编程工具，实现交互硬件原型、APP 演示程序前后端搭建</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Awards -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Awards / 获奖经历</div>
+    <div class="awards-grid">
+      <div><span class="award-date">2025.09</span><br><span class="award-name">中国研究生"美丽中国"创新设计大赛 — 国赛二等奖</span></div>
+      <div><span class="award-date">2025.08</span><br><span class="award-name">浙江省大学生工业设计竞赛 — 三等奖</span></div>
+      <div><span class="award-date">2022.11</span><br><span class="award-name">中华设计奖（概念组）— 优秀作品奖</span></div>
+      <div><span class="award-date">2022.09</span><br><span class="award-name">温州国际设计双年展 — 金奖</span></div>
+      <div><span class="award-date">2022.09</span><br><span class="award-name">NCDA 全国高校数字艺术设计大赛（产品组）— 三等奖</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Skills & Tools / 技能工具</div>
+
+    <div class="skills-grid">
+      <div>
+        <div class="skill-cat">3D Modeling / 三维建模</div>
+        <ul>
+          <li>Rhino</li>
+          <li>Blender</li>
+          <li>C4D</li>
+          <li>KeyShot</li>
+          <li>Creo</li>
+          <li>SolidWorks</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-cat">Design & Dev / 设计开发</div>
+        <ul>
+          <li>Figma</li>
+          <li>Photoshop</li>
+          <li>Illustrator</li>
+          <li>Cursor / VS Code</li>
+          <li>HTML / CSS</li>
+          <li>Python</li>
+        </ul>
+      </div>
+      <div>
+        <div class="skill-cat">AI Tools / AI工具</div>
+        <ul>
+          <li>GPT Image 2</li>
+          <li>Nano Banana</li>
+          <li>ComfyUI</li>
+          <li>Claude Code</li>
+          <li>Codex</li>
+          <li>LibTV</li>
+          <li>Seedance</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-top:1.5rem;line-height:1.8;">
+      <strong>英语：</strong>大学英语六级（CET-6），497 分
+      &nbsp;·&nbsp; <strong>兴趣：</strong>骑行、浏览设计论坛、冲浪
+    </p>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Design Projects / 设计作品</div>
+
+    <div class="project-showcase">
+      <h3><a href="hive.html" style="color:inherit;text-decoration:none;">Hive MicroVac · 海洋微塑料清理装置</a></h3>
+      <div class="proj-en">Ocean Microplastic Recovery System</div>
+      <p>面向海洋微塑料清理、收集的水面综合设施。整体由一座基站与三个模块化子装置组成，基站主要为子装置提供能源补给与停泊功能。</p>
+    </div>
+
+    <div class="project-showcase">
+      <h3><a href="splitwell.html" style="color:inherit;text-decoration:none;">"栖元" SplitWell · 分体式养生壶</a></h3>
+      <div class="proj-en">Split Multi-Scenario Health Kettle</div>
+      <p>多场景通用分体式养生壶，在传统功能基础上新增制冷、多品类饮品制作等模式，功能集成度高，可满足多元化使用需求。</p>
+    </div>
+
+    <div class="project-showcase">
+      <h3><a href="cat-robot.html" style="color:inherit;text-decoration:none;">猫咪陪伴机器人</a></h3>
+      <div class="proj-en">Cat Companion Robot</div>
+      <p>面向独居青年与多猫家庭的智能陪伴机器人，集成AI视觉识别、远程互动与自动喂食功能，探索宠物关怀场景下的智能硬件设计与交互体验。</p>
+    </div>
+
+    <div class="project-showcase">
+      <h3><a href="bike.html" style="color:inherit;text-decoration:none;">亲子双人电助力自行车</a></h3>
+      <div class="proj-en">Parent-Child E-Assist Bicycle</div>
+      <p>主打亲子互动的双人助力自行车，适用于植物主题公园场景。依托车辆开展植物探索打卡活动，引导孩子亲近自然、增进亲子关系。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CMF Projects -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">CMF Strategy Projects · AI辅助设计 / CMF策略项目</div>
+    <p style="font-size:0.78rem;color:var(--text-light);font-family:var(--font-mono);letter-spacing:0.05em;margin-bottom:1.5rem;">AI-ASSISTED DESIGN · 5-PHASE CLOSED LOOP · ALL BUSINESS DATA = DESIGN ASSUMPTIONS</p>
+
+    <div class="project-showcase">
+      <h3><a href="../../Category1_DailyConsumer/A1_Lumina_BeautyDevice/portfolio-enhanced.html" style="color:inherit;text-decoration:none;">A1 Lumina · Derma-Luxury 射频美容仪 CMF</a></h3>
+      <div class="proj-en">RF Beauty Device · 3 Color Variants × 6 Material Zones</div>
+      <p>完整五阶段CMF闭环策略。STEEP趋势分析、三方案加权矩阵评估、最终方案含CIELAB/Pantone全规格、BOM与可持续性评估。同步完成Lumina品牌识别系统（标志、色彩、字体、包装、品牌指南）。AI工具用于趋势研究、图像生成与色彩分析。</p>
+    </div>
+    <div class="project-showcase">
+      <h3><a href="../../Category1_DailyConsumer/A2_Aether_AirPurifier/index.html" style="color:inherit;text-decoration:none;">A2 Aether · Natural Home 智能空气净化器 CMF</a></h3>
+      <div class="proj-en">Air Purifier · Furniture-Grade Material Language</div>
+      <p>五竞品CMF审计，三STEEP趋势分析，三方案加权评估。最终策略：三色变体（暖橡木/薄雾灰/北欧苔绿），家具级材料语言——木纤维复合、声学毡、ZrO₂陶瓷、天然材料底座。碳足迹低于品类平均26%。</p>
+    </div>
+    <div class="project-showcase">
+      <h3><a href="../../Category1_DailyConsumer/A3_Trailux_OutdoorHeadlamp/index.html" style="color:inherit;text-decoration:none;">A3 Trailux · Bio-Rugged 户外头灯 CMF</a></h3>
+      <div class="proj-en">Outdoor Headlamp · Geological Material Language</div>
+      <p>以高山地质学为材料源代码。石纹外壳、矿物阳极氧化铝、地衣灵感高视度点缀。三方案加权评估Bio-Rugged 4.70/5.0胜出。最终BOM ¥42.50（低于¥45目标），<78g，IP67。V2使用60%蓖麻油Bio-PA。</p>
+    </div>
+    <div class="project-showcase">
+      <h3><a href="../../Category2_Transportation/B1_Flux_EScooter/portfolio.html" style="color:inherit;text-decoration:none;">B1 Flux</a> + <a href="../../Category2_Transportation/B2_CERAX_SearchRescue/portfolio.html" style="color:inherit;text-decoration:none;">B2 CERAX</a> · 城市滑板车 &amp; 搜救机器人 CMF</h3>
+      <div class="proj-en">E-Scooter + Rescue Robot · Transportation & Robotics</div>
+      <p>B1 Flux：城市电动滑板车CMF探索表面作为自我表达的媒介。B2 CERAX：高视度搜救机器人CMF，模块化装甲表面与铜色追踪标记。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Summary -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Personal Summary / 个人总结</div>
+    <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.9;">
+      具备复合型跨学科知识体系，深耕工业设计与智能交互领域，融合计算机、人工智能相关技术，研究方向聚焦 AI 技术在实际场景中的落地应用。<br><br>
+      <strong>AI 技术应用：</strong>熟练运用 GPT Image 2、Nano Banana、ComfyUI、Claude Code、Codex、LibTV、Seedance 等 AI 工具，可独立完成本地/在线 AI 工作流搭建，涵盖图像生成、纹理探索、代码辅助、视频生成、链路设计等全环节。<br><br>
+      <strong>设计软件能力：</strong>精通 SolidWorks、Rhino、Blender 等三维建模软件，手绘功底扎实，可完成从概念草图到三维模型的全流程设计；熟练使用 Photoshop、Figma、Adobe Illustrator 等平面、交互软件，拥有大量赛事展板、版式设计实操经验，具备优秀的视觉审美与落地执行能力。<br><br>
+      <strong>综合素养：</strong>对前沿数字工具、新技术保持高度敏感度，学习能力与跨平台适应力强，擅长将 AI 技术与数字化设计流程结合，落地智能化设计解决方案。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 王一帆 — 个人简历 · 工业设计 × 智能交互</p>
+</footer>
+
+</body>
+</html>

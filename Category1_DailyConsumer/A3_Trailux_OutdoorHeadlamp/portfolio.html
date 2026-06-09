@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A3 Trailux — CMF Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,200..500;1,9..40,200..500&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ══════════ A3 TRAILUX — Bio-Rugged / 生物机能 ══════════ */
+:root {
+  --granite: #57585A;
+  --titanium: #8A8C8B;
+  --orange: #E06030;
+  --moss: #3D4F3A;
+  --champagne: #B8A888;
+  --ice: #A5ABB4;
+  --silver: #C4C7CA;
+
+  --bg: #1E1E1C;
+  --bg-elevated: #282725;
+  --text: #E0DCD4;
+  --text-mid: #A09890;
+  --text-muted: #706860;
+  --rule: #3D3A35;
+  --accent: var(--orange);
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 6rem 2rem; position: relative;
+}
+.hero::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(224,96,48,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-code {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.3em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 2rem;
+}
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 0.95;
+  text-transform: uppercase;
+}
+.hero-sub {
+  font-family: var(--font-display); font-size: 1.3rem; font-style: italic;
+  color: var(--orange); margin-top: 1rem;
+}
+.hero-zh {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.2em;
+  color: var(--text-muted); margin-top: 1.5rem; text-transform: uppercase;
+}
+
+/* ═══════════ LAYOUT ═══════════ */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+.section { padding: 7rem 0 3rem; }
+
+.label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.25em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.heading {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 600;
+  letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 1.25rem;
+}
+.lead {
+  max-width: 500px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.8;
+}
+
+.rule { height: 1px; background: var(--rule); margin: 5rem auto; max-width: 1080px; }
+.rule-short { width: 50px; height: 2px; background: var(--accent); margin: 1.5rem 0; }
+
+/* ═══════════ TWO-COLUMN ═══════════ */
+.row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.row-text h3 {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 600;
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.row-text p {
+  font-size: 0.88rem; color: var(--text-mid); line-height: 1.8;
+}
+.row-text .spec-inline {
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ═══════════ IMAGES ═══════════ */
+.img-box {
+  overflow: hidden; border-radius: 2px;
+  border: 1px solid var(--rule);
+}
+.img-box img { width: 100%; height: auto; display: block; }
+
+.img-box-sm { max-width: 85%; margin: 0 auto; }
+
+/* ═══════════ THREE-COLUMN ═══════════ */
+.trio {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.trio figcaption {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-top: 0.5rem; text-align: center;
+}
+
+/* ═══════════ SPEC PANEL ═══════════ */
+.spec-panel {
+  background: var(--bg-elevated); border: 1px solid var(--rule); padding: 2.5rem;
+}
+.spec-panel-title {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
+  color: var(--orange); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem 1.5rem; }
+.spec-item {
+  border-top: 1px solid var(--rule); padding-top: 0.6rem;
+}
+.spec-item .key { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.14em; color: var(--text-muted); text-transform: uppercase; }
+.spec-item .val { font-size: 0.78rem; margin-top: 0.15rem; color: var(--text-mid); }
+
+/* ═══════════ COLOR DOTS ═══════════ */
+.dots { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ═══════════ CLOSING ═══════════ */
+.closing {
+  text-align: center; padding: 8rem 2rem; background: var(--bg-elevated); margin-top: 4rem;
+  border-top: 1px solid var(--rule);
+}
+.closing h2 { font-family: var(--font-display); font-size: 2.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 1.5rem; }
+.closing p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; color: var(--text-mid); line-height: 1.8; }
+.closing .tools { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 3rem; }
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 768px) {
+  .row { grid-template-columns: 1fr; gap: 2rem; }
+  .trio { grid-template-columns: 1fr; gap: 2rem; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .img-box-sm { max-width: 100%; }
+  .wrap { padding: 0 1.25rem; }
+  .section { padding: 5rem 0 2rem; }
+  .heading { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-code">A3 · Category 1 — Daily Consumer</div>
+  <h1 class="hero-title">Trailux</h1>
+  <p class="hero-sub">Bio-Rugged · Premium Outdoor Headlamp</p>
+  <p class="hero-zh">生物机能 · 高端户外头灯 CMF</p>
+</section>
+
+<!-- ═══════════ DESIGN PHILOSOPHY ═══════════ -->
+<div class="wrap">
+  <section class="section">
+    <div class="label">Phase 3 · CMF Strategy</div>
+    <h2 class="heading">Carved by<br>The Mountain.</h2>
+    <div class="rule-short"></div>
+    <div class="lead">
+      <p>Trailux uses alpine geology as its material source code. The stone-textured housing feels like weathered granite. The anodized aluminum lens ring is laser-etched with grip lines that recall strata in a rock face. The high-vis button is colored like crustose lichen on stone — safety orange that nature invented first.</p>
+    </div>
+    <div class="dots">
+      <span class="dot" style="background:var(--granite)"></span>
+      <span class="dot" style="background:var(--titanium)"></span>
+      <span class="dot" style="background:var(--orange)"></span>
+      <span class="dot" style="background:var(--moss)"></span>
+      <span class="dot" style="background:var(--ice)"></span>
+    </div>
+  </section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ THREE VARIANTS ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Three Color Variants</div>
+    <h2 class="heading">Alpine Granite · Alpine Moss<br>Glacial Ice</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Each variant maps to a real alpine environment — the granite face, the moss forest floor, and the glacial ice cave.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="trio">
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/Shot 04.png" alt="V1 Alpine Granite" loading="lazy"></div>
+      <figcaption>V1 · Alpine Granite / 高山花岗岩</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/Shot 05.png" alt="V2 Alpine Moss" loading="lazy"></div>
+      <figcaption>V2 · Alpine Moss / 高山苔藓</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/Shot 06.png" alt="V3 Glacial Ice" loading="lazy"></div>
+      <figcaption>V3 · Glacial Ice / 冰川冰蓝</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ SCHEME COMPARISON ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 2 · Concept Exploration</div>
+      <h3>Three Schemes<br>Bio-Rugged Wins</h3>
+      <div class="rule-short"></div>
+      <p>Pure Technical (3.10) was all-black, functional but invisible among competitors. Urban Crossover (3.05) pushed fashion-forward pastels that couldn't survive above the treeline. Bio-Rugged (4.70) won decisively — stone textures, mineral anodizing, lichen-inspired accents. Every finish serves a function and tells a geological story.</p>
+      <div class="spec-inline">Weighted Decision Matrix · Bio-Rugged 4.70 / 5.0 ★</div>
+    </div>
+    <div class="img-box">
+      <img src="renders/Shot 03.png" alt="3-Scheme Comparison" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ MATERIAL TRANSITION — text-left + image-right ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 4 · Material Detail</div>
+      <h3>Five Zones<br>One Alpine Language</h3>
+      <div class="rule-short"></div>
+      <p>Stone-textured PC/ABS body (MT-11030), clear-anodized aluminum lens ring with laser-etched grip, glow-in-dark silicone button, glass-filled nylon clip, and recycled elastic jacquard headband with reflective tracer — each zone has a functional justification and a geological reference.</p>
+    </div>
+    <div class="img-box">
+      <img src="renders/Shot 08.png" alt="Material Transition" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MACRO PAIR ═══════════ -->
+<div class="wrap" style="margin-top:2rem;">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/Shot 11.png" alt="Stone Texture MT-11030" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 11 · MT-11030 Stone Texture · 20–25μm · 2–3 GU</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/Shot 12.png" alt="Anodized Al Ring" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 12 · Al 6061 · Clear Anodize · Laser-Etch 0.3mm</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="wrap" style="margin-top:2rem;">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/Shot 13.png" alt="Glow-in-Dark Button" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 13 · LSR Silicone Dome · 5% Strontium Aluminate · Glow 8hr</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/Shot 14.png" alt="Recycled Headband" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 14 · rPET Elastic Jacquard · Reflective Tracer · GRS</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LENS RING + BUTTON — text-left + image-right ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 4 · Functional Materials</div>
+      <h3>Aluminum Lens Ring<br>&amp; Glow-in-Dark Button</h3>
+      <div class="rule-short"></div>
+      <p>The only metal zone is also the only zone where metal is functionally justified — aluminum dissipates LED heat 100x faster than polymer. Laser-etched concentric grip at 0.3mm pitch enables one-handed focus adjustment. The button uses strontium aluminate phosphorescent pigment — findable at 3am in a bivouac.</p>
+      <div class="spec-inline">Al 6061-T6 · 75% Recycled · LSR Shore A 60 · 5–8% Glow Pigment</div>
+    </div>
+    <div class="img-box">
+      <img src="renders/Shot 09.png" alt="Material Transition V2" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ SWATCH BOARD ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Production Specification</div>
+    <h2 class="heading">CMF Swatch Board<br>V1 · Alpine Granite</h2>
+    <div class="rule-short"></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="img-box">
+    <img src="renders/Shot 16.png" alt="CMF Swatch Board" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">PC/ABS Stone · Al 6061 · LSR Silicone · PA66-GF30 · rPET Jacquard</p>
+</div>
+
+<div class="wrap" style="margin-top:3rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">V1 Alpine Granite · Material Specification / 材料规格</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Housing / 外壳</div><div class="val">PC/ABS · MT-11030 Stone · 2–3 GU · <78g Total</div></div>
+      <div class="spec-item"><div class="key">Lens Ring / 镜头环</div><div class="val">Al 6061-T6 · Clear Anodize · Laser-Etch 0.3mm · 8–12 GU</div></div>
+      <div class="spec-item"><div class="key">Button / 按钮</div><div class="val">LSR Silicone · Shore A 60 · 5% Glow Pigment · ISO 17514</div></div>
+      <div class="spec-item"><div class="key">Clip / 头带扣</div><div class="val">PA66-GF30 · 30% Recycled · SPI B-2 · 4–6 GU</div></div>
+      <div class="spec-item"><div class="key">Headband / 头带</div><div class="val">rPET 65% · Elastane 35% · GRS · Reflective Tracer</div></div>
+      <div class="spec-item"><div class="key">Palette / 配色</div><div class="val">Granite Gray · Titanium · Lichen Orange · Charcoal</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ EXPLODED VIEW ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Engineering</div>
+    <h2 class="heading">Exploded Material View<br>5 Components</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Isometric separation showing the five material zones — lens ring, button, housing body, headband clip, and elastic headband. All materials are separable for end-of-life recycling.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="img-box">
+    <img src="renders/Shot 17.png" alt="Exploded View" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Isometric Exploded View · Lens Ring / Button / Housing / Clip / Headband</p>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LIFESTYLE + PACKAGING ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 5 · Lifestyle &amp; Unboxing</div>
+    <h2 class="heading">At Altitude<br>&amp; In Hand</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>The headlamp lives above the treeline — on predawn trail runs, on granite faces, in bivouacs. After 1,000 trail kilometers, the anodized ring shows edge wear revealing raw aluminum — a record of use, not a flaw. Packaging is FSC hang-tag with soy ink — 60% less material than a box.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/Shot 18.png" alt="Trail Runner at Dawn" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 18 · Trail Runner at Dawn · Alpine Ridge · V1 Alpine Granite</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/Shot 20.png" alt="Sustainable Hang-Tag" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Shot 20 · FSC Hang-Tag · Soy Ink · 60% Less Material</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing">
+  <div class="hero-code" style="margin-bottom:1.5rem;">A3 Trailux · CMF Portfolio</div>
+  <h2>Bio-Rugged</h2>
+  <p>Three color variants, five material zones, geological material language, and a carbon footprint 33% below category average — the best outdoor gear looks like it was carved from the mountain it climbs.<br><br>三款配色 · 五个材料区域 · 地质级材料语言 · 碳足迹低于品类平均33%</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+</body>
+</html>
+average — the best outdoor gear looks like it was carved from the mountain it climbs.<br><br>三款配色 · 五个材料区域 · 地质级材料语言 · 碳足迹低于品类平均33%</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+</body>
+</html>
+tegory average — the best outdoor gear looks like it was carved from the mountain it climbs.<br><br>三款配色 · 五个材料区域 · 地质级材料语言 · 碳足迹低于品类平均33%</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+</body>
+</html>
+average — the best outdoor gear looks like it was carved from the mountain it climbs.<br><br>三款配色 · 五个材料区域 · 地质级材料语言 · 碳足迹低于品类平均33%</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+</body>
+</html>
+on>
+
+</body>
+</html>

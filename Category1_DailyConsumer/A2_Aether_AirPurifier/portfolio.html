@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A2 Aether — CMF Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Work+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ══════════ A2 AETHER — Natural Home / 自然家居 ══════════ */
+:root {
+  --oak: #B8A089;
+  --oatmeal: #C0B7A8;
+  --bamboo: #B8956C;
+  --ceramic: #EDE8E0;
+  --slate: #8A8682;
+  --charcoal: #4A4848;
+  --walnut: #5C4A40;
+  --sage: #9EAB8C;
+  --moss: #9A9478;
+  --cork: #A8886B;
+  --cream: #E4DDCA;
+
+  --bg: #F6F0E4;
+  --bg-warm: #EDE4D4;
+  --text: #362F28;
+  --text-mid: #7A7062;
+  --text-muted: #A09080;
+  --rule: #E5DCC8;
+  --accent: var(--sage);
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 6rem 2rem;
+}
+.hero-code {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.25em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 2rem;
+}
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 500; letter-spacing: -0.01em; line-height: 1;
+  color: var(--text);
+}
+.hero-sub {
+  font-family: var(--font-display); font-size: 1.3rem; font-style: italic;
+  color: var(--accent); margin-top: 1rem;
+}
+.hero-zh {
+  font-size: 0.85rem; letter-spacing: 0.12em; color: var(--text-muted);
+  margin-top: 1.5rem; text-transform: uppercase;
+}
+
+/* ═══════════ LAYOUT ═══════════ */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+.section { padding: 7rem 0 3rem; }
+
+.label {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.22em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.75rem;
+}
+.heading {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.15; margin-bottom: 1.25rem;
+}
+.lead {
+  max-width: 500px; font-size: 0.9rem; color: var(--text-mid); line-height: 1.8;
+}
+
+.rule { height: 1px; background: var(--rule); margin: 5rem auto; max-width: 1080px; }
+.rule-short { width: 50px; height: 1px; background: var(--accent); margin: 1.5rem 0; }
+
+/* ═══════════ TWO-COLUMN ═══════════ */
+.row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+}
+.row-text h3 {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 500;
+  margin-bottom: 0.75rem; line-height: 1.2;
+}
+.row-text p {
+  font-size: 0.88rem; color: var(--text-mid); line-height: 1.8;
+}
+.row-text .spec-inline {
+  margin-top: 1.5rem; padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+/* ═══════════ IMAGES ═══════════ */
+.img-box {
+  overflow: hidden; border-radius: 2px;
+}
+.img-box img { width: 100%; height: auto; display: block; }
+
+.img-box-sm { max-width: 85%; margin: 0 auto; }
+
+/* ═══════════ THREE-COLUMN ═══════════ */
+.trio {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.trio figcaption {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-top: 0.5rem; text-align: center;
+}
+
+/* ═══════════ SPEC PANEL ═══════════ */
+.spec-panel {
+  background: var(--bg-warm); border-radius: 2px; padding: 2.5rem;
+}
+.spec-panel-title {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.18em;
+  color: var(--text-muted); text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem 1.5rem; }
+.spec-item {
+  border-top: 1px solid var(--rule); padding-top: 0.6rem;
+}
+.spec-item .key { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; }
+.spec-item .val { font-size: 0.78rem; margin-top: 0.15rem; }
+
+/* ═══════════ COLOR DOTS ═══════════ */
+.dots { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* ═══════════ CLOSING ═══════════ */
+.closing {
+  text-align: center; padding: 8rem 2rem; background: var(--bg-warm); margin-top: 4rem;
+}
+.closing h2 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 500; margin-bottom: 1.5rem; }
+.closing p { max-width: 480px; margin: 0 auto; font-size: 0.88rem; color: var(--text-mid); line-height: 1.8; }
+.closing .tools { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 3rem; }
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 768px) {
+  .row { grid-template-columns: 1fr; gap: 2rem; }
+  .trio { grid-template-columns: 1fr; gap: 2rem; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .img-box-sm { max-width: 100%; }
+  .wrap { padding: 0 1.25rem; }
+  .section { padding: 5rem 0 2rem; }
+  .heading { font-size: 1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-code">A2 · Category 1 — Daily Consumer</div>
+  <h1 class="hero-title">Aether</h1>
+  <p class="hero-sub">Natural Home · Smart Air Purifier</p>
+  <p class="hero-zh">自然家居 · 智能空气净化器 CMF</p>
+</section>
+
+<!-- ═══════════ DESIGN PHILOSOPHY ═══════════ -->
+<div class="wrap">
+  <section class="section">
+    <div class="label">Phase 3 · CMF Strategy</div>
+    <h2 class="heading">A Piece of Home<br>That Cleans Air.</h2>
+    <div class="rule-short"></div>
+    <div class="lead">
+      <p>Aether embraces domestic material language — warm wood tones, soft acoustic fabric, cool ceramic, and natural base materials. Every zone choice references an interior material: wood-fiber composite recalls Scandinavian cabinetry, heathered felt recalls upholstery textiles, the ceramic ring recalls hand-thrown pottery. The form recedes; the LED is invisible when off.</p>
+    </div>
+    <div class="dots">
+      <span class="dot" style="background:var(--oak)"></span>
+      <span class="dot" style="background:var(--oatmeal)"></span>
+      <span class="dot" style="background:var(--sage)"></span>
+      <span class="dot" style="background:var(--ceramic)"></span>
+      <span class="dot" style="background:var(--slate)"></span>
+    </div>
+  </section>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ THREE VARIANTS ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Three Color Variants</div>
+    <h2 class="heading">Warm Oak · Slate Mist<br>Nordic Moss</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Each variant maps to a dominant interior style — Scandinavian warmth, Japandi calm, and Biophilic organic.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="trio">
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v1_warm_oak.png" alt="V1 Warm Oak" loading="lazy"></div>
+      <figcaption>V1 · Warm Oak / 暖橡木</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v2_slate_mist.png" alt="V2 Slate Mist" loading="lazy"></div>
+      <figcaption>V2 · Slate Mist / 薄雾灰</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box img-box-sm"><img src="renders/hero_v3_nordic_moss.png" alt="V3 Nordic Moss" loading="lazy"></div>
+      <figcaption>V3 · Nordic Moss / 北欧苔绿</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ MATERIAL TRANSITION V1 — text-left + image-right ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 4 · Material Detail</div>
+      <h3>Material Transitions<br>&amp; Tactile Story</h3>
+      <div class="rule-short"></div>
+      <p>Four materials, four temperatures, one coherent domestic language. Warm wood-fiber body greets the eye, soft felt grille absorbs sound and light, cool ceramic ring provides satisfying weight under the fingertip. Each transition is a material conversation, not a seam.</p>
+    </div>
+    <div class="img-box">
+      <img src="renders/08_material_transition.png" alt="Material Transition V1" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TRANSITION V2 + V3 ═══════════ -->
+<div class="wrap" style="margin-top:2rem;">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/09_material_transition_v2.png" alt="Material Transition V2" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">V2 · Stone Body → Charcoal Felt → Walnut Veneer</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/10_material_transition_v3.png" alt="Material Transition V3" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">V3 · Bio-PP Body → Wool Felt → Cork Composite</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ MACRO PAIR — image-left + text-right ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="img-box">
+      <img src="renders/09_felt_grille_macro.png" alt="rPET Acoustic Felt" loading="lazy">
+    </div>
+    <div class="row-text">
+      <div class="label">Phase 4 · Material Macros</div>
+      <h3>Acoustic Felt<br>&amp; Wood-Fiber Composite</h3>
+      <div class="rule-short"></div>
+      <p>The recycled PET felt grille is needle-punched at 400g/m² with heathered fiber mixing — oatmeal flecks create depth against the flat weave. The ABS + 30% wood-fiber body uses MT-11020 fine matte texture: visible wood particles embedded in warm beige polymer, like finely sanded oak.</p>
+      <div class="spec-inline">rPET 400g/m² 4mm · MT-11020 Ra 1.2–1.8μm 3–5 GU</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ WOOD MACRO + CERAMIC ═══════════ -->
+<div class="wrap" style="margin-top:2rem;">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/10_wood_composite_macro.png" alt="Wood-Fiber Composite" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Wood-Fiber ABS · MT-11020 · Visible Particles</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/13_ceramic_ring_detail.png" alt="Ceramic Control Ring" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">ZrO₂ Ceramic · PIM + Matte Glaze · Ra 0.8–1.2μm</figcaption>
+    </figure>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LED GLOW + CERAMIC RING — text-left + image-right ═══════════ -->
+<div class="wrap">
+  <div class="row">
+    <div class="row-text">
+      <div class="label">Phase 4 · Interaction Detail</div>
+      <h3>Hidden-When-Off<br>&amp; Ceramic Touch</h3>
+      <div class="rule-short"></div>
+      <p>The LED indicator is laser-etched into frosted PMMA — when off, it reads as a solid ceramic-like surface. When on, a warm amber glow (2700K) breathes through the micro-dot matrix. The control ring is yttria-stabilized zirconia — cool, dense, and smooth, with the weight of hand-thrown pottery.</p>
+      <div class="spec-inline">PMMA · Laser-Etch Micro-Dot · 2700K · Hidden-When-Off</div>
+    </div>
+    <div class="img-box">
+      <img src="renders/12_led_ambient_glow.png" alt="LED Ambient Glow" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ SWATCH BOARD ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Production Specification</div>
+    <h2 class="heading">CMF Swatch Board<br>V1 · Warm Oak</h2>
+    <div class="rule-short"></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="img-box">
+    <img src="renders/16_texture_spec_board.png" alt="CMF Swatch Board" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Wood-Fiber ABS / rPET Felt / Bamboo / Ceramic / PMMA</p>
+</div>
+
+<div class="wrap" style="margin-top:3rem;">
+  <div class="spec-panel">
+    <div class="spec-panel-title">V1 Warm Oak · Material Specification / 材料规格</div>
+    <div class="spec-grid">
+      <div class="spec-item"><div class="key">Body Shell / 机身</div><div class="val">ABS + 30% Wood Fiber · PCR ≥40% · MT-11020 · 3–5 GU</div></div>
+      <div class="spec-item"><div class="key">Front Grille / 前面网</div><div class="val">rPET Acoustic Felt · GRS · 400g/m² · 4mm · Heathered</div></div>
+      <div class="spec-item"><div class="key">Base Ring / 底部环</div><div class="val">Bamboo Composite · FSC · Open-Pore · 2–4 GU</div></div>
+      <div class="spec-item"><div class="key">Control Ring / 控制环</div><div class="val">ZrO₂ Ceramic · PIM + Sintered · Matte Glaze · Ra 0.8–1.2μm</div></div>
+      <div class="spec-item"><div class="key">LED Diffuser / 散光板</div><div class="val">PMMA · Laser-Etch · Dot Ø0.5mm · 2700K · Hidden-When-Off</div></div>
+      <div class="spec-item"><div class="key">Variant Palette / 配色</div><div class="val">Oak Beige · Oatmeal · Bamboo · Ceramic White · Warm Amber</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ BASE MATERIALS + EXPLODED VIEW ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 4 · Engineering</div>
+    <h2 class="heading">Base Materials<br>&amp; Exploded View</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>Each variant uses a different natural base material — bamboo (V1), FSC walnut (V2), raw cork (V3). The exploded view shows the five-zone architecture: wood-fiber body, felt grille, ceramic ring, PMMA diffuser, and base ring.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="img-box">
+    <img src="renders/14_base_materials_comparison.png" alt="Base Materials Comparison" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Bamboo (V1) / Walnut (V2) / Cork (V3) · All FSC Certified</p>
+</div>
+
+<div class="wrap" style="margin-top:2rem;">
+  <div class="img-box">
+    <img src="renders/15_exploded_view.png" alt="Exploded Material View" loading="lazy">
+  </div>
+  <p style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;text-align:center;">Isometric Exploded View · 5 Components · Color-Coded by Material Family</p>
+</div>
+
+<div class="rule"></div>
+
+<!-- ═══════════ LIFESTYLE + PACKAGING ═══════════ -->
+<div class="wrap">
+  <section class="section" style="padding-top:0;">
+    <div class="label">Phase 5 · Lifestyle &amp; Unboxing</div>
+    <h2 class="heading">In-Room Presence<br>&amp; Sustainable Unboxing</h2>
+    <div class="rule-short"></div>
+    <div class="lead"><p>The purifier lives visibly in the living room or bedroom — it earns its place through material quality, not by hiding. Packaging uses FSC molded pulp, soy-based ink, fabric wrap instead of plastic, and a seed-embedded thank-you card.</p></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <div class="row">
+    <figure>
+      <div class="img-box"><img src="renders/14_lifestyle_reading.png" alt="Lifestyle Reading" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">Lifestyle · Reading in Scandinavian Living Room · V1 Warm Oak</figcaption>
+    </figure>
+    <figure>
+      <div class="img-box"><img src="renders/16_packaging_unboxing.png" alt="Sustainable Packaging" loading="lazy"></div>
+      <figcaption style="font-family:var(--font-mono);font-size:0.55rem;letter-spacing:0.1em;color:var(--text-muted);margin-top:0.5rem;">FSC Molded Pulp · Fabric Wrap · Soy Ink · Zero Plastic</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- ═══════════ CLOSING ═══════════ -->
+<section class="closing">
+  <div class="hero-code" style="margin-bottom:1.5rem;">A2 Aether · CMF Portfolio</div>
+  <h2>Natural Home</h2>
+  <p>Three color variants, five material zones, furniture-grade material language, and a carbon footprint 26% below category average — every CMF decision serves the promise that clean air should feel natural, not technological.<br><br>三款配色 · 五个材料区域 · 家具级材料语言 · 碳足迹低于品类平均26%</p>
+  <div class="rule-short" style="margin:3rem auto;"></div>
+  <p class="tools">TOOLS · Figma / Blender / GPT Image 2 / Python / Adobe CC</p>
+</section>
+
+</body>
+</html>
+html>
